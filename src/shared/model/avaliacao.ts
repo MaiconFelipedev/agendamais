@@ -1,4 +1,5 @@
 import {Agendamento} from './agendamento';
+import {Usuario} from './usuario';
 
 export abstract class Avaliacao {
   constructor(

@@ -1,5 +1,8 @@
-class Agendamento {
- 
+import {Cliente} from './cliente';
+import {Servico} from './servico';
+
+export class Agendamento {
+
     constructor(
       private _data: Date,
       private _horarioInicio: string,
@@ -10,12 +13,12 @@ class Agendamento {
       private _status: string = "Agendado",
       private _id ?: number
     ) {}
-  
+
     cancelar(): void {
       this._status = "Cancelado";
       console.log(`Agendamento ${this._id} foi cancelado.`);
     }
-  
+
     reagendar(novaData: Date, novoHorarioInicio: string, novoHorarioFinal: string): void {
       this._data = novaData;
       this._horarioInicio = novoHorarioInicio;
@@ -26,4 +29,3 @@ class Agendamento {
       );
     }
   }
-  

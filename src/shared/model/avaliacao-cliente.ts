@@ -1,5 +1,6 @@
 import {Avaliacao} from './avaliacao';
 import {Agendamento} from './agendamento';
+import {Cliente} from './cliente';
 
 export class AvaliacaoCliente extends Avaliacao {
   constructor(

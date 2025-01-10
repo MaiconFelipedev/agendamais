@@ -1,5 +1,7 @@
-class Pagamento {
-  
+import {Agendamento} from './agendamento';
+
+export class Pagamento {
+
     constructor(
     private _id: number,
     private _agendamento: Agendamento,
@@ -7,9 +9,9 @@ class Pagamento {
     private _status: string,
     private _valor: number
     ) {}
-  
+
     processarPagamento(): void {
-      
+
       if (this._metodo && this._valor > 0) {
         this._status = "Processado";
         console.log(`Pagamento de R$${this._valor} processado com sucesso.`);
@@ -18,5 +20,4 @@ class Pagamento {
       }
     }
   }
-  
-  
+
