@@ -1,4 +1,5 @@
 import {parse} from 'date-fns';
+import {Agendamento} from './agendamento';
 
 export class DiaDeTrabalho {
   constructor(

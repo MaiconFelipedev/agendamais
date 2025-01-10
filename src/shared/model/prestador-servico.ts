@@ -1,1 +1,1 @@
-class PrestadorServico {}
+export class PrestadorServico {}

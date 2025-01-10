@@ -1,1 +1,1 @@
-class Servico {}
+export class Servico {}

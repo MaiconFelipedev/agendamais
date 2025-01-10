@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+.sair {
+  @include mat.menu-overrides((
+    item-label-text-color: #f10000,
+    item-icon-color: #f10000,
+  ));
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
