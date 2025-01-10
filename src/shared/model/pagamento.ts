@@ -1,1 +1,1 @@
-class Pagamento {}
+export class Pagamento {}

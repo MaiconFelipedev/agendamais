@@ -1,1 +1,1 @@
-class Agendamento {}
+export class Agendamento {}
