@@ -1,4 +1,7 @@
-class AvaliacaoCliente extends Avaliacao {
+import {Avaliacao} from './avaliacao';
+import {Agendamento} from './agendamento';
+
+export class AvaliacaoCliente extends Avaliacao {
   constructor(
     id: number,
     agendamento: Agendamento,

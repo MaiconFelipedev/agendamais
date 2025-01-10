@@ -1,4 +1,6 @@
-abstract class Avaliacao {
+import {Agendamento} from './agendamento';
+
+export abstract class Avaliacao {
   constructor(
     private id: number,
     public agendamento: Agendamento,

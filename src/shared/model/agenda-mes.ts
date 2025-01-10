@@ -3,7 +3,7 @@ import { DiaDeTrabalho } from './dia-trabalho';
 import { DiasDaSemana } from './dias-da-semana.enum';
 import { obterDiasDoMes } from './dias-por-mes.enum';
 
-class AgendaMes {
+export class AgendaMes {
   constructor(
     private _dataReferencia: string,
     private _diasDeTrabalho: DiaDeTrabalho[] = [],
