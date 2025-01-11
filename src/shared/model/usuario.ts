@@ -1,4 +1,4 @@
-class usuario {
+export class Usuario {
   id: number;
   nome: string;
   email: string;
@@ -33,5 +33,3 @@ class usuario {
       this.avaliacaoMedia = (this.avaliacaoMedia + nota) / 2;
   }
 }
-
-export { usuario };

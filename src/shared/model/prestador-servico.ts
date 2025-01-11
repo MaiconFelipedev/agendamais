@@ -1,10 +1,10 @@
-import { usuario } from './usuario';
-import { Servico } from './Servico';
+import { Usuario } from './usuario';
+import { Servico } from './servico';
 import { Agendamento } from './agendamento';
 import { AgendaMes } from './agenda-mes';
 import { DiaDeTrabalho } from './dia-trabalho';
 // Classe PrestadorServico
-class PrestadorServico extends usuario {
+class PrestadorServico extends Usuario {
     categoria: string;
     listaServicos: Servico[];
 
@@ -39,6 +39,3 @@ class PrestadorServico extends usuario {
         agendamento.status = 'confirmado';
     }
 }
-
-export { PrestadorServico };
-

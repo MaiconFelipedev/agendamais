@@ -1,10 +1,9 @@
-import { usuario } from './usuario';
+import { Usuario } from './usuario';
 import { Agendamento } from './agendamento';
 //import { Filtros } from './Filtros'; // Define sua estrutura de filtros aqui.
 import { Servico } from './servico';
 
-
-class cliente extends usuario {
+export class Cliente extends Usuario {
     historicoAgendamentos: Agendamento[];
 
     constructor(id: number, nome: string, email: string, senha: string, telefone: string, endereco: string, tipo: string) {
@@ -23,8 +22,3 @@ class cliente extends usuario {
         return agendamento;
     }
 }
-
-
-
-
-export class Cliente {}
