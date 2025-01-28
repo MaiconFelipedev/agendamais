@@ -1,23 +1,14 @@
-import {Component} from '@angular/core';
-import {MatToolbar} from '@angular/material/toolbar';
-import {MatIcon} from '@angular/material/icon';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {MatIconButton} from '@angular/material/button';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './shared/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [
-    MatToolbar,
-    MatIcon,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
-    MatIconButton
-  ],
-  styleUrl: './app.component.scss'
+  imports: [RouterModule, HeaderComponent]
 })
 export class AppComponent {
-  title = 'agendamais';
+  title = 'Meu App';
 }
