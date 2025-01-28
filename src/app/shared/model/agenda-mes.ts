@@ -22,9 +22,8 @@ export class AgendaMes {
     return this._diasDeTrabalho;
   }
 
-  gerarDiasDeTrabalho(diasDeFolga: DiasDaSemana[], horaInicioIntervalo: String, horaFinalIntervalo: String): void{
+  gerarDiasDeTrabalho(diasDeFolga: DiasDaSemana[], horarioIntervalo: String[]): void{
     const qntDiasDeTrabalho: number = (obterDiasDoMes(this.dataReferencia.getMonth()+1, this.dataReferencia.getFullYear())) - diasDeFolga.length;
 
-    // terminar
   }
 }

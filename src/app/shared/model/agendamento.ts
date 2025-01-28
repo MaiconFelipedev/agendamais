@@ -14,6 +14,14 @@ export class Agendamento {
       private _id ?: number
     ) {}
 
+    get status(): string {
+      return this._status
+    }
+
+    set status(novoStatus: string){
+      this._status = novoStatus
+    }
+
     cancelar(): void {
       this._status = "Cancelado";
       console.log(`Agendamento ${this._id} foi cancelado.`);

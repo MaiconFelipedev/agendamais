@@ -7,6 +7,7 @@ export class DiaDeTrabalho {
     private _horaInicioIntervalo: String,
     private _horaFinalIntervalo: String,
     private _agendamentos: Agendamento[] = [],
+    private _status: String = "Disponível",
     private _id?: Number
   ){}
 
@@ -19,6 +20,10 @@ export class DiaDeTrabalho {
     return `${dataFormatada.getDate()}/${dataFormatada.getMonth() + 1}/${dataFormatada.getFullYear()}`
   }
 
+  get status(): String {
+    return this._status;
+  }
+
   get agendamentos(): Agendamento[] {
     return this._agendamentos;
   }
@@ -27,8 +32,12 @@ export class DiaDeTrabalho {
     return `${this._horaInicioIntervalo}-${this._horaFinalIntervalo}`;
   }
 
-  public editarIntervalo(novaHoraInicio: String, novaHoraFinal: String): void{
-    this._horaInicioIntervalo = novaHoraInicio;
-    this._horaFinalIntervalo = novaHoraFinal;
+  public editarIntervalo(novoIntervalo: String[]): void{
+    this._horaInicioIntervalo = novoIntervalo[0];
+    this._horaFinalIntervalo = novoIntervalo[1];
+  }
+
+  public editarStatus(novoStatus: String): void {
+    this._status = novoStatus;
   }
 }
