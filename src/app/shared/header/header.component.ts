@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MaterialModule} from '../../material/material.module';
+import {MaterialModule} from '../../modules/material/material.module';
 
 @Component({
   selector: 'app-header',
