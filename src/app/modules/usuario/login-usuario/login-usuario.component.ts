@@ -4,9 +4,8 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login-usuario',
-  imports: [CommonModule, RouterModule],
   templateUrl: './login-usuario.component.html',
-  standalone: true,
+  standalone: false,
   styleUrls: ['./login-usuario.component.scss']
 })
 export class LoginUsuarioComponent {

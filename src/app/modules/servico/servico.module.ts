@@ -4,6 +4,7 @@ import { AgendamentoServicoComponent } from './agendamento-servico/agendamento-s
 import { CadastroServicoComponent } from './cadastro-servico/cadastro-servico.component';
 import { CardServicoComponent } from './card-servico/card-servico.component';
 import { ListagemServicosComponent } from './listagem-servicos/listagem-servicos.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ListagemServicosComponent } from './listagem-servicos/listagem-servicos
     ListagemServicosComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     AgendamentoServicoComponent,
