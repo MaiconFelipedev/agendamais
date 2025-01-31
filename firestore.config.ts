@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-export const firebaseConfig = {
+export const firestoreConfig = {
   apiKey: "AIzaSyCwhkPxKnv9Z2Zzmdt4b8sD-HJDFHP8acQ",
   authDomain: "agenda-mais.firebaseapp.com",
   projectId: "agenda-mais",
@@ -11,5 +11,5 @@ export const firebaseConfig = {
   measurementId: "G-8QCJYN1MQM"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firestoreConfig);
 const analytics = getAnalytics(app);
