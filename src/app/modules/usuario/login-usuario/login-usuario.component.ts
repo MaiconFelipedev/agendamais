@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {MaterialModule} from '../../material/material.module';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login-usuario',
   templateUrl: './login-usuario.component.html',
-  standalone: false,
+  standalone: true,
+  imports: [MaterialModule, RouterLink],
   styleUrls: ['./login-usuario.component.scss']
 })
 export class LoginUsuarioComponent {
