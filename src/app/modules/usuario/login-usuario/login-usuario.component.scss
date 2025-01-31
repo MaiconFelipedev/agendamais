@@ -1,0 +1,54 @@
+@use '@angular/material' as mat;
+
+main {
+  @include mat.form-field-overrides((
+    container-height: 20px,
+    outlined-outline-width: 1px
+  ));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+}
+
+.titulo {
+  font-size: 25px;
+  margin: 10px 0 25px 0;
+}
+
+form {
+  width: 30%;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  width: 100%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.cadastro {
+  text-decoration: none;
+  color: #000000;
+}
+
+.cadastro:hover {
+  color: #3d6aec;
+}

@@ -1,1 +1,20 @@
-<p>login-usuario works!</p>
+<main>
+  <form id="login-form">
+    <mat-icon id="logo">account_circle</mat-icon>
+    <h1 class="titulo">Entre na sua conta</h1>
+    <label for="email">E-mail:</label>
+    <mat-form-field appearance="outline">
+      <input type="text" id="email" matInput>
+    </mat-form-field>
+
+    <label for="senha">Senha:</label>
+    <mat-form-field appearance="outline">
+      <input type="password" id="senha" matInput>
+    </mat-form-field>
+
+    <a class="cadastro" [routerLink]="'/cadastro-usuario'">Ainda não tem uma conta? Cadastre-se</a>
+  </form>
+
+
+
+</main>
