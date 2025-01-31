@@ -3,11 +3,11 @@ import {Agendamento} from './agendamento';
 export class Pagamento {
 
     constructor(
-    private _id: number,
     private _agendamento: Agendamento,
     private _metodo: string,
     private _status: string,
-    private _valor: number
+    private _valor: number,
+    private _id?: number
     ) {}
 
     processarPagamento(): void {

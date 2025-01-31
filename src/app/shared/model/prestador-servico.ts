@@ -9,8 +9,8 @@ export class PrestadorServico extends Usuario {
     categoria: string;
     listaServicos: Servico[];
 
-    constructor(id: number, nome: string, email: string, senha: string, telefone: string, endereco: string, tipo: string, categoria: string) {
-        super(id, nome, email, senha, telefone, endereco, tipo);
+    constructor(nome: string, email: string, senha: string, telefone: string, endereco: string, tipo: string, categoria: string) {
+        super(nome, email, senha, telefone, endereco, tipo);
         this.categoria = categoria;
         this.listaServicos = [];
     }

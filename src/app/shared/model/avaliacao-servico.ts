@@ -4,13 +4,13 @@ import {PrestadorServico} from './prestador-servico';
 
 export class AvaliacaoServico extends Avaliacao {
   constructor(
-    id: number,
     agendamento: Agendamento,
     nota: number,
     data: Date,
-    public comentario: string
+    public comentario: string,
+    private id?: number
   ) {
-    super(id, agendamento, nota, data);
+    super(agendamento, nota, data);
   }
 
   avaliar(prestadorServico: PrestadorServico): void {

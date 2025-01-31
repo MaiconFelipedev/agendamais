@@ -4,12 +4,12 @@ import {Cliente} from './cliente';
 
 export class AvaliacaoCliente extends Avaliacao {
   constructor(
-    id: number,
     agendamento: Agendamento,
     nota: number,
-    data: Date
+    data: Date,
+    private id?: number
   ) {
-    super(id, agendamento, nota, data);
+    super(agendamento, nota, data);
   }
 
   avaliar(cliente: Cliente): void {
