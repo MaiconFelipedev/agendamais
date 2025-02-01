@@ -1,14 +1,15 @@
 @use '@angular/material' as mat;
 
 main {
-  @include mat.form-field-overrides((
-    container-height: 20px,
-    outlined-outline-width: 1px
-  ));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @include mat.form-field-overrides((
+    outlined-outline-width: 1px,
+    outlined-outline-color: #aaaaaa,
+    outlined-error-outline-color: red
+  ));
 }
 
 #logo {
@@ -27,7 +28,7 @@ main {
 
 form {
   width: 30%;
-  height: 85vh;
+  padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +45,12 @@ mat-form-field {
   width: 100%;
 }
 
+mat-error {
+  margin-bottom: 20px;
+}
+
 .cadastro {
+  margin-top: 25px;
   text-decoration: none;
   color: #000000;
 }

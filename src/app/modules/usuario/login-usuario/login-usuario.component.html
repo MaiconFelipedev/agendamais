@@ -4,17 +4,17 @@
     <h1 class="titulo">Entre na sua conta</h1>
     <label for="email">E-mail:</label>
     <mat-form-field appearance="outline">
-      <input type="text" id="email" matInput>
+      <input type="text" name="email" id="email" matInput [(ngModel)]="campoEmail" #emailModel="ngModel">
     </mat-form-field>
 
     <label for="senha">Senha:</label>
     <mat-form-field appearance="outline">
-      <input type="password" id="senha" matInput>
+      <input type="password" name="senha" id="senha" matInput [(ngModel)]="campoSenha" #senhaModel="ngModel">
     </mat-form-field>
 
+    <mat-error *ngIf="!emailModel.value && !senhaModel.value">E-mail ou senha inválidos, tente novamente.</mat-error>
+
+    <button id="entrar" mat-flat-button (click)="entrar(emailModel.value, senhaModel.value)" type="button">Entrar</button>
     <a class="cadastro" [routerLink]="'/cadastro-usuario'">Ainda não tem uma conta? Cadastre-se</a>
   </form>
-
-
-
 </main>
