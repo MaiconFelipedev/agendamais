@@ -31,11 +31,12 @@ export class Agenda {
     while(ultimaData.getTime() < this.dataFinalAgenda.getTime()){
       let novaData = addDays(ultimaData, 1);
       if(diasDeFolga.includes(novaData.getDay())){
+        this._diasDeTrabalho.push(new DiaDeTrabalho(novaData, horarioIntervalo, [], "Indisponível"));
         ultimaData = novaData;
         continue;
       }
 
-      this._diasDeTrabalho.push(new DiaDeTrabalho(novaData, horarioIntervalo));
+      this._diasDeTrabalho.push(new DiaDeTrabalho(novaData, horarioIntervalo, []));
 
       ultimaData = novaData;
     }

@@ -4,7 +4,7 @@ export class DiaDeTrabalho {
   constructor(
     private _data: Date,
     private _horarioIntervalo: string[],
-    private _agendamentos: Agendamento[] = [],
+    private _agendamentos: Agendamento[],
     private _status: string = "Disponível",
     private _id?: number
   ){}
