@@ -1,26 +1,23 @@
-import {parse} from 'date-fns';
 import {Agendamento} from './agendamento';
 
 export class DiaDeTrabalho {
   constructor(
-    private _data: string,
-    private _horaInicioIntervalo: String,
-    private _horaFinalIntervalo: String,
+    private _data: Date,
+    private _horarioIntervalo: string[],
     private _agendamentos: Agendamento[] = [],
-    private _status: String = "Disponível",
-    private _id?: Number
+    private _status: string = "Disponível",
+    private _id?: number
   ){}
 
-  get id(): Number | undefined {
+  get id(): number | undefined {
     return this._id;
   }
 
-  get data(): String {
-    const dataFormatada: Date = parse(this._data, "dd/MM/yyyy", new Date());
-    return `${dataFormatada.getDate()}/${dataFormatada.getMonth() + 1}/${dataFormatada.getFullYear()}`
+  get data(): Date {
+    return this._data;
   }
 
-  get status(): String {
+  get status(): string {
     return this._status;
   }
 
@@ -28,16 +25,20 @@ export class DiaDeTrabalho {
     return this._agendamentos;
   }
 
-  get horarioIntervalo(): String{
-    return `${this._horaInicioIntervalo}-${this._horaFinalIntervalo}`;
+  get inicioIntervalo(): string {
+    return this._horarioIntervalo[0];
   }
 
-  public editarIntervalo(novoIntervalo: String[]): void{
-    this._horaInicioIntervalo = novoIntervalo[0];
-    this._horaFinalIntervalo = novoIntervalo[1];
+  get terminoIntervalo(): string {
+    return this._horarioIntervalo[1];
   }
 
-  public editarStatus(novoStatus: String): void {
+  editarIntervalo(novoIntervalo: string[]): void{
+    this._horarioIntervalo[0] = novoIntervalo[0];
+    this._horarioIntervalo[1] = novoIntervalo[1];
+  }
+
+  editarStatus(novoStatus: string): void {
     this._status = novoStatus;
   }
 }

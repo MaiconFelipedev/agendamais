@@ -1,9 +1,8 @@
 import { Usuario } from './usuario';
 import { Servico } from './servico';
 import { Agendamento } from './agendamento';
-import { AgendaMes } from './agenda-mes';
+import { Agenda } from './agenda';
 import { DiaDeTrabalho } from './dia-trabalho';
-import {DiasDaSemana} from './dias-da-semana.enum';
 
 export class PrestadorServico extends Usuario {
     categoria: string;
@@ -21,22 +20,22 @@ export class PrestadorServico extends Usuario {
     //     return servico;
     // }
 
-    definirAgendaMes(dataReferencia: string, diasDeFolga: DiasDaSemana[], horarioIntervalo: String[]): AgendaMes {
-      let agenda: AgendaMes = new AgendaMes(dataReferencia);
+    definirAgenda(periodo: string[], diasDeFolga: number[], horarioIntervalo: string[]): Agenda {
+      let agenda: Agenda = new Agenda(periodo);
       agenda.gerarDiasDeTrabalho(diasDeFolga, horarioIntervalo);
       return agenda;
     }
 
-    editarDiaDeTrabalho(diaDeTrabalho: DiaDeTrabalho, novoStatus: String, novoHorarioIntervalo: String[]): void {
+    editarDiaDeTrabalho(diaDeTrabalho: DiaDeTrabalho, novoStatus: string, novoIntervalo: string[]): void {
       if(novoStatus != ""){
         diaDeTrabalho.editarStatus(novoStatus);
       }
-      if(novoHorarioIntervalo.length > 0){
-        diaDeTrabalho.editarIntervalo(novoHorarioIntervalo);
+      if(novoIntervalo.length > 0){
+        diaDeTrabalho.editarIntervalo(novoIntervalo);
       }
     }
 
     confirmarAgendamento(agendamento: Agendamento): void {
-        agendamento.status = 'confirmado';
+        agendamento.status = "Confirmado";
     }
 }
