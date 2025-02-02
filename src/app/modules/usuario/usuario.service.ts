@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../shared/model/usuario';
+import {PrestadorServico} from '../../shared/model/prestador-servico';
+import {Cliente} from '../../shared/model/cliente';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
   private usuarios: Usuario[] = [];
+  private clientes: Cliente[] = [];
+  private prestadores: PrestadorServico[] = [];
   private nextId = 1;
 
   constructor() { }
@@ -16,7 +20,13 @@ export class UsuarioService {
 
   cadastrarUsuario(usuario: Usuario): void {
     usuario.id = this.gerarId(); // Atribui um ID único
-    this.usuarios.push(usuario);
+    if (usuario instanceof Cliente) {
+      this.clientes.push(usuario)
+    }
+    if (usuario instanceof PrestadorServico) {
+      this.prestadores.push(usuario);
+    }
+    this.usuarios.push(usuario)
   }
 
   getUsuarios(): Usuario[] {

@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UsuarioService} from '../usuario.service';
 import {Usuario} from '../../../shared/model/usuario';
+import {Cliente} from '../../../shared/model/cliente';
+import {PrestadorServico} from '../../../shared/model/prestador-servico';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -22,6 +24,7 @@ export class CadastroUsuarioComponent {
     private snackBar: MatSnackBar
   ) {
     console.log(this.userService.getUsuarios())
+
     this.usuarioForm = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -46,11 +49,17 @@ export class CadastroUsuarioComponent {
         this.snackBar.open('Este e-mail já está cadastrado!', 'Fechar', {
           duration: 3000
         });
-        return; 
+        return;
       }
 
-      const novoUsuario = new Usuario(nome, email, senha, telefone, tipo, endereco);
-      this.userService.cadastrarUsuario(novoUsuario);
+      if (tipo === "cliente"){
+        const novoUsuario = new Cliente(nome, email, senha, telefone, tipo, endereco);
+        this.userService.cadastrarUsuario(novoUsuario);
+      }
+      else {
+        const novoUsuario = new PrestadorServico(nome, email, senha, telefone, tipo, endereco);
+        this.userService.cadastrarUsuario(novoUsuario);
+      }
 
       this.snackBar.open('Usuário cadastrado com sucesso!', 'Fechar', {
         duration: 3000

@@ -5,12 +5,11 @@ import { Agenda } from './agenda';
 import { DiaDeTrabalho } from './dia-trabalho';
 
 export class PrestadorServico extends Usuario {
-    categoria: string;
     listaServicos: Servico[];
 
-    constructor(nome: string, email: string, senha: string, telefone: string, endereco: string, tipo: string, categoria: string) {
-        super(nome, email, senha, telefone, endereco, tipo);
-        this.categoria = categoria;
+  constructor(nome: string, email: string, senha: string, telefone: string, tipo: string,
+              endereco: { rua: string; bairro: string; cidade: string; estado: string }) {
+    super(nome, email, senha, telefone, tipo, endereco);
         this.listaServicos = [];
     }
 
