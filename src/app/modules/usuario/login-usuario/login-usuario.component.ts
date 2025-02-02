@@ -3,6 +3,7 @@ import { MaterialModule } from '../../material/material.module';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login-usuario',
@@ -12,6 +13,11 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./login-usuario.component.scss']
 })
 export class LoginUsuarioComponent {
+  title = 'Agenda+ | Entrar';
+  constructor(private titleService: Title) {
+    this.titleService.setTitle(this.title);
+  }
+
   campoEmail: string = '';
   campoSenha: string = '';
 

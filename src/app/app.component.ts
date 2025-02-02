@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,8 @@ import { HeaderComponent } from './shared/header/header.component';
   imports: [RouterModule, HeaderComponent]
 })
 export class AppComponent {
-  title = 'Meu App';
+  title = 'Agenda+';
+  constructor(private titleService: Title) {
+    this.titleService.setTitle(this.title);
+  }
 }
