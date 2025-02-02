@@ -4,11 +4,17 @@ export class Usuario {
   email: string;
   senha: string;
   telefone: string;
-  endereco: string;
+  endereco: {
+    rua: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+  };
   tipo: string;
   avaliacaoMedia: number;
 
-  constructor(nome: string, email: string, senha: string, telefone: string, endereco: string, tipo: string) {
+  constructor(nome: string, email: string, senha: string, telefone: string, tipo: string,
+              endereco: { rua: string; bairro: string; cidade: string; estado: string }) {
       this.nome = nome;
       this.email = email;
       this.senha = senha;
@@ -22,7 +28,8 @@ export class Usuario {
       return this.email === email && this.senha === senha;
   }
 
-  atualizarPerfil(nome: string, telefone: string, endereco: string): void {
+  atualizarPerfil(nome: string, telefone: string,
+                  endereco: { rua: string; bairro: string; cidade: string; estado: string }): void {
       this.nome = nome;
       this.telefone = telefone;
       this.endereco = endereco;

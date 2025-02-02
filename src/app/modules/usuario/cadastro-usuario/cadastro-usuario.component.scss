@@ -1,0 +1,38 @@
+.cadastro-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.row mat-form-field {
+  flex: 1;
+}
+
+.endereco-section {
+  margin: 2rem 0;
+}
+
+.endereco-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+button[type="submit"] {
+  margin-left: 110px;
+}
+
+#titulo {
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+#endereço {
+  padding-bottom: 10px;
+}
