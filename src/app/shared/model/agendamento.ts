@@ -14,6 +14,16 @@ export class Agendamento {
       private _id ?: number
     ) {}
 
+    // Getter para acessar a data do agendamento
+    get data(): Date {
+      return this._data;
+    }
+
+    // Getter para acessar o início do serviço
+    get horarioInicio(): string {
+      return this._horarioInicio;
+    }
+
     get status(): string {
       return this._status
     }
