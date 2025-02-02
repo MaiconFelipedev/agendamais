@@ -42,8 +42,22 @@ export class Notificacao {
   }
 
   // Marca a notificacao como enviada e imprime
-  enviar(): void {
+  enviar(): boolean {
+    if(this._enviada) {
+        // Indica que não foi enviada novamente
+        return false;
+        // console.log('Notificação já foi enviada anteriormente.');
+    }
+    // Marca a notificacao como enviada
     this._enviada = true;
-    console.log(`Notificação enviada para ${this._destinatario.nome}: ${this._mensagem}`);
+    // Indica que a notificação foi enviada com sucesso
+    return this._enviada;
+    // console.log(`Notificação enviada para ${this._destinatario.nome}: ${this._mensagem}`);
+  }
+
+  // Retorna a notificacao como uma mensagem
+  obterNotificacao(): string {
+    const status = this._enviada ? 'Enviada' : 'Pendente';
+    return `Notificação para ${this._destinatario.nome}: ${this._mensagem}`;
   }
 }

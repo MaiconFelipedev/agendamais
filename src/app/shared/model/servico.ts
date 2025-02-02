@@ -58,17 +58,24 @@ export class Servico {
   }
 
   // Adiciona novo agendamento ao servico
-  agendarServico(agendamento: Agendamento): void {
+  agendarServico(agendamento: Agendamento): Agendamento | null {
+    if (this._agendamentos.some(a => a.data === agendamento.data && a.horarioInicio === agendamento.horarioInicio)) {
+      console.log('Horário já ocupado para este serviço.');
+      // Erro
+      return null; // Caso de erro, você pode retornar null ou algum tipo de erro.
+    }
     this._agendamentos.push(agendamento);
-    console.log(`Serviço ${this._nome} agendado para ${agendamento.data} às ${agendamento.horarioInicio}`);
+    return agendamento;
+    // console.log(`Serviço ${this._nome} agendado para ${agendamento.data} às ${agendamento.horarioInicio}`);
   }
 
   // Atualizar as informações do serviço
-  atualizarInformacoes(nome: string, descricao: string, preco: number, duracao: number): void {
+  atualizarInformacoes(nome: string, descricao: string, preco: number, duracao: number): Servico {
     this._nome = nome;
     this._descricao = descricao;
     this._preco = preco;
     this._duracao = duracao;
-    console.log(`Serviço ${this._nome} atualizado com sucesso.`);
+    return this;
+    // console.log(`Serviço ${this._nome} atualizado com sucesso.`);
   }
 }
