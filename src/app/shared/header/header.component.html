@@ -3,9 +3,14 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-        <button mat-menu-item>Item 3</button>
+        <button mat-menu-item [routerLink]="'/agenda-prestador'">agenda-prestador</button>
+        <button mat-menu-item [routerLink]="'/avaliacao-usuario'">avaliacao-usuario</button>
+        <button mat-menu-item [routerLink]="'/cadastro-usuario'">cadastro-usuario</button>
+        <button mat-menu-item [routerLink]="'/login-usuario'">login-usuario</button>
+        <button mat-menu-item [routerLink]="'/agendamento-servico'">agendamento-servico</button>
+        <button mat-menu-item [routerLink]="'/cadastro-servico'">cadastro-servico</button>
+        <button mat-menu-item [routerLink]="'/card-servico'">card-servico</button>
+        <button mat-menu-item [routerLink]="'listagem-servicos'">listagem-servicos</button>
       </mat-menu>
     </button>
     <span class="spacer"></span>
@@ -15,7 +20,6 @@
         <button mat-menu-item><mat-icon>person</mat-icon>Conta</button>
         <button mat-menu-item><mat-icon>settings</mat-icon>Opções</button>
         <button mat-menu-item class="sair"><mat-icon>logout</mat-icon>Sair</button>
-
       </mat-menu>
     </button>
   </mat-toolbar>
