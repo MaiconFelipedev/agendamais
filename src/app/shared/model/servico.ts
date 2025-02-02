@@ -5,6 +5,7 @@ export class Servico {
   private _id: number;
   private _nome: string;
   private _descricao: string;
+  private _categoria: string;
   private _preco: number;
   // Duração em minutos
   private _duracao: number;
@@ -17,6 +18,7 @@ export class Servico {
     id: number,
     nome: string,
     descricao: string,
+    categoria: string,
     preco: number,
     duracao: number,
     prestador: PrestadorServico
@@ -24,6 +26,7 @@ export class Servico {
     this._id = id;
     this._nome = nome;
     this._descricao = descricao;
+    this._categoria = categoria;
     this._preco = preco;
     this._duracao = duracao;
     this._prestador = prestador;
@@ -39,6 +42,10 @@ export class Servico {
 
   get descricao(): string {
     return this._descricao;
+  }
+
+  get categoria(): string { // Getter para categoria
+    return this._categoria;
   }
 
   get preco(): number {
@@ -70,9 +77,10 @@ export class Servico {
   }
 
   // Atualizar as informações do serviço
-  atualizarInformacoes(nome: string, descricao: string, preco: number, duracao: number): Servico {
+  atualizarInformacoes(nome: string, descricao: string, categoria: string, preco: number, duracao: number): Servico {
     this._nome = nome;
     this._descricao = descricao;
+    this._categoria = this.categoria;
     this._preco = preco;
     this._duracao = duracao;
     return this;

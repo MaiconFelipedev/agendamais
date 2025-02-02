@@ -1,1 +1,11 @@
 <p>card-servico works!</p>
+<div class="card">
+  <h2>{{ servico.nome }}</h2>
+  <p>{{ servico.descricao }}</p>
+  <p><strong>Categoria:</strong> {{ servico.categoria }}</p>
+  <p><strong>Preço:</strong> R$ {{ servico.preco | currency:'BRL' }}</p>
+
+</div>
+
+
+

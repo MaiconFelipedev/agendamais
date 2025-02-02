@@ -1,1 +1,17 @@
-<p>listagem-servicos works!</p>
+<div class="container">
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <mat-select [(ngModel)]="categoria" (change)="atualizarServicos()">
+      <mat-option value="">Todas as categorias</mat-option>
+      <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngFor="let servico of servicos">
+    <mat-card>
+      <app-card-servico [servico]="servico"></app-card-servico>
+    </mat-card>
+  </div>
+</div>
+
+

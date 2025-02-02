@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MaterialModule} from '../../material/material.module';
 import {CommonModule} from '@angular/common';
+import {Servico} from '../../../shared/model/servico';
 
 @Component({
   selector: 'app-card-servico',
@@ -10,5 +11,5 @@ import {CommonModule} from '@angular/common';
   imports: [MaterialModule, CommonModule]
 })
 export class CardServicoComponent {
-
+  @Input() servico!: Servico;
 }
