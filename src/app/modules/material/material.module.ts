@@ -6,6 +6,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -16,7 +19,10 @@ import {MatInputModule} from '@angular/material/input';
     MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatToolbarModule,
@@ -24,7 +30,10 @@ import {MatInputModule} from '@angular/material/input';
     MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }
