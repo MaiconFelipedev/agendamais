@@ -7,6 +7,7 @@ import {UsuarioService} from '../usuario.service';
 import {Usuario} from '../../../shared/model/usuario';
 import {Cliente} from '../../../shared/model/cliente';
 import {PrestadorServico} from '../../../shared/model/prestador-servico';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -21,7 +22,8 @@ export class CadastroUsuarioComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UsuarioService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     console.log(this.userService.getUsuarios())
 
@@ -61,11 +63,11 @@ export class CadastroUsuarioComponent {
         this.userService.cadastrarUsuario(novoUsuario);
       }
 
-      this.snackBar.open('Usuário cadastrado com sucesso!', 'Fechar', {
-        duration: 3000
-      });
+      this.userService.autenticar(email, senha)
 
-      this.usuarioForm.reset();
+      this.router.navigate(['/login-usuario']).then(r => this.snackBar.open('Usuário cadastrado com sucesso!', 'Fechar', {
+        duration: 3000
+      }));
     }
   }
 
