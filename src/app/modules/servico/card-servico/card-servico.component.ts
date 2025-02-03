@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import {MaterialModule} from '../../material/material.module';
 import {CommonModule} from '@angular/common';
 import {Servico} from '../../../shared/model/servico';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-servico',
@@ -12,4 +13,9 @@ import {Servico} from '../../../shared/model/servico';
 })
 export class CardServicoComponent {
   @Input() servico!: Servico;
+
+  title = 'Agenda+ | Serviço';
+  constructor(private titleService: Title) {
+    this.titleService.setTitle(this.title);
+  }
 }

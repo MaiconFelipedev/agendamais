@@ -5,6 +5,7 @@ import {Servico} from '../../../shared/model/servico';
 import {FormsModule} from '@angular/forms';
 import {CardServicoComponent} from '../card-servico/card-servico.component';
 import {ServicoService} from '../servico.service';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -20,12 +21,15 @@ import {ServicoService} from '../servico.service';
   ]
 })
 export class ListagemServicosComponent {
+  title = 'Agenda+ | Lista de serviços';
   servicos: Servico[] = [];
   busca: string = '';
   categoria: string = '';
   categorias: string[] = [];
 
-  constructor(private servicoService: ServicoService) {}
+  constructor(private servicoService: ServicoService, private titleService: Title) {
+    this.titleService.setTitle(this.title);
+  }
 
   ngOnInit() {
     this.carregarCategorias();

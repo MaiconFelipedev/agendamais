@@ -8,6 +8,7 @@ import {Usuario} from '../../../shared/model/usuario';
 import {Cliente} from '../../../shared/model/cliente';
 import {PrestadorServico} from '../../../shared/model/prestador-servico';
 import {Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -17,14 +18,17 @@ import {Router} from '@angular/router';
   imports: [MaterialModule, CommonModule, ReactiveFormsModule]
 })
 export class CadastroUsuarioComponent {
+  title = 'Agenda+ | Cadastre-se';
   usuarioForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private userService: UsuarioService,
     private snackBar: MatSnackBar,
+    private titleService: Title,
     private router: Router
   ) {
+    this.titleService.setTitle(this.title);
     console.log(this.userService.getUsuarios())
 
     this.usuarioForm = this.fb.group({
