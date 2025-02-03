@@ -43,7 +43,7 @@ export class ListagemServicosComponent {
 
 
   atualizarServicos(): void {
-    let servicos = this.servicoService.getServicos(this.categoria);
+    let servicos = this.servicoService.getServicosPorCategoria(this.categoria);
 
     // Adicione um log para verificar os serviços recebidos
     console.log('Serviços carregados:', servicos);
@@ -61,7 +61,7 @@ export class ListagemServicosComponent {
 
 
   //atualizarServicos(): void {
-    //this.servicoService.getServicos(this.categoria).subscribe((servicos: Servico[]) => {
+    //this.servicoService.getServicosPorCategoria(this.categoria).subscribe((servicos: Servico[]) => {
       //this.servicos = servicos.filter((servico) =>
         //servico.nome.toLowerCase().includes(this.busca.toLowerCase())
       //);

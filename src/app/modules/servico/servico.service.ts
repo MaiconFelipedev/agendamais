@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Servico } from '../../shared/model/servico';
+import {Usuario} from '../../shared/model/usuario';
+import {Cliente} from '../../shared/model/cliente';
+import {PrestadorServico} from '../../shared/model/prestador-servico';
 
 
 @Injectable({
@@ -15,9 +18,16 @@ export class ServicoService {
     return this.nextId++;
   }
 
+  cadastrarServico(servico: Servico): void {
+    servico.id = this.gerarId(); // Atribui um ID único
+    this.servicos.push(servico)
+  }
 
+  getServicos(): Servico[] {
+    return this.servicos;
+  }
 
-  getServicos(categoria: string = ''): Servico[] {
+  getServicosPorCategoria(categoria: string = ''): Servico[] {
     if (categoria) {
       return this.listarPorCategoria(categoria);
     }

@@ -1,15 +1,15 @@
 <main>
-  <form>
+  <form [formGroup]="servicoForm" (ngSubmit)="onSubmit()">
     <mat-icon id="logo">engineering</mat-icon>
     <h1 class="titulo">Criar novo serviço</h1>
     <mat-form-field appearance="outline">
       <mat-label>Nome do serviço</mat-label>
-      <input matInput>
+      <input formControlName="nome" matInput required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Tipo de serviço</mat-label>
-      <mat-select>
+      <mat-select formControlName="tipo" placeholder="Selecione um serviço" required>
         <mat-option value="beleza">Beleza</mat-option>
         <mat-option value="construcao">Construção</mat-option>
         <mat-option value="consultoria">Consultoria</mat-option>
@@ -23,12 +23,26 @@
       </mat-select>
     </mat-form-field>
 
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <span matTextPrefix>R$&nbsp;</span>
+        <input formControlName="valor" type="number" min="0.00" max="10000.00" step="0.01" placeholder="0,00" matInput required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Duração do serviço</mat-label>
+        <input formControlName="duracao" type="time" matInput required>
+        <mat-icon matIconSuffix>schedule</mat-icon>
+      </mat-form-field>
+    </div>
+
     <mat-form-field appearance="outline">
       <mat-label>Descrição</mat-label>
-      <textarea matInput></textarea>
+      <textarea formControlName="descricao" matInput></textarea>
     </mat-form-field>
 
-    <button mat-flat-button>
+    <button mat-flat-button [disabled]="servicoForm.invalid">
       <mat-icon>add_circle</mat-icon>
       Criar serviço
     </button>
