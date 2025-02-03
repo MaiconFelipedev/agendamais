@@ -14,12 +14,17 @@
       </mat-menu>
     </button>
     <span class="spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="conta" aria-label="Conta">
+
+    <button *ngIf="!this.usuarioService.usuarioLogado()" mat-flat-button aria-label="Entrar" [routerLink]="'/login-usuario'">
+      <mat-icon>login</mat-icon>
+      Entrar
+    </button>
+    <p class="nome-usuario">{{this.usuarioService.nomeUsuario()}}</p>
+    <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="conta" aria-label="Conta">
       <mat-icon>account_circle</mat-icon>
       <mat-menu #conta="matMenu">
-        <button mat-menu-item><mat-icon>person</mat-icon>Conta</button>
-        <button mat-menu-item><mat-icon>settings</mat-icon>Opções</button>
-        <button mat-menu-item class="sair"><mat-icon>logout</mat-icon>Sair</button>
+        <button mat-menu-item><mat-icon>person</mat-icon>Perfil</button>
+        <button mat-menu-item class="sair" (click)="usuarioService.deslogarUsuario()"  [routerLink]="'/login-usuario'"><mat-icon>logout</mat-icon>Sair</button>
       </mat-menu>
     </button>
   </mat-toolbar>
