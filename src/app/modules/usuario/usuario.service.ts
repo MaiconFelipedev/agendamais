@@ -7,6 +7,7 @@ import {Cliente} from '../../shared/model/cliente';
   providedIn: 'root'
 })
 export class UsuarioService {
+  private usuarioAtual: Usuario | undefined;
   private usuarios: Usuario[] = [];
   private clientes: Cliente[] = [];
   private prestadores: PrestadorServico[] = [];
@@ -50,8 +51,24 @@ export class UsuarioService {
   emailExiste(email: string): boolean {
     return this.usuarios.some(user => user.email === email);
   }
+
   getUsuarioPorEmail(email: string): Usuario | undefined {
     return this.usuarios.find(user => user.email === email);
   }
-}
 
+  logarUsuario(email: string): void {
+    this.usuarioAtual = this.getUsuarioPorEmail(email);
+  }
+
+  deslogarUsuario(): void {
+    this.usuarioAtual = undefined;
+  }
+
+  usuarioLogado(): Usuario | undefined {
+    return this.usuarioAtual;
+  }
+
+  nomeUsuario(): string | undefined {
+    return this.usuarioAtual?.nome;
+  }
+}

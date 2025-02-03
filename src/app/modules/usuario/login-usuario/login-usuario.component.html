@@ -1,20 +1,18 @@
 <main>
-  <form id="login-form">
+  <form id="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-icon id="logo">account_circle</mat-icon>
     <h1 class="titulo">Entre na sua conta</h1>
     <label for="email">E-mail:</label>
     <mat-form-field appearance="outline">
-      <input type="text" name="email" id="email" matInput [(ngModel)]="campoEmail" #emailModel="ngModel">
+      <input type="text" name="email" id="email" matInput formControlName="email">
     </mat-form-field>
 
     <label for="senha">Senha:</label>
     <mat-form-field appearance="outline">
-      <input type="password" name="senha" id="senha" matInput [(ngModel)]="campoSenha" #senhaModel="ngModel">
+      <input type="password" name="senha" id="senha" matInput formControlName="senha">
     </mat-form-field>
 
-    <mat-error *ngIf="!emailModel.value && !senhaModel.value">E-mail ou senha inválidos, tente novamente.</mat-error>
-
-    <button id="entrar" mat-flat-button (click)="entrar(emailModel.value, senhaModel.value)" type="button">Entrar</button>
+    <button id="entrar" mat-flat-button type="submit">Entrar</button>
     <a class="cadastro" [routerLink]="'/cadastro-usuario'">Ainda não tem uma conta? Cadastre-se</a>
   </form>
 </main>
