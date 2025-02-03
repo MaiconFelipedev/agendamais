@@ -2,38 +2,38 @@ import { PrestadorServico } from './prestador-servico';
 import { Agendamento } from './agendamento';
 
 export class Servico {
-  private _id: number;
+  private _id?: number;
   private _nome: string;
-  private _descricao: string;
   private _categoria: string;
   private _preco: number;
-  // Duração em minutos
   private _duracao: number;
-  // Oferece o Servico
+  private _descricao: string;
   private _prestador: PrestadorServico;
   // Agendamentos feitos para esse servico
   private _agendamentos: Agendamento[] = [];
 
   constructor(
-    id: number,
     nome: string,
-    descricao: string,
     categoria: string,
     preco: number,
     duracao: number,
+    descricao: string,
     prestador: PrestadorServico
   ) {
-    this._id = id;
     this._nome = nome;
-    this._descricao = descricao;
     this._categoria = categoria;
     this._preco = preco;
     this._duracao = duracao;
+    this._descricao = descricao;
     this._prestador = prestador;
   }
 
-  get id(): number {
+  get id(): number | undefined {
     return this._id;
+  }
+
+  set id(id) {
+    this._id = id;
   }
 
   get nome(): string {
