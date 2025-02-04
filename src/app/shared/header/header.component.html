@@ -1,6 +1,6 @@
 <header>
   <mat-toolbar>
-    <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+      <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
       <mat-menu #menu="matMenu">
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/agenda-prestador'">Minha agenda</button>
@@ -10,9 +10,10 @@
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/listagem-servicos'">Agendar serviço</button>
       </mat-menu>
     </button>
+    <h1 id="logo">Agenda<b>+</b></h1>
     <span class="spacer"></span>
 
-    <button *ngIf="!this.usuarioService.usuarioLogado()" mat-flat-button aria-label="Entrar" [routerLink]="'/login-usuario'">
+    <button id="botao-entrar" *ngIf="!this.usuarioService.usuarioLogado()" mat-flat-button aria-label="Entrar" [routerLink]="'/login-usuario'">
       <mat-icon>login</mat-icon>
       Entrar
     </button>

@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
 
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
 .sair {
   @include mat.menu-overrides((
     item-label-text-color: #f10000,
@@ -12,10 +14,24 @@
 }
 
 header {
+  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nome-usuario {
   font-size: 16px;
   margin: 0 5px;
+}
+
+#logo {
+  font-family: "Comfortaa", serif;
+  font-weight: bolder;
+}
+
+b {
+  color: #3f51b5;
+}
+
+#botao-entrar{
+  background-color: #3f51b5;;
 }
