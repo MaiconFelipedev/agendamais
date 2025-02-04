@@ -1,4 +1,5 @@
 import {Agendamento} from './agendamento';
+import { parse, addMinutes, isBefore, isAfter } from "date-fns";
 
 export class DiaDeTrabalho {
   constructor(
@@ -15,6 +16,10 @@ export class DiaDeTrabalho {
 
   get data(): Date {
     return this._data;
+  }
+
+  get dataFormatada(): string {
+    return `${this._data.getDate()}/${this._data.getMonth() + 1}/${this._data.getFullYear()}`;
   }
 
   get status(): string {
@@ -41,4 +46,5 @@ export class DiaDeTrabalho {
   editarStatus(novoStatus: string): void {
     this._status = novoStatus;
   }
+
 }

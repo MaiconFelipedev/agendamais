@@ -19,8 +19,8 @@ export class PrestadorServico extends Usuario {
     //     return servico;
     // }
 
-    definirAgenda(periodo: string[], diasDeFolga: number[], horarioIntervalo: string[]): Agenda {
-      let agenda: Agenda = new Agenda(periodo);
+    definirAgenda(periodo: Date[], diasDeFolga: number[], horarioIntervalo: string[], horarioTrabalho: string[]): Agenda {
+      let agenda: Agenda = new Agenda(periodo, horarioTrabalho);
       agenda.gerarDiasDeTrabalho(diasDeFolga, horarioIntervalo);
       return agenda;
     }

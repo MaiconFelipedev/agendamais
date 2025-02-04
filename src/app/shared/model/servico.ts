@@ -6,7 +6,7 @@ export class Servico {
   private _nome: string;
   private _categoria: string;
   private _preco: number;
-  private _duracao: number;
+  private _duracao: string;
   private _descricao: string;
   private _prestador: PrestadorServico;
   // Agendamentos feitos para esse servico
@@ -16,7 +16,7 @@ export class Servico {
     nome: string,
     categoria: string,
     preco: number,
-    duracao: number,
+    duracao: string,
     descricao: string,
     prestador: PrestadorServico
   ) {
@@ -52,7 +52,7 @@ export class Servico {
     return this._preco;
   }
 
-  get duracao(): number {
+  get duracao(): string {
     return this._duracao;
   }
 
@@ -77,7 +77,7 @@ export class Servico {
   }
 
   // Atualizar as informações do serviço
-  atualizarInformacoes(nome: string, descricao: string, categoria: string, preco: number, duracao: number): Servico {
+  atualizarInformacoes(nome: string, descricao: string, categoria: string, preco: number, duracao: string): Servico {
     this._nome = nome;
     this._descricao = descricao;
     this._categoria = this.categoria;
@@ -87,3 +87,4 @@ export class Servico {
     // console.log(`Serviço ${this._nome} atualizado com sucesso.`);
   }
 }
+

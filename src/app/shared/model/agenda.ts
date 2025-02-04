@@ -1,32 +1,63 @@
-import {parse, addDays} from "date-fns";
+import {parse, addDays, subDays} from "date-fns";
 import { DiaDeTrabalho } from './dia-trabalho';
 
 export class Agenda {
 
   constructor(
-    private _periodo: string[],
+    private _periodo: Date[],
+    private _horarioTrabalho: string[],
     private _diasDeTrabalho: DiaDeTrabalho[] = [],
-    private _id ?: Number
+    private _statusAgenda: string = "Aberta",
+    private _id?: number,
+    private _idPrestador?: number
   ) {}
 
-  get id() : Number | undefined {
+  get id() : number | undefined {
     return this._id;
   }
 
+  set id(novoId) {
+    this._idPrestador = novoId;
+  }
+
+  get idPrestador() : number | undefined {
+    return this._idPrestador;
+  }
+
+  set idPrestador(novoIdPrestador) {
+    this._idPrestador = novoIdPrestador;
+  }
+
   get dataInicialAgenda(): Date {
-    return parse(this._periodo[0], "dd/MM/yyyy", new Date());
+    return this._periodo[0];
   }
 
   get dataFinalAgenda(): Date {
-    return parse(this._periodo[1], "dd/MM/yyyy", new Date());
+    return this._periodo[1];
+  }
+
+  get inicioExpediente(): Date {
+    return parse(`${this._horarioTrabalho[0]}`, "HH:mm", new Date());
+  }
+
+  get terminoExpediente(): Date {
+    return parse(`${this._horarioTrabalho[1]}`, "HH:mm", new Date());
+  }
+
+  get horarioTrabalho(): string[]{
+    return this._horarioTrabalho;
   }
 
   get diasDeTrabalho(): DiaDeTrabalho[] {
     return this._diasDeTrabalho;
   }
 
+  get statusAgenda(): string {
+    return this._statusAgenda;
+  }
+
   gerarDiasDeTrabalho(diasDeFolga: number[], horarioIntervalo: string[]): void{
-    let ultimaData: Date = this.dataInicialAgenda;
+    let ultimaData: Date = subDays(this.dataInicialAgenda, 1);
 
     while(ultimaData.getTime() < this.dataFinalAgenda.getTime()){
       let novaData = addDays(ultimaData, 1);
@@ -40,5 +71,6 @@ export class Agenda {
 
       ultimaData = novaData;
     }
+    console.log(this._diasDeTrabalho);
   }
 }

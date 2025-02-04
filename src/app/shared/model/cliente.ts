@@ -17,9 +17,10 @@ export class Cliente extends Usuario {
         return [];
     }
 
-    // agendarServico(servico: Servico): Agendamento {
-    //     const agendamento = new Agendamento(0, new Date(), new Date(), new Date(), this, servico, 0, 0, 'pendente');
-    //     this.historicoAgendamentos.push(agendamento);
-    //     return agendamento;
-    // }
+    agendarServico(data: Date, horario: string[], servico: Servico): Agendamento {
+        const agendamento = new Agendamento(data, horario, this, servico, servico.preco);
+        agendamento.id = this.historicoAgendamentos[this.historicoAgendamentos.length - 1].id! + 1;
+        this.historicoAgendamentos.push(agendamento);
+        return agendamento;
+    }
 }

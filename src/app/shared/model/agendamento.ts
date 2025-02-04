@@ -1,16 +1,16 @@
 import {Cliente} from './cliente';
 import {Servico} from './servico';
+import {parse} from 'date-fns';
 
 export class Agendamento {
 
     constructor(
       private _data: Date,
-      private _horarioInicio: string,
-      private _horarioFinal: string,
+      private _horario: string[],
       private _cliente: Cliente,
       private _servico: Servico,
       private _valorTotal: number,
-      private _status: string = "Agendado",
+      private _status: string = "Confirmado",
       private _id ?: number
     ) {}
 
@@ -19,13 +19,33 @@ export class Agendamento {
       return this._data;
     }
 
+    get nomeCliente(): string {
+      return this._cliente.nome;
+    }
+
+    get nomeServico(): string {
+      return this._servico.nome;
+    }
+
     // Getter para acessar o início do serviço
-    get horarioInicio(): string {
-      return this._horarioInicio;
+    get horarioInicio(): Date {
+      return parse(this._horario[0], "dd/MM/yyyy", new Date());
+    }
+
+    get horarioTermino(): Date {
+      return parse(this._horario[1], "dd/MM/yyyy", new Date());
     }
 
     get status(): string {
       return this._status
+    }
+
+    get id(): number | undefined{
+      return this._id;
+    }
+
+    set id(novoId: number){
+      this._id = novoId;
     }
 
     set status(novoStatus: string){
@@ -39,11 +59,11 @@ export class Agendamento {
 
     reagendar(novaData: Date, novoHorarioInicio: string, novoHorarioFinal: string): void {
       this._data = novaData;
-      this._horarioInicio = novoHorarioInicio;
-      this._horarioFinal = novoHorarioFinal;
+      this._horario[0] = novoHorarioInicio;
+      this._horario[1] = novoHorarioFinal;
       this._status = "Reagendado";
       console.log(
-        `Agendamento ${this._id} foi reagendado para ${this._data} às ${this._horarioInicio}-${this._horarioFinal}.`
+        `Agendamento ${this._id} foi reagendado para ${this._data} às ${this._horario[0]}-${this._horario[1]}.`
       );
     }
   }
