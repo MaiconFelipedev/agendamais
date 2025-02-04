@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import {Title} from '@angular/platform-browser';
 
@@ -12,7 +12,8 @@ import {Title} from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'Agenda+';
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private router: Router) {
     this.titleService.setTitle(this.title);
+    this.router.navigate(['/login-usuario'])
   }
 }
