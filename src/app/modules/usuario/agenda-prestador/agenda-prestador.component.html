@@ -1,0 +1,76 @@
+<div *ngIf="!agendaDefinida">
+  <h1>Organize sua semana</h1>
+
+  <form (ngSubmit)="salvarAgenda()">
+
+    <h2>Data de início:</h2>
+    <mat-form-field>
+      <mat-label>Selecione uma data</mat-label>
+      <input matInput [matDatepicker]="dp" [(ngModel)]="dataInicial" name="dataInicial" required/>
+      <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
+
+    <h2>Dias de folga:</h2>
+    <mat-form-field>
+      <mat-label>Selecione os dias</mat-label>
+      <mat-select [formControl]="folgasSelecionadas" multiple name="diasFolga" required>
+        <mat-option *ngFor="let dia of diasDaSemana" [value]="dia">{{ dia }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h2>Horários</h2>
+    <h3>Início do expediente:</h3>
+    <mat-form-field>
+      <input type="time" [(ngModel)]="inicioExpediente" matInput name="inicioExpediente" required />
+    </mat-form-field>
+
+    <h3>Término do expediente:</h3>
+    <mat-form-field>
+      <input type="time" [(ngModel)]="terminoExpediente" matInput name="terminoExpediente" required />
+    </mat-form-field>
+
+    <h3>Hora do intervalo:</h3>
+    <mat-form-field>
+      <input type="time" [(ngModel)]="inicioIntervalo" matInput name="inicioIntervalo" required />
+    </mat-form-field>
+
+    <h3>Retorno do intervalo:</h3>
+    <mat-form-field>
+      <input type="time" [(ngModel)]="terminoIntervalo" matInput name="terminoIntervalo" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Salvar</button>
+  </form>
+</div>
+
+
+<div *ngIf="agendaDefinida">
+  <h1>Olá, [nome].</h1>
+  <h2>Bom dia de trabalho.</h2>
+  <h3>Semana de [data 1] a [data 2]</h3>
+  <mat-tab-group>
+    @for(diaDeTrabalho of agendaDefinida?.diasDeTrabalho; track $index){
+      <mat-tab [label]="diaDeTrabalho.dataFormatada">
+        <div *ngIf="diaDeTrabalho.agendamentos.length > 0">
+          @for (agendamento of diaDeTrabalho?.agendamentos; track $index){
+            <div>
+              <mat-card appearance="outlined">
+                <mat-card-header>
+                  <mat-card-title>{{agendamento.nomeServico}}</mat-card-title>
+                  <mat-card-subtitle>Cliente: {{agendamento.nomeCliente}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions align="end">
+                  <button mat-button>Remarcar</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          }
+        </div>
+        <div *ngIf="diaDeTrabalho.agendamentos.length === 0">
+          Não tem agendamentos
+        </div>
+      </mat-tab>
+    }
+  </mat-tab-group>
+</div>
