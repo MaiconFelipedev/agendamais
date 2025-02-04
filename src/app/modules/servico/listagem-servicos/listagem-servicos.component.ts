@@ -41,7 +41,6 @@ export class ListagemServicosComponent {
   }
 
 
-
   atualizarServicos(): void {
     let servicos = this.servicoService.getServicosPorCategoria(this.categoria);
 
