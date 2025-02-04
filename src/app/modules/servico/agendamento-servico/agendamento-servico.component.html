@@ -1,1 +1,17 @@
-<p>agendamento-servico works!</p>
+<h2>Agende seu horário</h2>
+<form (ngSubmit)="agendar()">
+  <mat-form-field appearance="outline">
+    <mat-label>Data do agendamento</mat-label>
+    <mat-select [formControl]="dataSelecionada">
+      <mat-option *ngFor="let diaDeTrabalho of agendaPrestador?.diasDeTrabalho" [value]="diaDeTrabalho.dataFormatada">
+        {{ diaDeTrabalho.dataFormatada }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field  appearance="outline">
+    <mat-label>Horário do agendamento</mat-label>
+    <input type="time" [(ngModel)]="horarioInicioAtendimento" matInput name="inicioExpediente" required />
+  </mat-form-field>
+  <button type="submit" mat-flat-button>Concluir</button>
+</form>
