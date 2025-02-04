@@ -8,6 +8,7 @@ import {ServicoService} from '../servico.service';
 import {Servico} from '../../../shared/model/servico';
 import {PrestadorServico} from '../../../shared/model/prestador-servico';
 import {UsuarioService} from '../../usuario/usuario.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-servico',
@@ -26,9 +27,9 @@ export class CadastroServicoComponent {
     private fb: FormBuilder,
     private servicoService: ServicoService,
     private usuarioService: UsuarioService,
+    private router: Router
   ) {
     this.titleService.setTitle(this.title);
-
     this.servicoForm = this.fb.group({
       nome: ['', Validators.required],
       tipo: ['', Validators.required],
@@ -45,9 +46,9 @@ export class CadastroServicoComponent {
       const novoServico = new Servico(nome, tipo, valor, duracao, descricao, prestador);
       this.servicoService.cadastrarServico(novoServico);
     }
-    this.snackBar.open('Serviço criado com sucesso', 'Fechar', {
+
+    this.router.navigate(['/agenda-prestador']).then(r => this.snackBar.open('Serviço criado com sucesso', 'Fechar', {
       duration: 3000
-    });
-    console.log(this.servicoService.getServicos())
+    }));
   }
 }
