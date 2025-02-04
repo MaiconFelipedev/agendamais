@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Title} from '@angular/platform-browser';
 import {UsuarioService} from '../usuario.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PrestadorServico} from '../../../shared/model/prestador-servico';
 
 @Component({
   selector: 'app-login-usuario',
@@ -37,12 +38,11 @@ export class LoginUsuarioComponent {
     const {email, senha} = this.loginForm.value;
     if(this.usuarioService.autenticar(email, senha)) {
       this.usuarioService.logarUsuario(email)
-      this.snackBar.open('Login realizado com sucesso.', 'Fechar', {
-        duration: 3000
-      });
-      this.router.navigate(['/']).then(r => this.snackBar.open('Login realizado com sucesso.', 'Fechar', {
-        duration: 3000
-      }));
+      if(this.usuarioService.usuarioLogado() instanceof PrestadorServico){
+        this.router.navigate(['/cadastro-servico']);
+      } else {
+        this.router.navigate(['/listagem-servicos']);
+      }
     } else {
       this.snackBar.open('Email ou senha inválidos, tente novamente.', 'Fechar', {
         duration: 3000
