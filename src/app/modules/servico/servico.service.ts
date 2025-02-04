@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Servico } from '../../shared/model/servico';
-import {Usuario} from '../../shared/model/usuario';
-import {Cliente} from '../../shared/model/cliente';
-import {PrestadorServico} from '../../shared/model/prestador-servico';
 
 
 @Injectable({
