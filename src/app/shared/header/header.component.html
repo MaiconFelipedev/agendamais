@@ -1,6 +1,6 @@
 <header>
   <mat-toolbar>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+    <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
       <mat-menu #menu="matMenu">
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/agenda-prestador'">Minha agenda</button>
