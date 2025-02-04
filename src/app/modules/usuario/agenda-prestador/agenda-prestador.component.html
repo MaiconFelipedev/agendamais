@@ -1,10 +1,10 @@
-<div *ngIf="!agendaDefinida">
+<div *ngIf="!agendaService.agendaAtual">
   <h1>Organize sua semana</h1>
 
   <form (ngSubmit)="salvarAgenda()">
 
     <h2>Data de início:</h2>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Selecione uma data</mat-label>
       <input matInput [matDatepicker]="dp" [(ngModel)]="dataInicial" name="dataInicial" required/>
       <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
@@ -12,7 +12,7 @@
     </mat-form-field>
 
     <h2>Dias de folga:</h2>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Selecione os dias</mat-label>
       <mat-select [formControl]="folgasSelecionadas" multiple name="diasFolga" required>
         <mat-option *ngFor="let dia of diasDaSemana" [value]="dia">{{ dia }}</mat-option>
@@ -21,36 +21,37 @@
 
     <h2>Horários</h2>
     <h3>Início do expediente:</h3>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <input type="time" [(ngModel)]="inicioExpediente" matInput name="inicioExpediente" required />
     </mat-form-field>
 
     <h3>Término do expediente:</h3>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <input type="time" [(ngModel)]="terminoExpediente" matInput name="terminoExpediente" required />
     </mat-form-field>
 
     <h3>Hora do intervalo:</h3>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <input type="time" [(ngModel)]="inicioIntervalo" matInput name="inicioIntervalo" required />
     </mat-form-field>
 
     <h3>Retorno do intervalo:</h3>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <input type="time" [(ngModel)]="terminoIntervalo" matInput name="terminoIntervalo" required />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Salvar</button>
+    <button mat-flat-button type="submit">Salvar</button>
   </form>
 </div>
 
 
-<div *ngIf="agendaDefinida">
-  <h1>Olá, [nome].</h1>
+<div id="agenda-prestador" *ngIf="agendaService.agendaAtual">
+  <mat-icon id="logo">event_available</mat-icon>
+  <h1>Olá, {{this.usuarioService.usuarioLogado()?.nome}}.</h1>
   <h2>Bom dia de trabalho.</h2>
-  <h3>Semana de [data 1] a [data 2]</h3>
+  <h3>Semana de {{format(agendaService.agendaAtual.dataInicialAgenda, "dd/MM/yyyy")}} a {{format(agendaService.agendaAtual.dataFinalAgenda, "dd/MM/yyyy")}}</h3>
   <mat-tab-group>
-    @for(diaDeTrabalho of agendaDefinida?.diasDeTrabalho; track $index){
+    @for(diaDeTrabalho of agendaService.agendaAtual?.diasDeTrabalho; track $index){
       <mat-tab [label]="diaDeTrabalho.dataFormatada">
         <div *ngIf="diaDeTrabalho.agendamentos.length > 0">
           @for (agendamento of diaDeTrabalho?.agendamentos; track $index){

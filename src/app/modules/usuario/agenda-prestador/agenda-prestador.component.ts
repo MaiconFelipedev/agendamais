@@ -4,7 +4,7 @@ import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {MaterialModule} from '../../material/material.module';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {addDays, parse, isBefore} from "date-fns";
+import {addDays, parse, isBefore, format} from "date-fns";
 import {AgendaService} from '../agenda.service';
 import {UsuarioService} from '../usuario.service';
 import {PrestadorServico} from '../../../shared/model/prestador-servico';
@@ -26,12 +26,11 @@ import 'moment/locale/pt-br';
 })
 export class AgendaPrestadorComponent {
   title = 'Agenda+ | Minha agenda';
-  agendaDefinida: Agenda | undefined = undefined;
 
   constructor(
     private titleService: Title,
-    private agendaService: AgendaService,
-    private usuarioService: UsuarioService
+    protected agendaService: AgendaService,
+    protected usuarioService: UsuarioService
   ) {
     this.titleService.setTitle(this.title);
   }
@@ -65,7 +64,6 @@ export class AgendaPrestadorComponent {
         const agendaGerada = prestador.definirAgenda([this.dataInicial.toDate(),this.dataFinal], this.folgas, [this.inicioIntervalo, this.terminoIntervalo], [this.inicioExpediente, this.terminoExpediente]);
         agendaGerada.idPrestador = prestador.id;
         this.agendaService.salvarAgenda(agendaGerada);
-        this.agendaDefinida = agendaGerada;
       } else {
         console.log("a hora inicial deve ser anterior à hora final")
       }
@@ -81,4 +79,6 @@ export class AgendaPrestadorComponent {
 
     return isBefore(hora1, hora2);
   }
+
+  protected readonly format = format;
 }
