@@ -3,14 +3,11 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="'/agenda-prestador'">agenda-prestador</button>
-        <button mat-menu-item [routerLink]="'/avaliacao-usuario'">avaliacao-usuario</button>
-        <button mat-menu-item [routerLink]="'/cadastro-usuario'">cadastro-usuario</button>
-        <button mat-menu-item [routerLink]="'/login-usuario'">login-usuario</button>
-        <button mat-menu-item [routerLink]="'/agendamento-servico'">agendamento-servico</button>
-        <button mat-menu-item [routerLink]="'/cadastro-servico'">cadastro-servico</button>
-        <button mat-menu-item [routerLink]="'/card-servico'">card-servico</button>
-        <button mat-menu-item [routerLink]="'listagem-servicos'">listagem-servicos</button>
+        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/agenda-prestador'">Minha agenda</button>
+
+        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/cadastro-servico'">Criar novo serviço</button>
+
+        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/listagem-servicos'">Agendar serviço</button>
       </mat-menu>
     </button>
     <span class="spacer"></span>
@@ -23,7 +20,7 @@
     <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="conta" aria-label="Conta">
       <mat-icon>account_circle</mat-icon>
       <mat-menu #conta="matMenu">
-        <button mat-menu-item><mat-icon>person</mat-icon>Perfil</button>
+        <button mat-menu-item [routerLink]="'/avaliacao-usuario'"><mat-icon>person</mat-icon>Perfil</button>
         <button mat-menu-item class="sair" (click)="usuarioService.deslogarUsuario()"  [routerLink]="'/login-usuario'"><mat-icon>logout</mat-icon>Sair</button>
       </mat-menu>
     </button>
