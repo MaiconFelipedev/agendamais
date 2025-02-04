@@ -1,5 +1,6 @@
 <mat-card class="cadastro-container">
-  <h3 id="titulo">Cadastrar usuário</h3>
+  <mat-icon id="logo">account_circle</mat-icon>
+  <h1 id="titulo">Cadastrar usuário</h1>
 
   <mat-card-content>
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
@@ -43,7 +44,10 @@
       </div>
 
       <div class="endereco-section">
-        <h4 id="endereço">Endereço</h4>
+        <h2 id="endereço">
+          <mat-icon style="color: #3f51b5">location_on</mat-icon>
+          Endereço
+        </h2>
         <div class="endereco-fields" formGroupName="endereco">
           <mat-form-field appearance="outline">
             <mat-label>Rua</mat-label>
@@ -87,7 +91,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">
+      <button mat-flat-button type="submit" [disabled]="usuarioForm.invalid">
         Cadastrar
       </button>
     </form>

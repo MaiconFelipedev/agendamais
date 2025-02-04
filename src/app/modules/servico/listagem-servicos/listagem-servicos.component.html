@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Categoria</mat-label>
     <mat-select [(ngModel)]="categoria" (change)="atualizarServicos()" placeholder="Selecione uma categoria">
       <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
