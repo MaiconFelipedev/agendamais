@@ -1,5 +1,6 @@
 <div *ngIf="!agendaService.agendaAtual">
-  <h1>Organize sua semana</h1>
+  <mat-icon class="logo">date_range</mat-icon>
+  <h1 class="titulo">Organize sua semana</h1>
 
   <form (ngSubmit)="salvarAgenda()">
 
@@ -46,7 +47,7 @@
 
 
 <div id="agenda-prestador" *ngIf="agendaService.agendaAtual">
-  <mat-icon id="logo">event_available</mat-icon>
+  <mat-icon class="logo">event_available</mat-icon>
   <h1>Olá, {{this.usuarioService.usuarioLogado()?.nome}}.</h1>
   <h2>Bom dia de trabalho.</h2>
   <h3>Semana de {{format(agendaService.agendaAtual.dataInicialAgenda, "dd/MM/yyyy")}} a {{format(agendaService.agendaAtual.dataFinalAgenda, "dd/MM/yyyy")}}</h3>

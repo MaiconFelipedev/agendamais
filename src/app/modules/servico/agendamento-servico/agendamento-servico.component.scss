@@ -30,3 +30,9 @@ button {
   border: none;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  form {
+    box-shadow: none;
+  }
+}
