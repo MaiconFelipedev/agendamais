@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../shared/model/usuario';
 import {PrestadorServico} from '../../shared/model/prestador-servico';
 import {Cliente} from '../../shared/model/cliente';
+import {UsuarioFirestoreService} from './usuario-firestore.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +17,44 @@ export class UsuarioService {
   private prestadores: PrestadorServico[] = [];
   private nextId = 1;
 
-  constructor() { }
+  constructor(
+    private usuarioFirestore: UsuarioFirestoreService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   private gerarId(): number {
     return this.nextId++;
   }
 
-  cadastrarUsuario(usuario: Usuario): void {
-    usuario.id = this.gerarId(); // Atribui um ID único
-    if (usuario instanceof Cliente) {
-      this.clientes.push(usuario)
-    }
-    if (usuario instanceof PrestadorServico) {
-      this.prestadores.push(usuario);
-    }
-    this.usuarios.push(usuario)
+  estaCadastrado(email: string): Observable<boolean> {
+    return this.usuarioFirestore.estaCadastrado(email).pipe(
+      map(resultado => resultado != null)
+    );
   }
+
+  cadastrarNoBanco(usuario: Usuario){
+    this.usuarioFirestore.cadastrar(usuario).subscribe({
+      next: resultado => {
+        if(resultado instanceof Usuario){
+          this.router.navigate(['/login-usuario']).then(r => this.snackBar.open(`Usuário ${resultado.email} registrado com sucesso!`, 'Fechar', {
+            duration: 3000
+          }));
+        }
+      }
+    })
+  }
+
+  // cadastrarUsuario(usuario: Usuario): void {
+  //   usuario.id = this.gerarId(); // Atribui um ID único
+  //   if (usuario instanceof Cliente) {
+  //     this.clientes.push(usuario)
+  //   }
+  //   if (usuario instanceof PrestadorServico) {
+  //     this.prestadores.push(usuario);
+  //   }
+  //   this.usuarios.push(usuario)
+  // }
 
   getUsuarios(): Usuario[] {
     return this.usuarios;

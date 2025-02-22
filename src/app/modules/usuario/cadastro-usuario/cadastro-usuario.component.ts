@@ -32,16 +32,16 @@ export class CadastroUsuarioComponent {
     console.log(this.userService.getUsuarios())
 
     this.usuarioForm = this.fb.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
+      nome: ['sofia', Validators.required],
+      email: ['sofe@email', [Validators.required, Validators.email]],
+      senha: ['123@abc', [Validators.required, Validators.minLength(6)]],
+      telefone: ['1234567890', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
       tipo: ['', Validators.required],
       endereco: this.fb.group({
-        rua: ['', Validators.required],
-        bairro: ['', Validators.required],
-        cidade: ['', Validators.required],
-        estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
+        rua: ['rua', Validators.required],
+        bairro: ['bairro', Validators.required],
+        cidade: ['cidade', Validators.required],
+        estado: ['PB', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
       })
     });
   }
@@ -51,27 +51,33 @@ export class CadastroUsuarioComponent {
       const { nome, email, senha, telefone, tipo, endereco } = this.usuarioForm.value;
 
       // Verifica se o e-mail já existe
-      if (this.userService.emailExiste(email)) {
-        this.snackBar.open('Este e-mail já está cadastrado!', 'Fechar', {
-          duration: 3000
-        });
-        return;
-      }
+      // if (this.userService.emailExiste(email)) {
+      //   this.snackBar.open('Este e-mail já está cadastrado!', 'Fechar', {
+      //     duration: 3000
+      //   });
+      //   return;
+      // }
 
-      if (tipo === "cliente"){
-        const novoUsuario = new Cliente(nome, email, senha, telefone, tipo, endereco);
-        this.userService.cadastrarUsuario(novoUsuario);
-      }
-      else {
-        const novoUsuario = new PrestadorServico(nome, email, senha, telefone, tipo, endereco);
-        this.userService.cadastrarUsuario(novoUsuario);
-      }
+      this.userService.estaCadastrado(email).subscribe(
+        resultado => {
+          if(resultado){
+            this.router.navigate(['/login-usuario']).then(r => this.snackBar.open(`O usuário de email ${email} já está cadastrado.`, "Fechar", {
+              duration: 3000
+            }));
+          } else {
+            if (tipo === "cliente"){
+              const novoUsuario = new Cliente(nome, email, senha, telefone, tipo, endereco);
+              this.userService.cadastrarNoBanco(novoUsuario);
+            }
+            else {
+              const novoUsuario = new PrestadorServico(nome, email, senha, telefone, tipo, endereco);
+              this.userService.cadastrarNoBanco(novoUsuario);
+            }
+          }
+        }
+      )
 
-      this.userService.autenticar(email, senha)
-
-      this.router.navigate(['/login-usuario']).then(r => this.snackBar.open('Usuário cadastrado com sucesso!', 'Fechar', {
-        duration: 3000
-      }));
+      // this.userService.autenticar(email, senha)
     }
   }
 

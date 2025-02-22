@@ -1,5 +1,5 @@
 export class Usuario {
-  id?: number;
+  id?: string;
   nome: string;
   email: string;
   senha: string;
@@ -14,7 +14,7 @@ export class Usuario {
   avaliacaoMedia: number;
 
   constructor(nome: string, email: string, senha: string, telefone: string, tipo: string,
-              endereco: { rua: string; bairro: string; cidade: string; estado: string }) {
+              endereco: { rua: string; bairro: string; cidade: string; estado: string }, id?: string) {
       this.nome = nome;
       this.email = email;
       this.senha = senha;
@@ -22,6 +22,7 @@ export class Usuario {
       this.endereco = endereco;
       this.tipo = tipo;
       this.avaliacaoMedia = 0;
+      this.id = id;
   }
 
   autenticar(email: string, senha: string): boolean {

@@ -51,7 +51,7 @@
   <h2>Bom dia de trabalho.</h2>
   <h3>Semana de {{format(agendaService.agendaAtual.dataInicialAgenda, "dd/MM/yyyy")}} a {{format(agendaService.agendaAtual.dataFinalAgenda, "dd/MM/yyyy")}}</h3>
   <mat-tab-group>
-    @for(diaDeTrabalho of agendaService.agendaAtual?.diasDeTrabalho; track $index){
+    @for(diaDeTrabalho of agendaService.agendaAtual.diasDeTrabalho; track $index){
       <mat-tab [label]="diaDeTrabalho.dataFormatada">
         <div *ngIf="diaDeTrabalho.agendamentos.length > 0">
           @for (agendamento of diaDeTrabalho?.agendamentos; track $index){

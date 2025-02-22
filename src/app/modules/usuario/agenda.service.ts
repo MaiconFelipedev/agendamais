@@ -16,11 +16,11 @@ export class AgendaService {
     return this.nextId++;
   }
 
-  salvarAgenda(agenda: Agenda): void {
-    agenda.id = this.gerarId();
-    this.agendas.push(agenda);
-    this.agendaAtual = agenda;
-  }
+  // salvarAgenda(agenda: Agenda): void {
+  //   agenda.id = this.gerarId();
+  //   this.agendas.push(agenda);
+  //   this.agendaAtual = agenda;
+  // }
 
   resgatarAgenda(): Agenda | undefined{
     return this.agendaAtual;

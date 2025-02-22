@@ -56,21 +56,21 @@ export class AgendaPrestadorComponent {
   //
 
   salvarAgenda(){
-    const prestador = this.usuarioService.usuarioLogado() as PrestadorServico;
-
-    // exibir exceção com modal
-    if(prestador){
-      if(this.horaCerta()){
-        const agendaGerada = prestador.definirAgenda([this.dataInicial.toDate(),this.dataFinal], this.folgas, [this.inicioIntervalo, this.terminoIntervalo], [this.inicioExpediente, this.terminoExpediente]);
-        agendaGerada.idPrestador = prestador.id;
-        this.agendaService.salvarAgenda(agendaGerada);
-      } else {
-        console.log("a hora inicial deve ser anterior à hora final")
-      }
-
-    } else {
-      console.log("falta logar");
-    }
+    // const prestador = this.usuarioService.usuarioLogado() as PrestadorServico;
+    //
+    // // exibir exceção com modal
+    // if(prestador){
+    //   if(this.horaCerta()){
+    //     const agendaGerada = prestador.definirAgenda([this.dataInicial.toDate(),this.dataFinal], this.folgas, [this.inicioIntervalo, this.terminoIntervalo], [this.inicioExpediente, this.terminoExpediente]);
+    //     agendaGerada.idPrestador = prestador.id;
+    //     this.agendaService.salvarAgenda(agendaGerada);
+    //   } else {
+    //     console.log("a hora inicial deve ser anterior à hora final")
+    //   }
+    //
+    // } else {
+    //   console.log("falta logar");
+    // }
   }
 
   horaCerta(): boolean{

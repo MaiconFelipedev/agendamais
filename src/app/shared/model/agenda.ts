@@ -9,22 +9,22 @@ export class Agenda {
     private _diasDeTrabalho: DiaDeTrabalho[] = [],
     private _statusAgenda: string = "Aberta",
     private _id?: number,
-    private _idPrestador?: number
+    private _idPrestador?: string
   ) {}
 
   get id() : number | undefined {
     return this._id;
   }
 
-  set id(novoId) {
+  set id(novoId: string) {
     this._idPrestador = novoId;
   }
 
-  get idPrestador() : number | undefined {
+  get idPrestador() : string | undefined {
     return this._idPrestador;
   }
 
-  set idPrestador(novoIdPrestador) {
+  set idPrestador(novoIdPrestador: string) {
     this._idPrestador = novoIdPrestador;
   }
 

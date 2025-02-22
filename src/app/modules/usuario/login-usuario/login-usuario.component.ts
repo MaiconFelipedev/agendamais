@@ -29,8 +29,8 @@ export class LoginUsuarioComponent {
   ) {
     this.titleService.setTitle(this.title);
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['sofia@email', [Validators.required, Validators.email]],
+      senha: ['123@abc', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -39,7 +39,7 @@ export class LoginUsuarioComponent {
     if(this.usuarioService.autenticar(email, senha)) {
       this.usuarioService.logarUsuario(email)
       if(this.usuarioService.usuarioLogado() instanceof PrestadorServico){
-        this.router.navigate(['/cadastro-servico']);
+        this.router.navigate(['/agenda-prestador']);
       } else {
         this.router.navigate(['/listagem-servicos']);
       }
