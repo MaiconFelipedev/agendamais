@@ -40,4 +40,28 @@ export class UsuarioFirestoreService {
       })
     )
   }
+
+  autenticar(email: string, senha: string): Observable<Usuario | null> {
+    const q = query(
+      this.colecaoUsuarios,
+      where("email", "==", email),
+      where("senha", "==", senha)
+    );
+
+    return from(getDocs(q)).pipe(
+      map(resposta => {
+        const doc = resposta.docs[0];
+        return doc ? new Usuario(
+          doc.data()['nome'],
+          doc.data()['email'],
+          doc.data()['senha'],
+          doc.data()['telefone'],
+          doc.data()['tipo'],
+          doc.data()['endereco'],
+          doc.id
+        ) : null;
+      })
+    );
+  }
+
 }

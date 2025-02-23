@@ -29,7 +29,6 @@ export class CadastroUsuarioComponent {
     private router: Router
   ) {
     this.titleService.setTitle(this.title);
-    console.log(this.userService.getUsuarios())
 
     this.usuarioForm = this.fb.group({
       nome: ['sofia', Validators.required],

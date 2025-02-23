@@ -12,10 +12,6 @@ import {map, Observable} from 'rxjs';
 })
 export class UsuarioService {
   private usuarioAtual: Usuario | undefined;
-  private usuarios: Usuario[] = [];
-  private clientes: Cliente[] = [];
-  private prestadores: PrestadorServico[] = [];
-  private nextId = 1;
 
   constructor(
     private usuarioFirestore: UsuarioFirestoreService,
@@ -23,9 +19,6 @@ export class UsuarioService {
     private snackBar: MatSnackBar
   ) { }
 
-  private gerarId(): number {
-    return this.nextId++;
-  }
 
   estaCadastrado(email: string): Observable<boolean> {
     return this.usuarioFirestore.estaCadastrado(email).pipe(
@@ -45,26 +38,46 @@ export class UsuarioService {
     })
   }
 
-  // cadastrarUsuario(usuario: Usuario): void {
-  //   usuario.id = this.gerarId(); // Atribui um ID único
-  //   if (usuario instanceof Cliente) {
-  //     this.clientes.push(usuario)
-  //   }
-  //   if (usuario instanceof PrestadorServico) {
-  //     this.prestadores.push(usuario);
-  //   }
-  //   this.usuarios.push(usuario)
-  // }
-
-  getUsuarios(): Usuario[] {
-    return this.usuarios;
-  }
-
-  autenticar(email: string, senha: string): boolean {
-    return this.usuarios.some(user =>
-      user.email === email && user.senha === senha
+  autenticar(email: string, senha: string): Observable<boolean> {
+    return this.usuarioFirestore.autenticar(email, senha).pipe(
+      map(usuario => {
+        if (usuario) {
+          sessionStorage.setItem('usuarioLogado', JSON.stringify(usuario)); // Armazena o usuário na sessão
+          this.usuarioAtual = usuario;
+          return true;
+        }
+        return false;
+      })
     );
   }
+
+  logarUsuario(email: string): void {
+    const usuarioJSON = sessionStorage.getItem('usuarioLogado');
+    if (usuarioJSON) {
+      this.usuarioAtual = JSON.parse(usuarioJSON);
+    }
+  }
+
+  deslogarUsuario(): void {
+    sessionStorage.removeItem('usuarioLogado');
+    this.usuarioAtual = undefined;
+    this.router.navigate(['/login-usuario'])
+  }
+
+  usuarioLogado(): Usuario | undefined {
+    if (!this.usuarioAtual) {
+      const usuarioJSON = sessionStorage.getItem('usuarioLogado');
+      if (usuarioJSON) {
+        this.usuarioAtual = JSON.parse(usuarioJSON);
+      }
+    }
+    return this.usuarioAtual;
+  }
+
+  nomeUsuario(): string | undefined {
+    return this.usuarioLogado()?.nome;
+  }
+
 
 
   // atualizarUsuario(id: number, novosDados: Partial<Usuario>): void {
@@ -74,27 +87,12 @@ export class UsuarioService {
   //   }
   // }
 
-  emailExiste(email: string): boolean {
-    return this.usuarios.some(user => user.email === email);
-  }
+  // emailExiste(email: string): boolean {
+  //   return this.usuarios.some(user => user.email === email);
+  // }
+  //
+  // getUsuarioPorEmail(email: string): Usuario | undefined {
+  //   return this.usuarios.find(user => user.email === email);
+  // }
 
-  getUsuarioPorEmail(email: string): Usuario | undefined {
-    return this.usuarios.find(user => user.email === email);
-  }
-
-  logarUsuario(email: string): void {
-    this.usuarioAtual = this.getUsuarioPorEmail(email);
-  }
-
-  deslogarUsuario(): void {
-    this.usuarioAtual = undefined;
-  }
-
-  usuarioLogado(): Usuario | undefined {
-    return this.usuarioAtual;
-  }
-
-  nomeUsuario(): string | undefined {
-    return this.usuarioAtual?.nome;
-  }
 }

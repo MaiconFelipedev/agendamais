@@ -35,19 +35,25 @@ export class LoginUsuarioComponent {
   }
 
   onSubmit(): void {
-    const {email, senha} = this.loginForm.value;
-    if(this.usuarioService.autenticar(email, senha)) {
-      this.usuarioService.logarUsuario(email)
-      if(this.usuarioService.usuarioLogado() instanceof PrestadorServico){
-        this.router.navigate(['/agenda-prestador']);
+    const { email, senha } = this.loginForm.value;
+
+    this.usuarioService.autenticar(email, senha).subscribe((autenticado) => {
+      if (autenticado) {
+        this.usuarioService.logarUsuario(email);
+        const usuario = this.usuarioService.usuarioLogado();
+
+        if (usuario?.tipo === 'prestador') {
+          this.router.navigate(['/agenda-prestador']);
+        } else {
+          this.router.navigate(['/listagem-servicos']);
+        }
       } else {
-        this.router.navigate(['/listagem-servicos']);
+        this.snackBar.open('Email ou senha inválidos, tente novamente.', 'Fechar', {
+          duration: 3000
+        });
       }
-    } else {
-      this.snackBar.open('Email ou senha inválidos, tente novamente.', 'Fechar', {
-        duration: 3000
-      });
-    }
+    });
   }
+
 
 }
