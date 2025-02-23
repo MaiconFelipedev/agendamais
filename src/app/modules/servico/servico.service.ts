@@ -1,43 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Servico } from '../../shared/model/servico';
-
+import { ServicoFirestoreService } from './servico-firestore.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicoService {
-  private servicos: Servico[] = [];
-  private nextId = 1;
+  constructor(private servicoFirestoreService: ServicoFirestoreService) {}
 
-  constructor() { }
-
-  private gerarId(): number {
-    return this.nextId++;
+  cadastrarServico(servico: Servico): Observable<Servico | null> {
+    return this.servicoFirestoreService.cadastrar(servico);
   }
 
-  cadastrarServico(servico: Servico): void {
-    servico.id = this.gerarId(); // Atribui um ID único
-    this.servicos.push(servico)
+  getServicos(): Observable<Servico[]> {
+    return this.servicoFirestoreService.listarServicos();
   }
 
-  getServicos(): Servico[] {
-    return this.servicos;
-  }
-
-  getServicosPorCategoria(categoria: string = ''): Servico[] {
+  getServicosPorCategoria(categoria: string = ''): Observable<Servico[]> {
     if (categoria) {
-      return this.listarPorCategoria(categoria);
+      return this.servicoFirestoreService.listarPorTipo(categoria);
     }
-    return this.servicos;
+    return this.servicoFirestoreService.listarServicos();
   }
 
-  listarPorCategoria(categoria: string): Servico[] {
-    return this.servicos.filter(servico => servico.categoria === categoria);
-  }
-
-  gerarCategorias(): string[] {
-    // Extrai as categorias únicas dos serviços cadastrados
-    const categorias = this.servicos.map(servico => servico.categoria);
-    return Array.from(new Set(categorias)); // Remove duplicatas
+  gerarTipos(): Observable<string[]> {
+    return this.servicoFirestoreService.gerarTipos();
   }
 }

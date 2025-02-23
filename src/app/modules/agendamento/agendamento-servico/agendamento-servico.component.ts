@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {Title} from '@angular/platform-browser';
 import {UsuarioService} from '../../usuario/usuario.service';
 import {AgendaService} from '../../usuario/agenda.service';
-import {ServicoService} from '../servico.service';
+import {ServicoService} from '../../servico/servico.service';
 import {Servico} from '../../../shared/model/servico';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Agenda} from '../../../shared/model/agenda';

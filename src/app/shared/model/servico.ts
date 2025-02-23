@@ -8,7 +8,7 @@ export class Servico {
   private _preco: number;
   private _duracao: string;
   private _descricao: string;
-  private _prestador?: string;
+  private _prestador?: PrestadorServico;
   // Agendamentos feitos para esse servico
   private _agendamentos: Agendamento[] = [];
 
@@ -18,7 +18,7 @@ export class Servico {
     preco: number,
     duracao: string,
     descricao: string,
-    prestador?: string,
+    prestador?: PrestadorServico,
     id?: string
   ) {
     this._nome = nome;
@@ -58,7 +58,7 @@ export class Servico {
     return this._duracao;
   }
 
-  get prestador(): string | undefined {
+  get prestador(): PrestadorServico | undefined {
     return this._prestador;
   }
 

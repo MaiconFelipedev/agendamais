@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {MaterialModule} from '../../material/material.module';
-import {CommonModule} from '@angular/common';
-import {Title} from '@angular/platform-browser';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {ServicoService} from '../servico.service';
-import {Servico} from '../../../shared/model/servico';
-import {PrestadorServico} from '../../../shared/model/prestador-servico';
-import {UsuarioService} from '../../usuario/usuario.service';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
+import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ServicoService } from '../servico.service';
+import { Servico } from '../../../shared/model/servico';
+import { PrestadorServico } from '../../../shared/model/prestador-servico';
+import { UsuarioService } from '../../usuario/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-servico',
@@ -38,17 +38,20 @@ export class CadastroServicoComponent {
       descricao: ['']
     });
   }
+
   onSubmit(): void {
     if (this.servicoForm.valid) {
-      const {nome, tipo, valor, duracao, descricao} = this.servicoForm.value;
+      const { nome, tipo, valor, duracao, descricao } = this.servicoForm.value;
       const prestador = this.usuarioService.usuarioLogado() as PrestadorServico;
 
       const novoServico = new Servico(nome, tipo, valor, duracao, descricao, prestador);
-      this.servicoService.cadastrarServico(novoServico);
+      this.servicoService.cadastrarServico(novoServico).subscribe(() => {
+        this.router.navigate(['/agenda-prestador']).then(() => {
+          this.snackBar.open('Serviço criado com sucesso', 'Fechar', {
+            duration: 3000
+          });
+        });
+      });
     }
-
-    this.router.navigate(['/agenda-prestador']).then(r => this.snackBar.open('Serviço criado com sucesso', 'Fechar', {
-      duration: 3000
-    }));
   }
 }

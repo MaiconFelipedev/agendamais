@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {MaterialModule} from '../../material/material.module';
-import {CommonModule} from '@angular/common';
-import {Servico} from '../../../shared/model/servico';
-import {FormsModule} from '@angular/forms';
-import {CardServicoComponent} from '../card-servico/card-servico.component';
-import {ServicoService} from '../servico.service';
-import {Title} from '@angular/platform-browser';
-
+import { Component } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
+import { CommonModule } from '@angular/common';
+import { Servico } from '../../../shared/model/servico';
+import { FormsModule } from '@angular/forms';
+import { CardServicoComponent } from '../card-servico/card-servico.component';
+import { ServicoService } from '../servico.service';
+import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listagem-servicos',
@@ -24,47 +24,29 @@ export class ListagemServicosComponent {
   title = 'Agenda+ | Lista de serviços';
   servicos: Servico[] = [];
   busca: string = '';
-  categoria: string = '';
-  categorias: string[] = [];
+  tipo: string = '';
+  tipos: string[] = [];
 
   constructor(private servicoService: ServicoService, private titleService: Title) {
     this.titleService.setTitle(this.title);
   }
 
   ngOnInit() {
-    this.carregarCategorias();
+    this.carregarTipos();
     this.atualizarServicos();
   }
-  carregarCategorias() {
-    this.categorias = this.servicoService.gerarCategorias();
-    console.log('Categorias carregadas:', this.categorias);
-  }
 
+  carregarTipos() {
+    this.servicoService.gerarTipos().subscribe(tipos => {
+      this.tipos = tipos;
+      console.log('Tipos carregados:', this.tipos);
+    });
+  }
 
   atualizarServicos(): void {
-    let servicos = this.servicoService.getServicosPorCategoria(this.categoria);
-
-    // Adicione um log para verificar os serviços recebidos
-    console.log('Serviços carregados:', servicos);
-
-    // Filtra os serviços com base no campo de busca
-    if (this.busca.trim()) {
-      servicos = servicos.filter((servico) =>
-        servico.nome.toLowerCase().includes(this.busca.toLowerCase())
-      );
-    }
-
-    this.servicos = servicos;
+    this.servicoService.getServicosPorCategoria(this.tipo).subscribe(servicos => {
+      this.servicos = servicos;
+      console.log('Serviços carregados:', servicos);
+    });
   }
-
-
-
-  //atualizarServicos(): void {
-    //this.servicoService.getServicosPorCategoria(this.categoria).subscribe((servicos: Servico[]) => {
-      //this.servicos = servicos.filter((servico) =>
-        //servico.nome.toLowerCase().includes(this.busca.toLowerCase())
-      //);
-    //});
-  //}
-  //protected readonly Servico = Servico;
 }

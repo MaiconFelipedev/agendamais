@@ -1,8 +1,8 @@
 <div class="card">
   <h2>{{ servico.nome }}</h2>
   <p *ngIf="servico.descricao.length > 0">{{ servico.descricao }}</p>
-  <p><strong>Categoria:</strong> {{ servico.categoria }}</p>
-  <p><strong>Responsável:</strong> {{ servico.prestador.nome }}</p>
+  <p><strong>Categoria:</strong> {{ servico.tipo }}</p>
+  <p><strong>Responsável:</strong> {{ servico.prestador?.nome }}</p>
   <p><strong>Preço:</strong> {{ servico.preco | currency:'BRL' }}</p>
   <button mat-flat-button [routerLink]="'/agendamento-servico'" [state]="{ servico: servico }">Agendar horário</button>
 </div>

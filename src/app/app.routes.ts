@@ -3,7 +3,7 @@ import { AgendaPrestadorComponent } from './modules/usuario/agenda-prestador/age
 import { AvaliacaoUsuarioComponent } from './modules/usuario/avaliacao-usuario/avaliacao-usuario.component';
 import { CadastroUsuarioComponent } from './modules/usuario/cadastro-usuario/cadastro-usuario.component';
 import { LoginUsuarioComponent } from './modules/usuario/login-usuario/login-usuario.component';
-import { AgendamentoServicoComponent } from './modules/servico/agendamento-servico/agendamento-servico.component';
+import { AgendamentoServicoComponent } from './modules/agendamento/agendamento-servico/agendamento-servico.component';
 import { CadastroServicoComponent } from './modules/servico/cadastro-servico/cadastro-servico.component';
 import { CardServicoComponent } from './modules/servico/card-servico/card-servico.component';
 import { ListagemServicosComponent } from './modules/servico/listagem-servicos/listagem-servicos.component';
