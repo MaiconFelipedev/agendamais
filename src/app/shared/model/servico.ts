@@ -2,33 +2,35 @@ import { PrestadorServico } from './prestador-servico';
 import { Agendamento } from './agendamento';
 
 export class Servico {
-  private _id?: number;
+  private _id?: string | undefined;
   private _nome: string;
-  private _categoria: string;
+  private _tipo: string;
   private _preco: number;
   private _duracao: string;
   private _descricao: string;
-  private _prestador: PrestadorServico;
+  private _prestador?: string;
   // Agendamentos feitos para esse servico
   private _agendamentos: Agendamento[] = [];
 
   constructor(
     nome: string,
-    categoria: string,
+    tipo: string,
     preco: number,
     duracao: string,
     descricao: string,
-    prestador: PrestadorServico
+    prestador?: string,
+    id?: string
   ) {
     this._nome = nome;
-    this._categoria = categoria;
+    this._tipo = tipo;
     this._preco = preco;
     this._duracao = duracao;
     this._descricao = descricao;
     this._prestador = prestador;
+    this._id = id;
   }
 
-  get id(): number | undefined {
+  get id(): string| undefined {
     return this._id;
   }
 
@@ -44,8 +46,8 @@ export class Servico {
     return this._descricao;
   }
 
-  get categoria(): string { // Getter para categoria
-    return this._categoria;
+  get tipo(): string { // Getter para tipo
+    return this._tipo;
   }
 
   get preco(): number {
@@ -56,7 +58,7 @@ export class Servico {
     return this._duracao;
   }
 
-  get prestador(): PrestadorServico {
+  get prestador(): string | undefined {
     return this._prestador;
   }
 
@@ -77,10 +79,10 @@ export class Servico {
   }
 
   // Atualizar as informações do serviço
-  atualizarInformacoes(nome: string, descricao: string, categoria: string, preco: number, duracao: string): Servico {
+  atualizarInformacoes(nome: string, descricao: string, tipo: string, preco: number, duracao: string): Servico {
     this._nome = nome;
     this._descricao = descricao;
-    this._categoria = this.categoria;
+    this._tipo = tipo;
     this._preco = preco;
     this._duracao = duracao;
     return this;

@@ -26,17 +26,34 @@ export class UsuarioService {
     );
   }
 
-  cadastrarNoBanco(usuario: Usuario){
+  cadastrarNoBanco(usuario: Usuario) {
     this.usuarioFirestore.cadastrar(usuario).subscribe({
-      next: resultado => {
-        if(resultado instanceof Usuario){
-          this.router.navigate(['/login-usuario']).then(r => this.snackBar.open(`Usuário ${resultado.email} registrado com sucesso!`, 'Fechar', {
+      next: (resultado) => {
+        if (resultado instanceof Usuario) {
+          // Armazena o usuário na sessão
+          sessionStorage.setItem('usuarioLogado', JSON.stringify(resultado));
+          this.usuarioAtual = resultado;
+
+          // Redireciona o usuário após o cadastro
+          if (resultado.tipo === 'prestador') {
+            this.router.navigate(['/agenda-prestador']);
+          } else {
+            this.router.navigate(['/listagem-servicos']);
+          }
+
+          this.snackBar.open(`Bem-vindo, ${resultado.nome}!`, 'Fechar', {
             duration: 3000
-          }));
+          });
         }
+      },
+      error: () => {
+        this.snackBar.open('Erro ao cadastrar usuário. Tente novamente.', 'Fechar', {
+          duration: 3000
+        });
       }
-    })
+    });
   }
+
 
   autenticar(email: string, senha: string): Observable<boolean> {
     return this.usuarioFirestore.autenticar(email, senha).pipe(

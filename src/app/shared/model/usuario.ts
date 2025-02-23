@@ -25,6 +25,7 @@ export class Usuario {
       this.id = id;
   }
 
+
   autenticar(email: string, senha: string): boolean {
       return this.email === email && this.senha === senha;
   }
