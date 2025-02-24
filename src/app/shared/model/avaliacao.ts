@@ -1,13 +1,11 @@
 import {Agendamento} from './agendamento';
-import {Usuario} from './usuario';
 
-export abstract class Avaliacao {
-
-  protected constructor(
+export class Avaliacao {
+  constructor(
     public agendamento: Agendamento,
     public nota: number,
     public data: Date,
+    public comentario: string,
+    public id?: number
   ) {}
-
-  abstract avaliar(usuario: Usuario): void;
 }
