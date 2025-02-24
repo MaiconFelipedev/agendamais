@@ -11,7 +11,25 @@ export class Agendamento {
       private _valorTotal: number,
       private _status: string = "Solicitado",
       private _id ?: string
-    ) {}
+    ) {
+      if (!this._horarioFinal) {
+        const duracao = this.converterDuracao(this._servico.duracao);
+        this._horarioFinal = new Date(this._horarioInicial.getTime() + duracao * 60000);
+      }
+    }
+
+  // Método para converter o objeto em um formato simples
+  toObject(): any {
+    return {
+      horarioInicial: this._horarioInicial,
+      horarioFinal: this._horarioFinal,
+      cliente: this._cliente.toObject ? this._cliente.toObject() : this._cliente,
+      servico: this._servico.toObject ? this._servico.toObject() : this._servico,
+      valorTotal: this._valorTotal,
+      status: this._status,
+      id: this._id
+    };
+  }
 
     // Getter para acessar a data do agendamento
     get data(): string {
@@ -20,6 +38,18 @@ export class Agendamento {
       const ano = this._horarioInicial.getFullYear();
 
       return `${dia}/${mes}/${ano}`;
+    }
+
+    get cliente(): Cliente {
+      return this._cliente;
+    }
+
+    get servico(): Servico {
+      return this._servico;
+    }
+
+    get valorTotal() {
+      return this._valorTotal;
     }
 
     get nomeCliente(): string {
@@ -62,5 +92,10 @@ export class Agendamento {
     reagendar(novoHorarioInicial: Date, novoHorarioFinal: Date): void {
       this._horarioInicial = novoHorarioInicial;
       this._horarioFinal= novoHorarioFinal;
+    }
+
+    private converterDuracao(tempo: string): number {
+      const [horas, minutos] = tempo.split(":").map(Number);
+      return horas * 60 + minutos;
     }
 }

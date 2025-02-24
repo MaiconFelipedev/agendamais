@@ -42,7 +42,8 @@ export class LoginUsuarioComponent {
         this.usuarioService.logarUsuario(email);
         const usuario = this.usuarioService.usuarioLogado();
 
-        if (usuario?.tipo === 'prestador') {
+        console.log(usuario?.tipo);
+        if (usuario?.tipo === 'profissional') {
           this.router.navigate(['/agenda-prestador']);
         } else {
           this.router.navigate(['/listagem-servicos']);

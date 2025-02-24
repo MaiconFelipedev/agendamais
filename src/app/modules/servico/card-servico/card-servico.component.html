@@ -4,5 +4,5 @@
   <p><strong>Categoria:</strong> {{ servico.tipo }}</p>
   <p><strong>Responsável:</strong> {{ servico.prestador?.nome }}</p>
   <p><strong>Preço:</strong> {{ servico.preco | currency:'BRL' }}</p>
-  <button mat-flat-button [routerLink]="'/agendamento-servico'" [state]="{ servico: servico }">Agendar horário</button>
+  <button mat-flat-button [routerLink]="'/agendamento-servico'" [state]="{ servico: servico }">Solicitar agendamento</button>
 </div>

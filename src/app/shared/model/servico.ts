@@ -28,6 +28,19 @@ export class Servico {
     this._id = id;
   }
 
+  // Método para converter o objeto em um formato simples
+  toObject(): any {
+    return {
+      id: this._id,
+      nome: this._nome,
+      tipo: this._tipo,
+      preco: this._preco,
+      duracao: this._duracao,
+      descricao: this._descricao,
+      prestador: this._prestador?.toObject ? this._prestador.toObject() : this._prestador
+    };
+  }
+
   get id(): string| undefined {
     return this._id;
   }

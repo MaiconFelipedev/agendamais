@@ -31,6 +31,11 @@ button {
   cursor: pointer;
 }
 
+.snackbar-error {
+  background-color: #f44336; // Vermelho para indicar erro
+  color: white; // Texto branco
+}
+
 @media (max-width: 768px) {
   form {
     box-shadow: none;

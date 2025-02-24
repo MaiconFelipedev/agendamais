@@ -15,4 +15,15 @@ export class PrestadorServico extends Usuario {
     endereco: { rua: string; bairro: string; cidade: string; estado: string }, id?: string) {
     super(nome, email, senha, telefone, tipo, endereco, id);
     }
+
+  // Método para converter o objeto em um formato simples
+  toObject(): any {
+    return {
+      id: this.id,
+      nome: this.nome,
+      email: this.email,
+      telefone: this.telefone,
+      endereco: this.endereco
+    };
+  }
 }

@@ -17,10 +17,21 @@ export class Cliente extends Usuario {
         return [];
     }
 
-    agendarServico(data: Date, horario: string[], servico: Servico): Agendamento {
-        const agendamento = new Agendamento(data, horario, this, servico, servico.preco);
-        agendamento.id = this.historicoAgendamentos[this.historicoAgendamentos.length - 1].id! + 1;
-        this.historicoAgendamentos.push(agendamento);
-        return agendamento;
-    }
+  // Método para converter o objeto em um formato simples
+  toObject(): any {
+    return {
+      id: this.id,
+      nome: this.nome,
+      email: this.email,
+      telefone: this.telefone,
+      endereco: this.endereco
+    };
+  }
+
+    // agendarServico(data: Date, horario: string[], servico: Servico): Agendamento {
+    //     const agendamento = new Agendamento(data, horario, this, servico, servico.preco);
+    //     agendamento.id = this.historicoAgendamentos[this.historicoAgendamentos.length - 1].id! + 1;
+    //     this.historicoAgendamentos.push(agendamento);
+    //     return agendamento;
+    // }
 }
