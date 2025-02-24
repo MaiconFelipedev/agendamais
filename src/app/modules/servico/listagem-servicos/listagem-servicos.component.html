@@ -3,7 +3,8 @@
   <h2 *ngIf="tipos.length === 0">Ainda não há categorias para filtrar.</h2>
   <mat-form-field *ngIf="tipos.length > 0" appearance="outline">
     <mat-label>Categoria</mat-label>
-    <mat-select [(ngModel)]="tipo" (change)="atualizarServicos()" placeholder="Selecione uma categoria">
+    <mat-select [(ngModel)]="tipo" (selectionChange)="atualizarServicos()" placeholder="Selecione uma categoria">
+      <mat-option [value]="''">Todos</mat-option>
       <mat-option *ngFor="let cat of tipos" [value]="cat">{{ cat }}</mat-option>
     </mat-select>
   </mat-form-field>
