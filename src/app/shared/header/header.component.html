@@ -21,7 +21,7 @@
     <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="conta" aria-label="Conta">
       <mat-icon>account_circle</mat-icon>
       <mat-menu #conta="matMenu">
-        <button mat-menu-item [routerLink]="'/avaliacao-usuario'"><mat-icon>person</mat-icon>Perfil</button>
+        <button mat-menu-item [routerLink]="'/perfil-usuario'"><mat-icon>person</mat-icon>Perfil</button>
         <button mat-menu-item class="sair" (click)="usuarioService.deslogarUsuario()"  [routerLink]="'/login-usuario'"><mat-icon>logout</mat-icon>Sair</button>
       </mat-menu>
     </button>

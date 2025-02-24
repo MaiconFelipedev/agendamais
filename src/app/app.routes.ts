@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AgendaPrestadorComponent } from './modules/usuario/agenda-prestador/agenda-prestador.component';
-import { AvaliacaoUsuarioComponent } from './modules/usuario/avaliacao-usuario/avaliacao-usuario.component';
+import { PerfilUsuarioComponent } from './modules/usuario/perfil-usuario/perfil-usuario.component';
 import { CadastroUsuarioComponent } from './modules/usuario/cadastro-usuario/cadastro-usuario.component';
 import { LoginUsuarioComponent } from './modules/usuario/login-usuario/login-usuario.component';
 import { AgendamentoServicoComponent } from './modules/agendamento/agendamento-servico/agendamento-servico.component';
@@ -14,8 +14,8 @@ export const routes: Routes = [
     component: AgendaPrestadorComponent
   },
   {
-    path: 'avaliacao-usuario',
-    component: AvaliacaoUsuarioComponent
+    path: 'perfil-usuario',
+    component: PerfilUsuarioComponent
   },
   {
     path: 'cadastro-usuario',
