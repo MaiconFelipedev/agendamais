@@ -8,7 +8,7 @@
       <mat-tab [label]="data">
         <div *ngIf="this.buscarPorData(data).length > 0">
           @for (agendamento of this.buscarPorData(data); track $index){
-            <mat-card appearance="outlined">
+            <mat-card *ngIf="agendamento.status === 'Confirmado'" appearance="outlined">
               <mat-card-header>
                 <mat-card-title>{{agendamento.nomeServico}}</mat-card-title>
                 <mat-card-subtitle>Cliente: {{agendamento.nomeCliente}}</mat-card-subtitle>
