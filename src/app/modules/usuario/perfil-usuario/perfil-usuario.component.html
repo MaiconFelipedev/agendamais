@@ -1,1 +1,32 @@
-<p>perfil-usuario works!</p>
+<main>
+    <div id="perfil">
+        <mat-icon class="icone-usuario">account_circle</mat-icon>
+        <p class="nome-usuario">{{this.usuarioService.nomeUsuario()}}</p>
+        <p class="nota-media" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
+            <mat-icon>star</mat-icon>
+            {{this.avaliacaoMedia | number:'1.1-1' }}
+        </p>
+    </div>
+    <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">Avaliações sobre seus serviços:</h1>
+    <div class="comentarios" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
+      <span class="spacer"></span>
+      <mat-card *ngFor="let avaliacao of avaliacoes" class="card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon class="user-icon">account_circle</mat-icon>
+          </div>
+          <mat-card-title>Anônimo</mat-card-title>
+          <mat-card-subtitle class="nota">
+            <mat-icon *ngFor="let i of [].constructor(avaliacao.nota)">star</mat-icon>{{ avaliacao.nota }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="comentario">
+          <p>{{ avaliacao.comentario }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <p class="data">{{ avaliacao.data }}</p>
+        </mat-card-actions>
+      </mat-card>
+      <span class="spacer"></span>
+    </div>
+</main>

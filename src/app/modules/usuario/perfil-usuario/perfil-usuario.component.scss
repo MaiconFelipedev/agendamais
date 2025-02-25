@@ -1,0 +1,122 @@
+main {
+  background: linear-gradient(135deg, #3f51b5, #1a237e);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#perfil {
+  width: 100%;
+  margin: 20px 0;
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.icone-usuario {
+  font-size: 80px;
+  height: 80px;
+  width: 80px;
+  color: #ffffff;
+}
+
+.nome-usuario {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.nota-media {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 8px;
+  margin-top: 5px;
+  gap: 5px;
+}
+
+.nota-media mat-icon {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+}
+
+.user-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 45px;
+}
+
+mat-card-title {
+  font-size: 18px;
+}
+
+.titulo {
+  margin-top: 25px;
+  margin-bottom: -25px;
+  color: #ffffff;
+}
+
+.comentarios {
+  overflow: auto;
+  height: 250px;
+  width: 100%;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.spacer {
+  min-width: 50px;
+}
+
+.card {
+  height: 100%;
+  min-width: 350px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.comentario {
+  padding: 15px;
+  flex-grow: 1;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  overflow: auto;
+}
+
+.nota {
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+.nota mat-icon {
+  color: #dfa30a;
+  font-size: 21px;
+}
+
+mat-card-actions {
+  padding: 15px;
+}
