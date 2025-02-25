@@ -8,8 +8,6 @@
         </p>
     </div>
 
-    <button mat-raised-button (click)="salvarAvaliacao()">teste</button>
-
     <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">Avaliações sobre seus serviços:</h1>
     <div class="comentarios" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
       <span class="spacer"></span>
@@ -39,16 +37,22 @@
 
     <div class="servicos" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'">
         <span class="spacer"></span>
-        <mat-card *ngFor="let servico of servicosConcluidos" class="card">
+        <mat-card *ngFor="let servico of servicosConcluidos" class="card" appearance="outlined">
             <mat-card-header>
                 <mat-card-title>{{ servico.servico.nome }}</mat-card-title>
                 <mat-card-subtitle>Valor: R$ {{ servico.valorTotal }}</mat-card-subtitle>
+                <mat-card-subtitle>Descrição: {{ servico.servico.descricao }}</mat-card-subtitle>
+                <mat-card-subtitle>Data: {{ servico.data }}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>
-                <p>{{ servico.servico.descricao }}</p>
-            </mat-card-content>
+
             <mat-card-actions>
-                <button mat-button>Avaliar</button>
+                <input matInput type="text" placeholder="Digite algo..." [(ngModel)]="comentario">
+                <mat-radio-group [(ngModel)]="notaEscolhida" class="avaliacao-radio">
+                  <mat-radio-button *ngFor="let nota of [1, 2, 3, 4, 5]" [value]="nota">
+                    <span [ngClass]="{'selected': notaEscolhida >= nota}">{{ nota }}</span>
+                  </mat-radio-button>
+                </mat-radio-group>
+                <button (click)="salvarAvaliacao(servico, comentario, notaEscolhida)" mat-flat-button>Avaliar</button>
             </mat-card-actions>
         </mat-card>
         <span class="spacer"></span>

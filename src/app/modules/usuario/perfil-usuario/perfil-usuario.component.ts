@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import { Avaliacao } from '../../../shared/model/avaliacao';
 import { AvaliacaoService } from '../avaliacao.service';
 import { MaterialModule } from '../../material/material.module';
@@ -6,13 +6,16 @@ import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import {UsuarioService} from '../usuario.service';
 import {Agendamento} from '../../../shared/model/agendamento';
+import {FormsModule} from '@angular/forms';
+import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.component.html',
   styleUrls: ['./perfil-usuario.component.scss'],
   standalone: true,
-  imports: [MaterialModule, CommonModule]
+  imports: [MaterialModule, CommonModule, FormsModule, MatRadioGroup, MatRadioButton]
 })
 export class PerfilUsuarioComponent implements OnInit {
   title = 'Agenda+ | Avaliação';
@@ -25,31 +28,36 @@ export class PerfilUsuarioComponent implements OnInit {
     private titleService: Title,
     private avaliacaoService: AvaliacaoService,
     protected usuarioService: UsuarioService,
+    private snackBar: MatSnackBar
   ) {
     this.titleService.setTitle(this.title);
     this.idUsuario = usuarioService.usuarioLogado()?.id;
   }
 
-  salvarAvaliacao() {
+  comentario = "";
+  notaEscolhida = 0;
+
+  salvarAvaliacao(servico: Agendamento, comentario: string, nota: number) {
     const novaAvaliacao: Avaliacao = new Avaliacao(
-      'Teste de comentário!',       // comentario
-      '25/02/2025',           // data
-      'QkD4h39taVDqne4LctLn', // idPrestador
-      5                       // nota
+      comentario,
+      servico.data,
+      servico.servico.prestador?.id!,
+      nota
     );
 
-    this.avaliacaoService.salvarAvaliacao(novaAvaliacao).subscribe(
-      (avaliacaoSalva) => {
+    this.avaliacaoService.salvarAvaliacao(novaAvaliacao).subscribe({
+      next: avaliacaoSalva => {
         if (avaliacaoSalva) {
-          console.log('Avaliação salva com sucesso!', avaliacaoSalva);
-        } else {
-          console.log('Falha ao salvar avaliação.');
+          this.snackBar.open('Avaliação salva com sucesso', 'Fechar', {
+            duration: 5000,
+            panelClass: ['snackbar-error']
+          });
         }
       },
-      (error) => {
-        console.error('Erro ao salvar avaliação:', error);
+      error: erro => {
+        console.error('Erro ao salvar avaliação:', erro);
       }
-    );
+    })
   }
 
   ngOnInit(): void {
@@ -83,4 +91,6 @@ export class PerfilUsuarioComponent implements OnInit {
 
 
   }
+
+  protected readonly input = input;
 }
