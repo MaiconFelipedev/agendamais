@@ -52,13 +52,20 @@ export class AgendamentoServicoComponent {
 
   agendar() {
     const duracao = this.converterDuracao(this.servicoSelecionado?.duracao!);
-    const horarioTerminoAtendimento = addMinutes(parse(this.horarioInicioAtendimento, "HH:mm", new Date()), duracao);
 
-    const dataAtendimento: Date = parse(`${this.dataSelecionada.value}`, "dd/MM/yyyy", new Date());
+    // Combina a data selecionada com o horário escolhido
+    const dataComHorario = parse(
+      `${this.dataSelecionada.value} ${this.horarioInicioAtendimento}`,
+      'dd/MM/yyyy HH:mm',
+      new Date()
+    );
+
+    // Calcula o horário final
+    const horarioTerminoAtendimento = addMinutes(dataComHorario, duracao);
 
     const agendamento = new Agendamento(
-      dataAtendimento,
-      horarioTerminoAtendimento,
+      dataComHorario,
+      horarioTerminoAtendimento, // Horário final calculado
       this.usuarioService.usuarioLogado() as Cliente,
       this.servicoSelecionado!,
       this.servicoSelecionado?.preco!
@@ -67,12 +74,15 @@ export class AgendamentoServicoComponent {
     this.agendamentoService.agendarComVerificacao(agendamento).subscribe(
       (resultado) => {
         if (typeof resultado === 'string') {
+          // Exibe mensagem de erro
           this.snackBar.open(resultado, 'Fechar', {
-            duration: 5000,
-            panelClass: ['snackbar-error']
+            duration: 5000
           });
         } else {
-          this.router.navigate(['/cadastro-servico']); // Redireciona após sucesso
+          this.snackBar.open('Agendamento solicitado com sucesso!', 'Fechar', {
+            duration: 5000
+          });
+          this.router.navigate(['/listagem-servicos']);
         }
       }
     );

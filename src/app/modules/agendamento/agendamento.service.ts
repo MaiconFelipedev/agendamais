@@ -27,7 +27,7 @@ export class AgendamentoService {
     ).pipe(
       switchMap(conflitos => {
         if (conflitos.length > 0) {
-          return of("Conflito de horário: o prestador já tem um agendamento confirmado neste horário.");
+          return of("Erro! O prestador já tem um agendamento confirmado nessa faixa de horário.");
         } else {
           return this.agendamentoFirestoreService.inserir(agendamento);
         }
