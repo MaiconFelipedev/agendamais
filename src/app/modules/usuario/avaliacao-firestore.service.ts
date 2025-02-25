@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { getFirestore, collection, addDoc, query, where, getDocs } from '@angular/fire/firestore';
 import { Avaliacao } from '../../shared/model/avaliacao';
 import { from, map, Observable } from 'rxjs';
+import {Agendamento} from '../../shared/model/agendamento';
 
 @Injectable({
   providedIn: 'root'
@@ -49,45 +50,64 @@ export class AvaliacaoFirestoreService {
     );
   }
 
-    getMediaNotasPorPrestador(idPrestador: string): Observable<number> {
-        const q = query(this.colecaoAvaliacoes, where("idPrestador", "==", idPrestador));
+  getMediaNotasPorPrestador(idPrestador: string): Observable<number> {
+      const q = query(this.colecaoAvaliacoes, where("idPrestador", "==", idPrestador));
 
-        return from(getDocs(q)).pipe(
-            map(querySnapshot => {
-                let somaNotas = 0;
-                let totalAvaliacoes = 0;
+      return from(getDocs(q)).pipe(
+          map(querySnapshot => {
+              let somaNotas = 0;
+              let totalAvaliacoes = 0;
 
-                querySnapshot.forEach(doc => {
-                    const data = doc.data();
-                    const nota = data['nota'];
+              querySnapshot.forEach(doc => {
+                  const data = doc.data();
+                  const nota = data['nota'];
 
-                    if (typeof nota === 'number') { // Garantindo que seja um número
-                        somaNotas += nota;
-                        totalAvaliacoes++;
-                    }
-                });
+                  if (typeof nota === 'number') { // Garantindo que seja um número
+                      somaNotas += nota;
+                      totalAvaliacoes++;
+                  }
+              });
 
-                // Se não houver avaliações, retorna 0
-                return totalAvaliacoes > 0 ? somaNotas / totalAvaliacoes : 0;
-            })
-        );
-    }
+              // Se não houver avaliações, retorna 0
+              return totalAvaliacoes > 0 ? somaNotas / totalAvaliacoes : 0;
+          })
+      );
+  }
 
-    getServicosConcluidosDoCliente(idCliente: string): Observable<any[]> {
-        const q = query(this.colecaoAgendamentos,
-            where("cliente.id", "==", idCliente),
-            where("status", "==", "Concluído")
-        );
+  getServicosConcluidosDoCliente(idCliente: string): Observable<Agendamento[]> {
+    const q = query(this.colecaoAgendamentos,
+      where("cliente.id", "==", idCliente),
+      where("status", "==", "Concluído")
+    );
 
-        return from(getDocs(q)).pipe(
-            map(querySnapshot => {
-                const servicos: any[] = [];
-                querySnapshot.forEach(doc => {
-                    servicos.push({ id: doc.id, ...doc.data() });
-                });
-                return servicos;
-            })
-        );
-    }
+    return from(getDocs(q)).pipe(
+      map(resposta => {
+        return resposta.docs.map(doc => {
+          const data = doc.data();
+
+          const horarioInicial = data['horarioInicial']?.toDate
+            ? data['horarioInicial'].toDate()
+            : new Date(data['horarioInicial']);
+
+          const horarioFinal = data['horarioFinal']
+            ? (data['horarioFinal'].toDate
+              ? data['horarioFinal'].toDate()
+              : new Date(data['horarioFinal']))
+            : null;
+
+          return new Agendamento(
+            horarioInicial,
+            horarioFinal,
+            data['cliente'],
+            data['servico'],
+            data['valorTotal'],
+            data['status'],
+            doc.id
+          );
+        });
+      })
+    );
+  }
+
 
 }
