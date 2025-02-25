@@ -5,6 +5,8 @@
       <mat-menu #menu="matMenu">
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/agenda-prestador'">Minha agenda</button>
 
+        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/solicitacoes-prestador'">Solicitações de clientes</button>
+
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'" mat-menu-item [routerLink]="'/cadastro-servico'">Criar novo serviço</button>
 
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/listagem-servicos'">Agendar serviço</button>
@@ -20,6 +22,7 @@
       <mat-icon>login</mat-icon>
       Entrar
     </button>
+
     <p class="nome-usuario">{{this.usuarioService.nomeUsuario()}}</p>
     <button *ngIf="this.usuarioService.usuarioLogado()" mat-icon-button [matMenuTriggerFor]="conta" aria-label="Conta">
       <mat-icon>account_circle</mat-icon>
