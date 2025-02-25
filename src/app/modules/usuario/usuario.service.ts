@@ -35,7 +35,7 @@ export class UsuarioService {
           this.usuarioAtual = resultado;
 
           // Redireciona o usuário após o cadastro
-          if (resultado.tipo === 'prestador') {
+          if (resultado.tipo === 'profissional') {
             this.router.navigate(['/agenda-prestador']);
           } else {
             this.router.navigate(['/listagem-servicos']);

@@ -55,7 +55,7 @@ export class SolicitacoesPrestadorComponent implements OnInit{
 
     if(this.agendamentosPrestador != undefined){
       this.agendamentosPrestador.forEach(agendamento => {
-        if(agendamento.servico.nome === nomeServico && agendamento.status === "Solicitado"){
+        if(agendamento.servico.tipo === nomeServico && agendamento.status === "Solicitado"){
           agendamentosTipoServico.push(agendamento);
         }
       })
@@ -69,11 +69,11 @@ export class SolicitacoesPrestadorComponent implements OnInit{
 
     if(this.agendamentosPrestador != undefined){
       for (const agendamento of this.agendamentosPrestador) {
-        if (servicosOferecidos.includes(agendamento.servico.nome)) {
+        if (servicosOferecidos.includes(agendamento.servico.tipo)) {
           continue;
         }
         if(agendamento.status === "Solicitado"){
-          servicosOferecidos.push(agendamento.servico.nome);
+          servicosOferecidos.push(agendamento.servico.tipo);
         }
       }
     }
