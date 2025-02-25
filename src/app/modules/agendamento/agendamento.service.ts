@@ -58,4 +58,8 @@ export class AgendamentoService {
   buscarPorCliente(clienteId: string): Observable<Agendamento[]> {
     return this.agendamentoFirestoreService.buscarPorCliente(clienteId);
   }
+
+  buscarPorPrestador(prestadorId: string | undefined): Observable<Agendamento[]> {
+    return this.agendamentoFirestoreService.buscarPorPrestador(prestadorId);
+  }
 }

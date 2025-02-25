@@ -131,4 +131,38 @@ export class AgendamentoFirestoreService {
       })
     );
   }
+
+  buscarPorPrestador(prestadorId: string | undefined): Observable<Agendamento[]> {
+
+    const q = query(this.colecaoAgendamentos, where("servico.prestador.id", "==", prestadorId));
+
+    return from(getDocs(q)).pipe(
+      map(resposta => {
+        return resposta.docs.map(doc => {
+          const data = doc.data();
+
+          const horarioInicial = data['horarioInicial']?.toDate
+            ? data['horarioInicial'].toDate()
+            : new Date(data['horarioInicial']);
+
+          const horarioFinal = data['horarioFinal']
+            ? (data['horarioFinal'].toDate
+              ? data['horarioFinal'].toDate()
+              : new Date(data['horarioFinal']))
+            : null;
+
+          return new Agendamento(
+            horarioInicial,
+            horarioFinal,
+            data['cliente'],
+            data['servico'],
+            data['valorTotal'],
+            data['status'],
+            doc.id
+          );
+        });
+      })
+    );
+  }
+
 }
