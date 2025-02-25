@@ -49,14 +49,6 @@ export class CadastroUsuarioComponent {
     if (this.usuarioForm.valid) {
       const { nome, email, senha, telefone, tipo, endereco } = this.usuarioForm.value;
 
-      // Verifica se o e-mail já existe
-      // if (this.userService.emailExiste(email)) {
-      //   this.snackBar.open('Este e-mail já está cadastrado!', 'Fechar', {
-      //     duration: 3000
-      //   });
-      //   return;
-      // }
-
       this.userService.estaCadastrado(email).subscribe(
         resultado => {
           if(resultado){
@@ -75,8 +67,6 @@ export class CadastroUsuarioComponent {
           }
         }
       )
-
-      // this.userService.autenticar(email, senha)
     }
   }
 

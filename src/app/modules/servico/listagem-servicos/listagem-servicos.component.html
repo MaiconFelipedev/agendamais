@@ -1,17 +1,19 @@
-<div class="container">
-  <h1 id="titulo-listagem-servicos">Encontre serviços por categoria</h1>
-  <h2 *ngIf="tipos.length === 0">Ainda não há categorias para filtrar.</h2>
-  <mat-form-field *ngIf="tipos.length > 0" appearance="outline">
-    <mat-label>Categoria</mat-label>
-    <mat-select [(ngModel)]="tipo" (selectionChange)="atualizarServicos()" placeholder="Selecione uma categoria">
-      <mat-option [value]="''">Todos</mat-option>
-      <mat-option *ngFor="let cat of tipos" [value]="cat">{{ cat }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<main>
+  <div class="container">
+    <h1 id="titulo-listagem-servicos">Encontre serviços por categoria</h1>
+    <h2 *ngIf="tipos.length === 0">Ainda não há categorias para filtrar.</h2>
+    <mat-form-field *ngIf="tipos.length > 0" appearance="outline">
+      <mat-label>Categoria</mat-label>
+      <mat-select [(ngModel)]="tipo" (selectionChange)="atualizarServicos()" placeholder="Selecione uma categoria">
+        <mat-option [value]="''">Todos</mat-option>
+        <mat-option *ngFor="let cat of tipos" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <div class="card" *ngFor="let servico of servicos">
-    <mat-card>
-      <app-card-servico [servico]="servico"></app-card-servico>
-    </mat-card>
+    <div class="cards">
+      <mat-card *ngFor="let servico of servicos">
+        <app-card-servico [servico]="servico"></app-card-servico>
+      </mat-card>
+    </div>
   </div>
-</div>
+</main>

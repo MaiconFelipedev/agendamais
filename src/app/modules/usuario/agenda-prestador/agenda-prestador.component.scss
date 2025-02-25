@@ -1,10 +1,10 @@
-div {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+main{
+  background: linear-gradient(135deg, #3f51b5, #1a237e);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 h1, h2, h3 {
@@ -29,34 +29,48 @@ mat-form-field {
 button {
   margin-top: 10px;
   width: 100%;
-  font-size: 16px;
+  font-size: 5vw;
 }
 
 mat-tab-group {
   margin-top: 20px;
 }
 
-mat-card {
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 8px;
+.agendamentos-marcados{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-mat-card-title {
-  font-weight: bold;
-  font-size: 18px;
+.dados-card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-mat-card-subtitle {
-  font-size: 14px;
-  color: #666;
+.card-agendamento{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
 }
 
-mat-card-actions button {
-  color: #1976d2;
+.card-agendamento mat-card-header{
+  padding: 20px;
+}
+
+.aviso-agendamento{
+  padding: 20px;
 }
 
 #agenda-prestador {
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 40%;
+  min-height: 500px;
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -71,10 +85,4 @@ mat-card-actions button {
   margin: 5px 0;
   font-size: 50px;
   color: #3f51b5;
-}
-
-@media (max-width: 768px) {
-  div {
-    box-shadow: none;
-  }
 }

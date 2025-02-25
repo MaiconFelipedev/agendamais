@@ -1,28 +1,31 @@
-<div id="agenda-prestador">
-  <mat-icon class="logo">event_available</mat-icon>
-  <h1>Olá, {{this.usuarioService.usuarioLogado()?.nome}}.</h1>
-  <h2>Bom dia de trabalho.</h2>
-  <h3>Semana de {{ this.exibirDataInicial() }} a {{ this.exibirDataFinal() }}</h3>
-  <mat-tab-group>
-    @for(data of datasCalendario; track $index){
-      <mat-tab [label]="data">
-        <div *ngIf="this.buscarPorData(data).length > 0">
-          @for (agendamento of this.buscarPorData(data); track $index){
-            <mat-card *ngIf="agendamento.status === 'Confirmado'" appearance="outlined">
+<main>
+  <div id="agenda-prestador">
+    <mat-icon class="logo">event_available</mat-icon>
+    <h1>Olá, {{this.usuarioService.usuarioLogado()?.nome}}.</h1>
+    <h2>Bom dia de trabalho.</h2>
+    <h3>Semana de {{ this.exibirDataInicial() }} a {{ this.exibirDataFinal() }}</h3>
+    <mat-tab-group>
+      @for(data of datasCalendario; track $index){
+        <mat-tab [label]="data">
+          <div class="agendamentos-marcados" *ngIf="this.buscarPorData(data).length > 0">
+            <mat-card class="card-agendamento" *ngFor="let agendamento of this.buscarPorData(data)" appearance="outlined">
               <mat-card-header>
-                <mat-card-title>{{agendamento.nomeServico}}</mat-card-title>
-                <mat-card-subtitle>Cliente: {{agendamento.nomeCliente}}</mat-card-subtitle>
+                <div class="dados-card">
+                  <mat-card-title>{{agendamento.nomeServico}}</mat-card-title>
+                  <mat-card-subtitle>Cliente: {{agendamento.nomeCliente}}</mat-card-subtitle>
+                  <mat-card-subtitle>Data: {{agendamento.data}}</mat-card-subtitle>
+                  <mat-card-subtitle>Horário: {{agendamento.horario}}</mat-card-subtitle>
+                </div>
               </mat-card-header>
-              <mat-card-actions align="end">
-                <button mat-button>Remarcar</button>
-              </mat-card-actions>
             </mat-card>
-          }
-        </div>
-        <div *ngIf="this.buscarPorData(data).length === 0">
-          Não tem agendamentos
-        </div>
-      </mat-tab>
-    }
-  </mat-tab-group>
-</div>
+          </div>
+          <div class="aviso-agendamento" *ngIf="this.buscarPorData(data).length === 0">
+            <p>
+              Os agendamentos para esse dia aparecerão aqui.
+            </p>
+          </div>
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </div>
+</main>

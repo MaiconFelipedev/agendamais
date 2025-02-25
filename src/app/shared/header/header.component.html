@@ -11,7 +11,7 @@
 
         <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/listagem-servicos'">Agendar serviço</button>
 
-        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/acompanhamento-solicitacoes'">Acompanhar Solicitações</button>
+        <button *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'" mat-menu-item [routerLink]="'/acompanhamento-solicitacoes'">Acompanhar solicitações</button>
 
       </mat-menu>
     </button>

@@ -10,6 +10,7 @@ main {
     outlined-outline-width: 1px,
     outlined-outline-color: #aaaaaa
   ));
+  background: linear-gradient(135deg, #3f51b5, #1a237e);
 }
 
 #logo {
@@ -34,6 +35,7 @@ form {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  background-color: #ffffff;
 }
 
 .titulo {

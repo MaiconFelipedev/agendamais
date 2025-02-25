@@ -1,19 +1,21 @@
-<div class="container">
-  <h1>Acompanhamento de Solicitações</h1>
-  <div *ngIf="agendamentos.length === 0" class="sem-agendamentos">
-    <p>Nenhum agendamento solicitado.</p>
-  </div>
-  <div *ngIf="agendamentos.length > 0" class="cards-container">
-    <div *ngFor="let agendamento of agendamentos" class="card" [ngClass]="getCorCard(agendamento.status)">
-      <h2>{{ agendamento.servico.nome }}</h2>
-      <p><strong>Prestador:</strong> {{ agendamento.servico.prestador?.nome }}</p>
-      <p ><strong>Status:</strong> {{ agendamento.status }}</p>
-      <p ><strong>Data:</strong> {{ agendamento.horarioInicial | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>Horário:</strong>
-        {{ agendamento.horarioInicial | date: 'HH:mm' }} -
-        {{ agendamento.horarioFinal | date: 'HH:mm' }}
-      </p>
-      <p><strong>Valor Total:</strong> {{ agendamento.valorTotal | currency: 'BRL' }}</p>
+<main>
+  <h1>Acompanhamento de solicitações</h1>
+  <div class="container">
+    <div *ngIf="agendamentos.length === 0" class="sem-agendamentos">
+      <p>Nenhum agendamento solicitado.</p>
+    </div>
+    <div *ngIf="agendamentos.length > 0" class="cards-container">
+      <div *ngFor="let agendamento of agendamentos" class="card" [ngClass]="getCorCard(agendamento.status)">
+        <h2>{{ agendamento.servico.nome }}</h2>
+        <p><strong>Prestador:</strong> {{ agendamento.servico.prestador?.nome }}</p>
+        <p ><strong>Status:</strong> {{ agendamento.status }}</p>
+        <p ><strong>Data:</strong> {{ agendamento.horarioInicial | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Horário:</strong>
+          {{ agendamento.horarioInicial | date: 'HH:mm' }} -
+          {{ agendamento.horarioFinal | date: 'HH:mm' }}
+        </p>
+        <p><strong>Valor Total:</strong> {{ agendamento.valorTotal | currency: 'BRL' }}</p>
+      </div>
     </div>
   </div>
-</div>
+</main>

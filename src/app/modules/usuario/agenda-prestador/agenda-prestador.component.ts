@@ -62,7 +62,7 @@ export class AgendaPrestadorComponent implements OnInit{
     let agendamentosDia: Agendamento[] = [];
 
     this.agendamentosPrestador.forEach(agendamento => {
-      if(agendamento.data === data){
+      if(agendamento.data === data && agendamento.status === "Confirmado"){
         agendamentosDia.push(agendamento);
       }
     })
