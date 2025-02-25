@@ -1,0 +1,38 @@
+.solicitacoes{
+
+  display: flex;
+  flex-direction: column;
+  padding: 25px 50px;
+  overflow: auto;
+}
+
+.card-solicitacao{
+  min-width: 300px;
+  min-height: 200px;
+  border-radius: 20px;
+}
+
+.botoes-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-top: 1px solid #aaaaaa;
+  width: 100%;
+  gap: 8px;
+  padding: 15px;
+}
+
+.botoes-card button {
+  width: 50%;
+}
+
+.header-card{
+  flex-grow: 1;
+  padding: 15px;
+}
+
+.cards{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}

@@ -8,6 +8,9 @@ import { CadastroServicoComponent } from './modules/servico/cadastro-servico/cad
 import { CardServicoComponent } from './modules/servico/card-servico/card-servico.component';
 import { ListagemServicosComponent } from './modules/servico/listagem-servicos/listagem-servicos.component';
 import {
+  SolicitacoesPrestadorComponent
+} from './modules/usuario/solicitacoes-prestador/solicitacoes-prestador.component';
+import {
   AcompanhamentoSolicitacoesComponent
 } from './modules/agendamento/acompanhamento-solicitacoes/acompanhamento-solicitacoes.component';
 
@@ -15,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'agenda-prestador',
     component: AgendaPrestadorComponent
+  },
+  {
+    path: 'solicitacoes-prestador',
+    component: SolicitacoesPrestadorComponent
   },
   {
     path: 'perfil-usuario',
