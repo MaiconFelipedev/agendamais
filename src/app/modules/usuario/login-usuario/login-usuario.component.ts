@@ -29,8 +29,8 @@ export class LoginUsuarioComponent {
   ) {
     this.titleService.setTitle(this.title);
     this.loginForm = this.fb.group({
-      email: ['sofia@email', [Validators.required, Validators.email]],
-      senha: ['123@abc', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

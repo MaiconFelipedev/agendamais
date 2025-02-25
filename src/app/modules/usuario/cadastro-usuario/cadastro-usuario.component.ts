@@ -31,16 +31,16 @@ export class CadastroUsuarioComponent {
     this.titleService.setTitle(this.title);
 
     this.usuarioForm = this.fb.group({
-      nome: ['sofia', Validators.required],
-      email: ['sofe@email', [Validators.required, Validators.email]],
-      senha: ['123@abc', [Validators.required, Validators.minLength(6)]],
-      telefone: ['1234567890', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
+      nome: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required, Validators.minLength(6)]],
+      telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
       tipo: ['', Validators.required],
       endereco: this.fb.group({
-        rua: ['rua', Validators.required],
-        bairro: ['bairro', Validators.required],
-        cidade: ['cidade', Validators.required],
-        estado: ['PB', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
+        rua: ['', Validators.required],
+        bairro: ['', Validators.required],
+        cidade: ['', Validators.required],
+        estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
       })
     });
   }
