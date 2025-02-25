@@ -1,5 +1,6 @@
 import {Cliente} from './cliente';
 import {Servico} from './servico';
+import {format} from 'date-fns';
 
 export class Agendamento {
 
@@ -40,6 +41,22 @@ export class Agendamento {
       return `${dia}/${mes}/${ano}`;
     }
 
+  public formatarHorario(horario: Date): string {
+    const dia = horario.getDate();
+    const mes = horario.getMonth() + 1;
+    const ano = horario.getFullYear();
+    const hora = horario.getHours();
+    const minutos = horario.getMinutes();
+    const segundos = horario.getSeconds();
+
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
+  }
+
+  exibirDataInicial(): string{
+    // @ts-ignore
+    return format(this.horarioFinal, "dd/MM/yyyy");
+  }
+
     get cliente(): Cliente {
       return this._cliente;
     }
@@ -64,6 +81,7 @@ export class Agendamento {
     get horarioInicial(): Date {
       return this._horarioInicial;
     }
+
 
     get horarioFinal(): Date | null {
       return this._horarioFinal;

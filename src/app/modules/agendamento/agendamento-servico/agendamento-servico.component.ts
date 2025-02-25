@@ -79,7 +79,7 @@ export class AgendamentoServicoComponent {
             duration: 5000
           });
         } else {
-          this.snackBar.open('Agendamento solicitado com sucesso!', 'Fechar', {
+          this.snackBar.open('✅ Agendamento solicitado com sucesso!', 'Fechar', {
             duration: 5000
           });
           this.router.navigate(['/listagem-servicos']);

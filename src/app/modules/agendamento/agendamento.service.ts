@@ -10,9 +10,6 @@ export class AgendamentoService {
 
   constructor(private agendamentoFirestoreService: AgendamentoFirestoreService) { }
 
-  // Método para verificar conflitos e inserir o agendamento
-
-
   agendarComVerificacao(agendamento: Agendamento): Observable<Agendamento | string> {
     const prestadorId = agendamento.servico.prestador?.id;
 
@@ -27,7 +24,7 @@ export class AgendamentoService {
     ).pipe(
       switchMap(conflitos => {
         if (conflitos.length > 0) {
-          return of("Erro! O prestador já tem um agendamento confirmado nessa faixa de horário.");
+          return of("⚠️ Erro! O prestador já tem um agendamento confirmado nessa faixa de horário.");
         } else {
           return this.agendamentoFirestoreService.inserir(agendamento);
         }

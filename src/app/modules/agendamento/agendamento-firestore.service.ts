@@ -76,9 +76,18 @@ export class AgendamentoFirestoreService {
       map(resposta => {
         return resposta.docs.map(doc => {
           const data = doc.data();
+          const horarioInicial = data['horarioInicial']?.toDate
+              ? data['horarioInicial'].toDate()
+              : new Date(data['horarioInicial']);
+
+          const horarioFinal = data['horarioFinal']
+              ? (data['horarioFinal'].toDate
+                  ? data['horarioFinal'].toDate()
+                  : new Date(data['horarioFinal']))
+              : null;
           return new Agendamento(
-            data['horarioInicial'],
-            data['horarioFinal'],
+            horarioInicial,
+            horarioFinal,
             data['cliente'],
             data['servico'],
             data['valorTotal'],
@@ -118,9 +127,18 @@ export class AgendamentoFirestoreService {
       map(resposta => {
         return resposta.docs.map(doc => {
           const data = doc.data();
+          const horarioInicial = data['horarioInicial']?.toDate
+            ? data['horarioInicial'].toDate()
+            : new Date(data['horarioInicial']);
+
+          const horarioFinal = data['horarioFinal']
+            ? (data['horarioFinal'].toDate
+              ? data['horarioFinal'].toDate()
+              : new Date(data['horarioFinal']))
+            : null;
           return new Agendamento(
-            data['horarioInicial'],
-            data['horarioFinal'],
+            horarioInicial,
+            horarioFinal,
             data['cliente'],
             data['servico'],
             data['valorTotal'],

@@ -7,6 +7,9 @@ import { AgendamentoServicoComponent } from './modules/agendamento/agendamento-s
 import { CadastroServicoComponent } from './modules/servico/cadastro-servico/cadastro-servico.component';
 import { CardServicoComponent } from './modules/servico/card-servico/card-servico.component';
 import { ListagemServicosComponent } from './modules/servico/listagem-servicos/listagem-servicos.component';
+import {
+  AcompanhamentoSolicitacoesComponent
+} from './modules/agendamento/acompanhamento-solicitacoes/acompanhamento-solicitacoes.component';
 
 export const routes: Routes = [
   {
@@ -40,5 +43,9 @@ export const routes: Routes = [
   {
     path: 'listagem-servicos',
     component: ListagemServicosComponent
+  },
+  {
+    path: 'acompanhamento-solicitacoes',
+    component: AcompanhamentoSolicitacoesComponent
   }
 ];
