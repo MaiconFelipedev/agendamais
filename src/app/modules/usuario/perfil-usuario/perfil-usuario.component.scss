@@ -171,6 +171,10 @@ mat-card-actions {
   resize: none;
 }
 
+.avaliado {
+  margin-top: 140px;
+}
+
 .avaliacao-radio {
   width: 100%;
   display: flex;
@@ -227,5 +231,9 @@ mat-card-actions {
 
   .avaliacao-radio {
     flex-direction: column;
+  }
+
+  .avaliado {
+    margin-top: 0;
   }
 }

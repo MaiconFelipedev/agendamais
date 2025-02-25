@@ -64,6 +64,10 @@
                 <button (click)="salvarAvaliacao(servico, comentario, notaEscolhida)" mat-flat-button>Avaliar</button>
               </mat-radio-group>
             </mat-card-actions>
+
+            <mat-card-actions class="comentario-servico avaliado" *ngIf="servico.status == 'Avaliado'">
+              <p>Esse serviço já foi avaliado.</p>
+            </mat-card-actions>
         </mat-card>
         <span class="spacer"></span>
     </div>
