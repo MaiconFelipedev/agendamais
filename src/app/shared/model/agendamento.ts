@@ -19,43 +19,27 @@ export class Agendamento {
       }
     }
 
-  // Método para converter o objeto em um formato simples
-  toObject(): any {
-    return {
-      horarioInicial: this._horarioInicial,
-      horarioFinal: this._horarioFinal,
-      cliente: this._cliente.toObject ? this._cliente.toObject() : this._cliente,
-      servico: this._servico.toObject ? this._servico.toObject() : this._servico,
-      valorTotal: this._valorTotal,
-      status: this._status,
-      id: this._id
-    };
-  }
+    // Método para converter o objeto em um formato simples
+    toObject(): any {
+      return {
+        horarioInicial: this._horarioInicial,
+        horarioFinal: this._horarioFinal,
+        cliente: this._cliente.toObject ? this._cliente.toObject() : this._cliente,
+        servico: this._servico.toObject ? this._servico.toObject() : this._servico,
+        valorTotal: this._valorTotal,
+        status: this._status,
+        id: this._id
+      };
+    }
 
     // Getter para acessar a data do agendamento
     get data(): string {
-      const dia = this._horarioInicial.getDate();
-      const mes = this._horarioInicial.getMonth() + 1;
-      const ano = this._horarioInicial.getFullYear();
-
-      return `${dia}/${mes}/${ano}`;
+      return format(this._horarioInicial, "dd/MM/yyyy");
     }
 
-  public formatarHorario(horario: Date): string {
-    const dia = horario.getDate();
-    const mes = horario.getMonth() + 1;
-    const ano = horario.getFullYear();
-    const hora = horario.getHours();
-    const minutos = horario.getMinutes();
-    const segundos = horario.getSeconds();
-
-    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
-  }
-
-  exibirDataInicial(): string{
-    // @ts-ignore
-    return format(this.horarioFinal, "dd/MM/yyyy");
-  }
+    get horario(): string{
+      return `${format(this._horarioInicial, "HH:mm")} - ${format(this._horarioFinal!, "HH:mm")}`
+    }
 
     get cliente(): Cliente {
       return this._cliente;
@@ -103,8 +87,8 @@ export class Agendamento {
       this._status = "Confirmado";
     }
 
-    rejeitar(): void {
-      this._status = "Não aceito";
+    recusar(): void {
+      this._status = "Recusado";
     }
 
     reagendar(novoHorarioInicial: Date, novoHorarioFinal: Date): void {

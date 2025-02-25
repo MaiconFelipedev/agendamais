@@ -14,6 +14,5 @@ export class AppComponent {
   title = 'Agenda+';
   constructor(private titleService: Title, private router: Router) {
     this.titleService.setTitle(this.title);
-    this.router.navigate(['/login-usuario'])
   }
 }
