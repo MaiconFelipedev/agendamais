@@ -38,14 +38,14 @@
     <div class="servicos" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'">
         <span class="spacer"></span>
         <mat-card *ngFor="let servico of servicosConcluidos" class="card" appearance="outlined">
-            <mat-card-header>
+            <mat-card-header class="descricao-servico">
                 <mat-card-title>{{ servico.servico.nome }}</mat-card-title>
                 <mat-card-subtitle>Valor: R$ {{ servico.valorTotal }}</mat-card-subtitle>
                 <mat-card-subtitle>Descrição: {{ servico.servico.descricao }}</mat-card-subtitle>
                 <mat-card-subtitle>Data: {{ servico.data }}</mat-card-subtitle>
             </mat-card-header>
 
-            <mat-card-actions>
+            <mat-card-actions *ngIf="servico.status != 'Avaliado'">
                 <input matInput type="text" placeholder="Digite algo..." [(ngModel)]="comentario">
                 <mat-radio-group [(ngModel)]="notaEscolhida" class="avaliacao-radio">
                   <mat-radio-button *ngFor="let nota of [1, 2, 3, 4, 5]" [value]="nota">

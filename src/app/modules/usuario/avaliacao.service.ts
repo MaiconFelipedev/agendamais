@@ -3,6 +3,7 @@ import { Avaliacao } from '../../shared/model/avaliacao';
 import { AvaliacaoFirestoreService } from './avaliacao-firestore.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import {Agendamento} from '../../shared/model/agendamento';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class AvaliacaoService {
     private snackBar: MatSnackBar
   ) { }
 
-  salvarAvaliacao(avaliacao: Avaliacao): Observable<Avaliacao | null> {
-    return this.avaliacaoFirestore.salvar(avaliacao);
+  salvarAvaliacao(avaliacao: Avaliacao, servico: Agendamento): Observable<Avaliacao | null> {
+    return this.avaliacaoFirestore.salvar(avaliacao, servico);
   }
 
   getAvaliacoesPorPrestador(idPrestador: string): Observable<Avaliacao[]> {

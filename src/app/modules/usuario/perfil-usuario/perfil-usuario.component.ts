@@ -38,6 +38,14 @@ export class PerfilUsuarioComponent implements OnInit {
   notaEscolhida = 0;
 
   salvarAvaliacao(servico: Agendamento, comentario: string, nota: number) {
+    if (!nota) {
+      this.snackBar.open('Selecione uma nota antes de avaliar.', 'Fechar', {
+        duration: 3000,
+        panelClass: ['snackbar-warning']
+      });
+      return;
+    }
+
     const novaAvaliacao: Avaliacao = new Avaliacao(
       comentario,
       servico.data,
@@ -45,20 +53,29 @@ export class PerfilUsuarioComponent implements OnInit {
       nota
     );
 
-    this.avaliacaoService.salvarAvaliacao(novaAvaliacao).subscribe({
-      next: avaliacaoSalva => {
+    this.avaliacaoService.salvarAvaliacao(novaAvaliacao, servico).subscribe({
+      next: (avaliacaoSalva: Avaliacao | null) => {
         if (avaliacaoSalva) {
           this.snackBar.open('Avaliação salva com sucesso', 'Fechar', {
             duration: 5000,
-            panelClass: ['snackbar-error']
+            panelClass: ['snackbar-success']
           });
+
+          servico.avaliar();
         }
       },
       error: erro => {
         console.error('Erro ao salvar avaliação:', erro);
+        this.snackBar.open('Erro ao salvar avaliação', 'Fechar', {
+          duration: 5000,
+          panelClass: ['snackbar-error']
+        });
       }
-    })
+    });
   }
+
+
+
 
   ngOnInit(): void {
     this.avaliacaoService.getAvaliacoesPorPrestador(this.idUsuario!).subscribe({

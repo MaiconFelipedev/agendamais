@@ -100,4 +100,8 @@ export class Agendamento {
       const [horas, minutos] = tempo.split(":").map(Number);
       return horas * 60 + minutos;
     }
+
+    avaliar(): void {
+      this._status = "Avaliado";
+    }
 }

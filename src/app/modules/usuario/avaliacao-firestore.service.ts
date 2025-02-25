@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getFirestore, collection, addDoc, query, where, getDocs } from '@angular/fire/firestore';
+import {getFirestore, collection, addDoc, query, where, getDocs, updateDoc, doc} from '@angular/fire/firestore';
 import { Avaliacao } from '../../shared/model/avaliacao';
 import { from, map, Observable } from 'rxjs';
 import {Agendamento} from '../../shared/model/agendamento';
@@ -13,20 +13,30 @@ export class AvaliacaoFirestoreService {
   private colecaoAvaliacoes = collection(this.bancoRemoto, "avaliacoes");
   private colecaoAgendamentos = collection(this.bancoRemoto, "agendamentos");
 
-  salvar(avaliacao: Avaliacao): Observable<Avaliacao | null> {
+  salvar(avaliacao: Avaliacao, servico: Agendamento): Observable<Avaliacao | null> {
     delete avaliacao.id;
 
-    return from(addDoc(this.colecaoAvaliacoes, { ...avaliacao }))
-      .pipe(
-        map(docRef => new Avaliacao(
+    return from(addDoc(this.colecaoAvaliacoes, { ...avaliacao })).pipe(
+      map(docRef => {
+        // Atualiza o status do agendamento para "Avaliado"
+        const servicoRef = doc(this.bancoRemoto, 'agendamentos', servico.id!);
+        updateDoc(servicoRef, { status: 'Avaliado' }).then(() => {
+          console.log('Status do agendamento atualizado para Avaliado');
+        }).catch((error) => {
+          console.error('Erro ao atualizar status do agendamento:', error);
+        });
+
+        return new Avaliacao(
           avaliacao.comentario,
           avaliacao.data,
           avaliacao.idPrestador,
           avaliacao.nota,
           docRef.id
-        ))
-      );
+        );
+      })
+    );
   }
+
 
   // Retorna as avaliações associadas a um determinado prestador
   getAvaliacoesPorPrestador(idPrestador: string): Observable<Avaliacao[]> {
@@ -77,7 +87,7 @@ export class AvaliacaoFirestoreService {
   getServicosConcluidosDoCliente(idCliente: string): Observable<Agendamento[]> {
     const q = query(this.colecaoAgendamentos,
       where("cliente.id", "==", idCliente),
-      where("status", "==", "Concluído")
+      where("status", "in", ["Concluído", "Avaliado"])
     );
 
     return from(getDocs(q)).pipe(
