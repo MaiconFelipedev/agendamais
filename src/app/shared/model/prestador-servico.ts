@@ -1,8 +1,4 @@
 import { Usuario } from './usuario';
-import { Servico } from './servico';
-import { Agendamento } from './agendamento';
-import { Agenda } from './agenda';
-import { DiaDeTrabalho } from './dia-trabalho';
 
 export class PrestadorServico extends Usuario {
 

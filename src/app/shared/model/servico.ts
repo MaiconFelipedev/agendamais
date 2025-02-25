@@ -1,5 +1,4 @@
 import { PrestadorServico } from './prestador-servico';
-import { Agendamento } from './agendamento';
 
 export class Servico {
   private _id?: string | undefined;
