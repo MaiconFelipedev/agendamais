@@ -8,6 +8,10 @@ main {
   align-content: center;
 }
 
+mat-card-title, mat-card-subtitle, b {
+  font-family: "Nunito", serif;
+}
+
 #perfil {
   width: 100%;
   margin: 20px 0;
@@ -89,13 +93,13 @@ mat-card-title {
   min-width: 50px;
 }
 
-.card {
+.card-avaliacao {
   height: 100%;
   min-width: 350px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.comentario {
+.comentario{
   padding: 15px;
   flex-grow: 1;
   border-top: 1px solid #cccccc;
@@ -124,7 +128,7 @@ mat-card-actions {
 
 .servicos {
   overflow: auto;
-  height: 250px;
+  height: 350px;
   width: 100%;
   padding: 50px 0;
   display: flex;
@@ -136,8 +140,63 @@ mat-card-actions {
   gap: 25px;
 }
 
-@media (max-width: 768px) {
-  .comentarios {
+.card-servico {
+  height: 100%;
+  width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  word-break: break-all;
+}
+
+.titulo-servico {
+  padding: 10px 15px;
+}
+
+.descricao-servico {
+  overflow: auto;
+  min-height: 75px;
+  max-height: 75px;
+  padding: 15px;
+  border-top: 1px solid #cccccc;
+}
+
+.comentario-servico {
+  border-top: 1px solid #aaaaaa;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.comentario-servico textarea {
+  height: 75px;
+  resize: none;
+}
+
+.avaliacao-radio {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: -5px;
+}
+
+.avaliacao-radio mat-radio-button span {
+  margin-left: -10px;
+}
+
+.campo-comentario {
+  width: 100%;
+  height: 100%;
+}
+
+.notas {
+  flex-grow: 1;
+}
+
+@media (max-width: 1024px) {
+  .comentarios, .servicos {
     height: 100%;
     flex-direction: column;
   }
@@ -146,7 +205,7 @@ mat-card-actions {
     display: none;
   }
 
-  .card {
+  .card-avaliacao {
     height: 250px;
     min-width: 0;
     width: 90%;
@@ -154,5 +213,19 @@ mat-card-actions {
 
   .titulo {
     font-size: 5vw;
+  }
+
+  .servicos {
+    height: 100%;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .card-servico {
+    width: 90%;
+  }
+
+  .avaliacao-radio {
+    flex-direction: column;
   }
 }

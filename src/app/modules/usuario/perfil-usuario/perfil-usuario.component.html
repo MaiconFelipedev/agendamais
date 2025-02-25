@@ -11,7 +11,7 @@
     <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">Avaliações sobre seus serviços:</h1>
     <div class="comentarios" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
       <span class="spacer"></span>
-      <mat-card *ngFor="let avaliacao of avaliacoes" class="card" appearance="outlined">
+      <mat-card *ngFor="let avaliacao of avaliacoes" class="card-avaliacao" appearance="outlined">
         <mat-card-header>
           <div mat-card-avatar>
             <mat-icon class="user-icon">account_circle</mat-icon>
@@ -37,22 +37,32 @@
 
     <div class="servicos" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'cliente'">
         <span class="spacer"></span>
-        <mat-card *ngFor="let servico of servicosConcluidos" class="card" appearance="outlined">
-            <mat-card-header class="descricao-servico">
-                <mat-card-title>{{ servico.servico.nome }}</mat-card-title>
-                <mat-card-subtitle>Valor: R$ {{ servico.valorTotal }}</mat-card-subtitle>
-                <mat-card-subtitle>Descrição: {{ servico.servico.descricao }}</mat-card-subtitle>
-                <mat-card-subtitle>Data: {{ servico.data }}</mat-card-subtitle>
+        <mat-card *ngFor="let servico of servicosConcluidos" class="card-servico" appearance="outlined">
+            <mat-card-header class="titulo-servico">
+                <mat-card-title><b>{{ servico.servico.nome }}</b></mat-card-title>
             </mat-card-header>
 
-            <mat-card-actions *ngIf="servico.status != 'Avaliado'">
-                <input matInput type="text" placeholder="Digite algo..." [(ngModel)]="comentario">
-                <mat-radio-group [(ngModel)]="notaEscolhida" class="avaliacao-radio">
+          <mat-card-content class="descricao-servico">
+            <mat-card-subtitle><b>Valor: </b>R$ {{ servico.valorTotal }}</mat-card-subtitle>
+            <mat-card-subtitle><b>Data: </b>{{ servico.data }}</mat-card-subtitle>
+            <mat-card-subtitle><b>Descrição: </b>{{ servico.servico.descricao }}</mat-card-subtitle>
+          </mat-card-content>
+
+            <mat-card-actions class="comentario-servico" *ngIf="servico.status == 'Concluído'">
+              <mat-form-field class="campo-comentario">
+                <mat-label>Comentário</mat-label>
+                <textarea matInput [(ngModel)]="comentario"></textarea>
+              </mat-form-field>
+
+              <mat-radio-group [(ngModel)]="notaEscolhida" class="avaliacao-radio">
+                <p><b>Nota:</b></p>
+                <div class="notas">
                   <mat-radio-button *ngFor="let nota of [1, 2, 3, 4, 5]" [value]="nota">
                     <span [ngClass]="{'selected': notaEscolhida >= nota}">{{ nota }}</span>
                   </mat-radio-button>
-                </mat-radio-group>
+                </div>
                 <button (click)="salvarAvaliacao(servico, comentario, notaEscolhida)" mat-flat-button>Avaliar</button>
+              </mat-radio-group>
             </mat-card-actions>
         </mat-card>
         <span class="spacer"></span>
