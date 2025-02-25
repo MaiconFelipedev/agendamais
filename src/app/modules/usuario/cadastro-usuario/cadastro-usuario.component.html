@@ -1,99 +1,102 @@
-<mat-card class="cadastro-container">
-  <mat-icon id="logo">account_circle</mat-icon>
-  <h1 id="titulo">Cadastrar usuário</h1>
+<main>
+  <mat-card class="cadastro-container">
+    <mat-icon id="logo">account_circle</mat-icon>
+    <h1 id="titulo">Cadastrar usuário</h1>
 
-  <mat-card-content>
-    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <mat-form-field appearance="outline">
-          <mat-label>Nome Completo</mat-label>
-          <input matInput formControlName="nome" required>
-          <mat-error *ngIf="usuarioForm.get('nome')?.hasError('required')">
-            Nome é obrigatório
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" required>
-          <mat-error *ngIf="usuarioForm.get('email')?.hasError('required')">
-            Email é obrigatório
-          </mat-error>
-          <mat-error *ngIf="usuarioForm.get('email')?.hasError('email')">
-            Formato de email inválido
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="row">
-        <mat-form-field appearance="outline">
-          <mat-label>Senha</mat-label>
-          <input matInput formControlName="senha" type="password" required>
-          <mat-error *ngIf="usuarioForm.get('senha')?.hasError('required')">
-            Senha é obrigatória
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Telefone</mat-label>
-          <input matInput formControlName="telefone" required>
-          <mat-error *ngIf="usuarioForm.get('telefone')?.hasError('required')">
-            Telefone é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="endereco-section">
-        <h2 id="endereço">
-          <mat-icon style="color: #3f51b5">location_on</mat-icon>
-          Endereço
-        </h2>
-        <div class="endereco-fields" formGroupName="endereco">
+    <mat-card-content>
+      <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+        <div class="row">
           <mat-form-field appearance="outline">
-            <mat-label>Rua</mat-label>
-            <input matInput formControlName="rua" required>
-            <mat-error *ngIf="usuarioForm.get('endereco.rua')?.hasError('required')">
-              Rua é obrigatória
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="nome" required>
+            <mat-error *ngIf="usuarioForm.get('nome')?.hasError('required')">
+              Nome é obrigatório
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Bairro</mat-label>
-            <input matInput formControlName="bairro" required>
-            <mat-error *ngIf="usuarioForm.get('endereco.bairro')?.hasError('required')">
-              Bairro é obrigatório
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-error *ngIf="usuarioForm.get('email')?.hasError('required')">
+              Email é obrigatório
             </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Cidade</mat-label>
-            <input matInput formControlName="cidade" required>
-            <mat-error *ngIf="usuarioForm.get('endereco.cidade')?.hasError('required')">
-              Cidade é obrigatória
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <input matInput formControlName="estado" required maxlength="2">
-            <mat-error *ngIf="usuarioForm.get('endereco.estado')?.hasError('required')">
-              Estado é obrigatório
+            <mat-error *ngIf="usuarioForm.get('email')?.hasError('email')">
+              Formato de email inválido
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Tipo de Usuário</mat-label>
-        <mat-select formControlName="tipo" required>
-          <mat-option value="cliente">Cliente</mat-option>
-          <mat-option value="profissional">Profissional</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="senha" type="password" required>
+            <mat-error *ngIf="usuarioForm.get('senha')?.hasError('required')">
+              Senha é obrigatória
+            </mat-error>
+          </mat-form-field>
 
-      <button mat-flat-button type="submit" [disabled]="usuarioForm.invalid">
-        Cadastrar
-      </button>
-    </form>
-  </mat-card-content>
-</mat-card>
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" required>
+            <mat-error *ngIf="usuarioForm.get('telefone')?.hasError('required')">
+              Telefone é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="endereco-section">
+          <h2 id="endereço">
+            <mat-icon style="color: #3f51b5">location_on</mat-icon>
+            Endereço
+          </h2>
+          <div class="endereco-fields" formGroupName="endereco">
+            <mat-form-field appearance="outline">
+              <mat-label>Rua</mat-label>
+              <input matInput formControlName="rua" required>
+              <mat-error *ngIf="usuarioForm.get('endereco.rua')?.hasError('required')">
+                Rua é obrigatória
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Bairro</mat-label>
+              <input matInput formControlName="bairro" required>
+              <mat-error *ngIf="usuarioForm.get('endereco.bairro')?.hasError('required')">
+                Bairro é obrigatório
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input matInput formControlName="cidade" required>
+              <mat-error *ngIf="usuarioForm.get('endereco.cidade')?.hasError('required')">
+                Cidade é obrigatória
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Estado</mat-label>
+              <input matInput formControlName="estado" required maxlength="2">
+              <mat-error *ngIf="usuarioForm.get('endereco.estado')?.hasError('required')">
+                Estado é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Usuário</mat-label>
+          <mat-select formControlName="tipo" required>
+            <mat-option value="cliente">Cliente</mat-option>
+            <mat-option value="profissional">Profissional</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button type="submit" [disabled]="usuarioForm.invalid">
+          Cadastrar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</main>

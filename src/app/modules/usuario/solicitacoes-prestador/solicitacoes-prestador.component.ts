@@ -12,7 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-solicitacoes-prestador',
   standalone: true,
-  imports: [MaterialModule, CommonModule, MatTable],
+  imports: [MaterialModule, CommonModule],
   templateUrl: './solicitacoes-prestador.component.html',
   styleUrl: './solicitacoes-prestador.component.scss'
 })
