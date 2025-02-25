@@ -37,7 +37,7 @@ export class AgendamentoService {
   }
 
   atualizar(agendamento: Agendamento): Observable<void> {
-    return this.agendamentoFirestoreService.atualizar(agendamento);
+    return this.agendamentoFirestoreService.atualizarStatus(agendamento);
   }
 
   remover(agendamento: Agendamento): Observable<void> {

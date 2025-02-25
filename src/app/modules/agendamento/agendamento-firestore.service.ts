@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc
+} from '@angular/fire/firestore';
 import { Agendamento } from '../../shared/model/agendamento';
-import { from, Observable, map } from 'rxjs';
+import {from, Observable, map, switchMap, tap, catchError, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,9 +70,9 @@ export class AgendamentoFirestoreService {
     );
   }
 
-  atualizar(agendamento: Agendamento): Observable<void> {
+  atualizarStatus(agendamento: Agendamento): Observable<void> {
     const docRef = doc(this.bancoRemoto, "agendamentos", agendamento.id!);
-    return from(updateDoc(docRef, { ...agendamento }));
+    return from(updateDoc(docRef, { status: agendamento.status }));
   }
 
   remover(agendamento: Agendamento): Observable<void> {
@@ -99,7 +109,7 @@ export class AgendamentoFirestoreService {
     );
   }
 
-  // Busca agendamentos por status (exemplo: "Solicitado", "Confirmado" ou "Rejeitado")
+  // Busca agendamentos por status (exemplo: "Solicitado", "Confirmado" ou "Recusado")
   buscarPorStatus(status: string): Observable<Agendamento[]> {
     const q = query(this.colecaoAgendamentos, where("status", "==", status));
     return from(getDocs(q)).pipe(
@@ -127,6 +137,7 @@ export class AgendamentoFirestoreService {
       map(resposta => {
         return resposta.docs.map(doc => {
           const data = doc.data();
+
           const horarioInicial = data['horarioInicial']?.toDate
             ? data['horarioInicial'].toDate()
             : new Date(data['horarioInicial']);
@@ -136,6 +147,7 @@ export class AgendamentoFirestoreService {
               ? data['horarioFinal'].toDate()
               : new Date(data['horarioFinal']))
             : null;
+
           return new Agendamento(
             horarioInicial,
             horarioFinal,
