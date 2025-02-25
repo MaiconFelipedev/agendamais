@@ -113,10 +113,32 @@ mat-card-title {
 }
 
 .nota mat-icon {
+  width: 20px;
   color: #dfa30a;
   font-size: 21px;
 }
 
 mat-card-actions {
   padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .comentarios {
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .card {
+    height: 250px;
+    min-width: 0;
+    width: 90%;
+  }
+
+  .titulo {
+    font-size: 5vw;
+  }
 }
