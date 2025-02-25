@@ -26,4 +26,8 @@ export class AvaliacaoService {
     return this.avaliacaoFirestore.getMediaNotasPorPrestador(idPrestador);
   }
 
+  getServicosConcluidosDoCliente(idCliente: string): Observable<any[]> {
+    return this.avaliacaoFirestore.getServicosConcluidosDoCliente(idCliente);
+  }
+
 }

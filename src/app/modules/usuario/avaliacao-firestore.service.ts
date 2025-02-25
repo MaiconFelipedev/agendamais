@@ -10,6 +10,7 @@ export class AvaliacaoFirestoreService {
 
   private bancoRemoto = getFirestore();
   private colecaoAvaliacoes = collection(this.bancoRemoto, "avaliacoes");
+  private colecaoAgendamentos = collection(this.bancoRemoto, "agendamentos");
 
   salvar(avaliacao: Avaliacao): Observable<Avaliacao | null> {
     delete avaliacao.id;
@@ -68,6 +69,23 @@ export class AvaliacaoFirestoreService {
 
                 // Se não houver avaliações, retorna 0
                 return totalAvaliacoes > 0 ? somaNotas / totalAvaliacoes : 0;
+            })
+        );
+    }
+
+    getServicosConcluidosDoCliente(idCliente: string): Observable<any[]> {
+        const q = query(this.colecaoAgendamentos,
+            where("cliente.id", "==", idCliente),
+            where("status", "==", "Concluído")
+        );
+
+        return from(getDocs(q)).pipe(
+            map(querySnapshot => {
+                const servicos: any[] = [];
+                querySnapshot.forEach(doc => {
+                    servicos.push({ id: doc.id, ...doc.data() });
+                });
+                return servicos;
             })
         );
     }
