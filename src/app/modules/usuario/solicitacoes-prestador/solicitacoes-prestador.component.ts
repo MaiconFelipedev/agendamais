@@ -55,7 +55,7 @@ export class SolicitacoesPrestadorComponent implements OnInit{
 
     if(this.agendamentosPrestador != undefined){
       this.agendamentosPrestador.forEach(agendamento => {
-        if(agendamento.servico.nome === nomeServico){
+        if(agendamento.servico.nome === nomeServico && agendamento.status === "Solicitado"){
           agendamentosTipoServico.push(agendamento);
         }
       })
@@ -72,7 +72,9 @@ export class SolicitacoesPrestadorComponent implements OnInit{
         if (servicosOferecidos.includes(agendamento.servico.nome)) {
           continue;
         }
-        servicosOferecidos.push(agendamento.servico.nome);
+        if(agendamento.status === "Solicitado"){
+          servicosOferecidos.push(agendamento.servico.nome);
+        }
       }
     }
 
@@ -86,6 +88,7 @@ export class SolicitacoesPrestadorComponent implements OnInit{
         this.snackBar.open("Solicitação retornada! O cliente remarcará o horário.", "Fechar");
       }
     })
+    this.buscarAgendamentos(this.prestador!.id)
   }
 
   aceitar(agendamento: Agendamento){
@@ -95,5 +98,6 @@ export class SolicitacoesPrestadorComponent implements OnInit{
         this.snackBar.open("Serviço agendado! Visualize na sua agenda.");
       }
     })
+    this.buscarAgendamentos(this.prestador!.id)
   }
 }
