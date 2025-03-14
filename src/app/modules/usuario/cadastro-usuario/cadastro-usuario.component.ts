@@ -57,11 +57,11 @@ export class CadastroUsuarioComponent {
             }));
           } else {
             if (tipo === "cliente"){
-              const novoUsuario = new Cliente(nome, email, senha, telefone, tipo, endereco);
+              const novoUsuario = new Cliente(nome, email, senha, telefone, tipo, endereco, false);
               this.userService.cadastrarNoBanco(novoUsuario);
             }
             else {
-              const novoUsuario = new PrestadorServico(nome, email, senha, telefone, tipo, endereco);
+              const novoUsuario = new PrestadorServico(nome, email, senha, telefone, tipo, endereco, false);
               this.userService.cadastrarNoBanco(novoUsuario);
             }
           }

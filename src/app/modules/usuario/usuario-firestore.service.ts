@@ -24,6 +24,7 @@ export class UsuarioFirestoreService {
           usuario.telefone,
           usuario.tipo,
           usuario.endereco,
+          usuario.verificado,
           usuarioSalvo.id
         ))
       )
@@ -58,6 +59,7 @@ export class UsuarioFirestoreService {
           doc.data()['telefone'],
           doc.data()['tipo'],
           doc.data()['endereco'],
+          doc.data()['verificado'],
           doc.id
         ) : null;
       })
