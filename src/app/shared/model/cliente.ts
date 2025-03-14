@@ -7,8 +7,8 @@ export class Cliente extends Usuario {
     historicoAgendamentos: Agendamento[] = [];
 
   constructor(nome: string, email: string, senha: string, telefone: string, tipo: string,
-              endereco: { rua: string; bairro: string; cidade: string; estado: string }, id?: string) {
-    super(nome, email, senha, telefone, tipo, endereco, id);
+              endereco: { rua: string; bairro: string; cidade: string; estado: string }, verificado: boolean, id?: string) {
+    super(nome, email, senha, telefone, tipo, endereco, verificado, id);
 
     }
 
