@@ -1,46 +1,125 @@
-main{
-  background: linear-gradient(135deg, #3f51b5, #1a237e);
-  height: 100vh;
-}
-
-.container-agendamento{
-  padding: 40px;
-}
-
-h2 {
-  font-size: 35px;
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 20px;
-}
-
-form {
+// Estilização geral
+main {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 400px;
-  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
   padding: 20px;
+}
+
+.agendamento-container {
+  display: flex;
+  gap: 20px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+// Card padrão
+.card {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-mat-form-field {
-  width: 100%;
+// Card de Datas Disponíveis
+.datas-disponiveis {
+  flex: 1;
+  max-width: 300px;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .data-button {
+      background-color: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    .horarios-list {
+      margin-top: 10px;
+      padding: 5px;
+      width: 100%;
+      text-align: center;
+
+      li {
+        font-size: 0.9rem;
+        padding: 5px;
+      }
+
+      .disponivel {
+        color: green;
+        font-weight: bold;
+      }
+
+      .ocupado {
+        color: red;
+        font-weight: bold;
+      }
+    }
+  }
 }
 
-mat-flat-button {
-  width: 100%;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-}
+// Card de Agendamento
+.container-agendamento {
+  flex: 2;
+  min-width: 400px;
 
-@media (max-width: 768px) {
-  form {
-    box-shadow: none;
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #218838;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   }
 }

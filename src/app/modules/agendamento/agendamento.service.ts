@@ -59,4 +59,11 @@ export class AgendamentoService {
   buscarPorPrestador(prestadorId: string | undefined): Observable<Agendamento[]> {
     return this.agendamentoFirestoreService.buscarPorPrestador(prestadorId);
   }
+
+  buscarAgendamentosPorDataEPrestador(data: string | null, prestadorId: string): Observable<Agendamento[]> {
+    if (!data || !prestadorId) {
+      return of([]); // Retorna um Observable vazio se a data ou o prestadorId não estiverem definidos
+    }
+    return this.agendamentoFirestoreService.buscarPorDataEPrestador(data, prestadorId);
+  }
 }

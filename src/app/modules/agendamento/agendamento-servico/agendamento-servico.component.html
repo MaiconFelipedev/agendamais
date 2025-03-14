@@ -1,25 +1,50 @@
 <main>
-
-
-
-  <div class="container-agendamento">
-    <h2>Solicitar agendamento</h2>
-    <form (ngSubmit)="agendar()">
-      <mat-form-field appearance="outline">
-        <mat-label>Data do agendamento</mat-label>
-        <mat-select [formControl]="dataSelecionada">
-          <mat-option *ngFor="let data of datasDisponiveis" [value]="data">
+  <div class="agendamento-container">
+    <!-- Card de Datas Disponíveis -->
+    <div class="card datas-disponiveis">
+      <h2>Datas Disponíveis</h2>
+      <ul>
+        <li *ngFor="let data of datasDisponiveis">
+          <button (click)="dataSelecionada.setValue(data); carregarHorariosDisponiveis();"
+                  class="data-button">
             {{ data }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          </button>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Horário do agendamento</mat-label>
-        <input type="time" [(ngModel)]="horarioInicioAtendimento" matInput name="inicioExpediente" required />
-      </mat-form-field>
-      <button type="submit" mat-flat-button>Concluir</button>
-    </form>
+          <!-- Exibir horários ao selecionar uma data -->
+          <ul *ngIf="dataSelecionada.value === data" class="horarios-list">
+            <li *ngFor="let horario of horariosDisponiveis">
+              <span [class.disponivel]="horario.disponivel" [class.ocupado]="!horario.disponivel">
+                {{ horario.horario }} - {{ horario.disponivel ? 'Disponível' : 'Ocupado' }}
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Card de Solicitação de Agendamento -->
+    <div class="card container-agendamento">
+      <h2>Solicitar Agendamento</h2>
+      <form (ngSubmit)="agendar()">
+        <mat-form-field appearance="outline">
+          <mat-label>Data do agendamento</mat-label>
+          <mat-select [formControl]="dataSelecionada" (selectionChange)="carregarHorariosDisponiveis()">
+            <mat-option *ngFor="let data of datasDisponiveis" [value]="data">
+              {{ data }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Seleção de Horário -->
+        <mat-form-field appearance="outline">
+          <mat-label>Horário do agendamento</mat-label>
+          <input type="time" [(ngModel)]="horarioInicioAtendimento" matInput name="inicioExpediente" required />
+        </mat-form-field>
+
+        <button type="submit" mat-flat-button [disabled]="!dataSelecionada.value || !horarioInicioAtendimento">
+          Concluir
+        </button>
+      </form>
+    </div>
   </div>
-
 </main>

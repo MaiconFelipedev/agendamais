@@ -195,4 +195,32 @@ export class AgendamentoFirestoreService {
     );
   }
 
+  // Método para buscar agendamentos por data e prestador
+  buscarPorDataEPrestador(data: string, prestadorId: string): Observable<Agendamento[]> {
+    const q = query(
+      this.colecaoAgendamentos,
+      where("servico.prestador.id", "==", prestadorId), // Filtra por prestador
+      where("data", "==", data) // Filtra por data
+    );
+
+    return from(getDocs(q)).pipe(
+      map(resposta => {
+        return resposta.docs.map(doc => {
+          const data = doc.data();
+          return new Agendamento(
+            data['horarioInicial'],
+            data['horarioFinal'],
+            data['cliente'],
+            data['servico'],
+            data['valorTotal'],
+            data['status'],
+            doc.id
+          );
+        });
+      })
+    );
+  }
+
+
+
 }

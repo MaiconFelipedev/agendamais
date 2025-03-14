@@ -11,7 +11,7 @@ import { Cliente } from '../../../shared/model/cliente';
 import { addMinutes, format, parse } from 'date-fns';
 import { Agendamento } from '../../../shared/model/agendamento';
 import { AgendamentoService } from '../../agendamento/agendamento.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-agendamento-servico',
@@ -24,6 +24,7 @@ export class AgendamentoServicoComponent {
   title = 'Agenda+ | Novo agendamento';
   servicoSelecionado: Servico | undefined;
   datasDisponiveis: string[] = [];
+  horariosDisponiveis: { horario: string, disponivel: boolean }[] = [];
   horarioInicioAtendimento = "00:00";
 
   constructor(
@@ -50,42 +51,90 @@ export class AgendamentoServicoComponent {
 
   dataSelecionada = new FormControl<string>("");
 
-  agendar() {
-    const duracao = this.converterDuracao(this.servicoSelecionado?.duracao!);
+  carregarHorariosDisponiveis(): void {
+    // Verifica se o serviço e o prestador estão definidos
+    if (!this.servicoSelecionado || !this.servicoSelecionado.prestador || !this.servicoSelecionado.prestador.id) {
+      this.snackBar.open('Serviço ou prestador não definido.', 'Fechar', { duration: 5000 });
+      return;
+    }
 
-    // Combina a data selecionada com o horário escolhido
+    if (!this.dataSelecionada.value) {
+      this.snackBar.open('Selecione uma data.', 'Fechar', { duration: 5000 });
+      return;
+    }
+
+    // Limpa a lista de horários
+    this.horariosDisponiveis = [];
+
+    // Define o horário de início e fim do dia
+    const inicioDia = parse('08:00', 'HH:mm', new Date());
+    const fimDia = parse('18:00', 'HH:mm', new Date());
+
+    // Gera os horários de 30 em 30 minutos
+    let horarioAtual = inicioDia;
+    while (horarioAtual <= fimDia) {
+      const horarioFormatado = format(horarioAtual, 'HH:mm');
+      this.horariosDisponiveis.push({ horario: horarioFormatado, disponivel: true });
+      horarioAtual = addMinutes(horarioAtual, 30);
+    }
+
+    // Verifica os horários ocupados
+    this.agendamentoService.buscarAgendamentosPorDataEPrestador(
+      this.dataSelecionada.value,
+      this.servicoSelecionado.prestador.id
+    ).subscribe({
+      next: (agendamentos) => {
+        agendamentos.forEach((agendamento) => {
+          const horarioAgendado = format(agendamento.horarioInicial, 'HH:mm');
+          const index = this.horariosDisponiveis.findIndex((h) => h.horario === horarioAgendado);
+          if (index !== -1) {
+            this.horariosDisponiveis[index].disponivel = false;
+          }
+        });
+      },
+      error: (erro) => {
+        this.snackBar.open('Erro ao carregar horários.', 'Fechar', { duration: 5000 });
+        console.error(erro);
+      }
+    });
+  }
+
+  agendar(): void {
+    if (!this.horarioInicioAtendimento || !this.dataSelecionada.value) {
+      this.snackBar.open('Selecione um horário disponível.', 'Fechar', { duration: 5000 });
+      return;
+    }
+
+    const duracao = this.converterDuracao(this.servicoSelecionado?.duracao!);
     const dataComHorario = parse(
       `${this.dataSelecionada.value} ${this.horarioInicioAtendimento}`,
       'dd/MM/yyyy HH:mm',
       new Date()
     );
-
-    // Calcula o horário final
     const horarioTerminoAtendimento = addMinutes(dataComHorario, duracao);
 
     const agendamento = new Agendamento(
       dataComHorario,
-      horarioTerminoAtendimento, // Horário final calculado
+      horarioTerminoAtendimento,
       this.usuarioService.usuarioLogado() as Cliente,
       this.servicoSelecionado!,
       this.servicoSelecionado?.preco!
     );
 
-    this.agendamentoService.agendarComVerificacao(agendamento).subscribe(
-      (resultado) => {
+    this.agendamentoService.agendarComVerificacao(agendamento).subscribe({
+      next: (resultado) => {
         if (typeof resultado === 'string') {
-          // Exibe mensagem de erro
-          this.snackBar.open(resultado, 'Fechar', {
-            duration: 5000
-          });
+          this.snackBar.open(resultado, 'Fechar', { duration: 5000 });
         } else {
-          this.snackBar.open('✅ Agendamento solicitado com sucesso!', 'Fechar', {
-            duration: 5000
-          });
+          this.snackBar.open('✅ Agendamento solicitado com sucesso!', 'Fechar', { duration: 5000 });
           this.router.navigate(['/listagem-servicos']);
         }
+      },
+      error: (erro) => {
+        this.snackBar.open('Erro ao agendar.', 'Fechar', { duration: 5000 });
+        console.error(erro);
       }
-    );
+    });
   }
 
   converterDuracao(tempo: string): number {
