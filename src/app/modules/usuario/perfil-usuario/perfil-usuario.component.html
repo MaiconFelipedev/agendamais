@@ -1,7 +1,15 @@
 <main>
     <div id="perfil">
         <mat-icon class="icone-usuario">account_circle</mat-icon>
-        <p class="nome-usuario">{{this.usuarioService.nomeUsuario()}}</p>
+        <div class="nome-usuario">
+          <p>{{this.usuarioService.nomeUsuario()}}</p>
+          <a *ngIf="this.usuarioService.usuarioLogado()?.verificado" class="icon verified" href="#">
+            <span class="material-symbols-outlined">workspace_premium</span>
+          </a>
+          <a *ngIf="!this.usuarioService.usuarioLogado()?.verificado" class="icon unverified" href="#">
+            <span class="material-symbols-outlined">unlicense</span>
+          </a>
+        </div>
         <p class="nota-media" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
             <mat-icon>star</mat-icon>
             {{this.avaliacaoMedia | number:'1.1-1' }}

@@ -31,9 +31,36 @@ mat-card-title, mat-card-subtitle, b {
 }
 
 .nome-usuario {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
   font-size: 26px;
   font-weight: bold;
   margin-top: 10px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  transition: 0.3s;
+}
+
+.verified {
+  color: #ffcc00;
+}
+
+.unverified {
+  color: #ffffff;
 }
 
 .nota-media {
