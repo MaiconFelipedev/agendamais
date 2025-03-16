@@ -19,4 +19,6 @@ export class CardServicoComponent {
   constructor(private titleService: Title) {
     this.titleService.setTitle(this.title);
   }
+
+
 }

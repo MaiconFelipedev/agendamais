@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 <main>
   <h1>Acompanhamento de solicitações</h1>
   <div class="container">
@@ -6,16 +7,38 @@
     </div>
     <div *ngIf="agendamentos.length > 0" class="cards-container">
       <div *ngFor="let agendamento of agendamentos" class="card" [ngClass]="getCorCard(agendamento.status)">
+        <!-- Botão de Pagamento -->
+        <button *ngIf="agendamento.status === 'Pagamento pendente' && (agendamento.formaPagamento === 'Pix' || agendamento.formaPagamento === 'Cartão de Crédito')"
+                class="top-2 right-2 bg-transparent border-none cursor-pointer text-green-500 text-xl"
+                (click)="abrirModalPagamento(agendamento)">
+          <i class="fa-solid fa-wallet"></i>
+        </button>
+
         <h2>{{ agendamento.servico.nome }}</h2>
         <p><strong>Prestador:</strong> {{ agendamento.servico.prestador?.nome }}</p>
-        <p ><strong>Status:</strong> {{ agendamento.status }}</p>
-        <p ><strong>Data:</strong> {{ agendamento.horarioInicial | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Status:</strong> {{ agendamento.status }}</p>
+        <p><strong>Data:</strong> {{ agendamento.horarioInicial | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Horário:</strong>
           {{ agendamento.horarioInicial | date: 'HH:mm' }} -
           {{ agendamento.horarioFinal | date: 'HH:mm' }}
         </p>
         <p><strong>Valor Total:</strong> {{ agendamento.valorTotal | currency: 'BRL' }}</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de Pagamento -->
+  <div *ngIf="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative">
+      <!-- Botão de Fechar -->
+      <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
+              (click)="fecharModal()">
+        &times;
+      </button>
+
+      <h2 class="text-xl font-bold mb-4">Pagamento via {{ agendamentoSelecionado?.formaPagamento }}</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg" alt="Código QR" class="w-full mb-4" />
+      <p class="text-gray-600">Escaneie o código QR para realizar o pagamento.</p>
     </div>
   </div>
 </main>

@@ -1,16 +1,18 @@
 <h1>Solicitações dos clientes</h1>
 
 <div id="solicitacoes">
+  <!-- Agendamentos com status "Solicitado" -->
   <div class="categoria-solicitacao" *ngFor="let nome of servicosOferecidos">
-    <div *ngIf="buscarPorServico(nome).length > 0">
+    <div *ngIf="buscarPorServico(nome, 'Solicitado').length > 0">
       <h2 class="titulo-secao">{{ nome }}</h2>
       <div class="cards">
-        <mat-card *ngFor="let agendamento of buscarPorServico(nome)" class="card-solicitacao" appearance="outlined">
+        <mat-card *ngFor="let agendamento of buscarPorServico(nome, 'Solicitado')" class="card-solicitacao" appearance="outlined">
           <mat-card-header class="header-card">
             <mat-card-title>{{ agendamento.cliente.nome }}</mat-card-title>
             <mat-card-subtitle>Serviço: {{ agendamento.servico.nome }} </mat-card-subtitle>
             <mat-card-subtitle>Data: {{ agendamento.data }} </mat-card-subtitle>
             <mat-card-subtitle>Horário: {{ agendamento.horario }}</mat-card-subtitle>
+            <mat-card-subtitle>Status: {{ agendamento.status }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-actions class="botoes-card">
             <button (click)="remarcar(agendamento)" mat-stroked-button>Remarcar</button>
@@ -20,7 +22,31 @@
       </div>
     </div>
   </div>
-  <div id="aviso-solicitacoes" *ngIf="servicosOferecidos.length ===0">
+
+  <!-- Agendamentos com status "Pagamento pendente" e método de pagamento Pix ou Cartão de Crédito -->
+  <div class="categoria-solicitacao">
+    <div *ngIf="buscarPorStatus('Pagamento pendente').length > 0">
+      <h2 class="titulo-secao">Pagamento Pendente</h2>
+      <div class="cards">
+        <mat-card *ngFor="let agendamento of buscarPorStatus('Pagamento pendente')" class="card-solicitacao" appearance="outlined">
+          <mat-card-header class="header-card">
+            <mat-card-title>{{ agendamento.cliente.nome }}</mat-card-title>
+            <mat-card-subtitle>Serviço: {{ agendamento.servico.nome }} </mat-card-subtitle>
+            <mat-card-subtitle>Data: {{ agendamento.data }} </mat-card-subtitle>
+            <mat-card-subtitle>Horário: {{ agendamento.horario }}</mat-card-subtitle>
+            <mat-card-subtitle>Status: {{ agendamento.status }}</mat-card-subtitle>
+            <mat-card-subtitle>Forma de Pagamento: {{ agendamento.formaPagamento }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions class="botoes-card">
+            <button (click)="cancelar(agendamento)" mat-stroked-button>Cancelar</button>
+            <button (click)="confirmar(agendamento)" mat-flat-button>Confirmar</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div id="aviso-solicitacoes" *ngIf="servicosOferecidos.length === 0 && buscarPorStatus('Pagamento pendente').length === 0">
     <h2>As suas solicitações de serviço vão aparecer aqui.</h2>
   </div>
 </div>

@@ -8,6 +8,7 @@ export class Servico {
   private _duracao: string;
   private _descricao: string;
   private _prestador?: PrestadorServico;
+  private _formasPagamento: string[] = [];
 
   constructor(
     nome: string,
@@ -16,7 +17,8 @@ export class Servico {
     duracao: string,
     descricao: string,
     prestador?: PrestadorServico,
-    id?: string
+    id?: string,
+    formasPagamento: string[] = []
   ) {
     this._nome = nome;
     this._tipo = tipo;
@@ -24,6 +26,7 @@ export class Servico {
     this._duracao = duracao;
     this._descricao = descricao;
     this._prestador = prestador;
+    this._formasPagamento = formasPagamento;
     this._id = id;
   }
 
@@ -36,11 +39,13 @@ export class Servico {
       preco: this._preco,
       duracao: this._duracao,
       descricao: this._descricao,
-      prestador: this._prestador?.toObject ? this._prestador.toObject() : this._prestador
+      prestador: this._prestador?.toObject ? this._prestador.toObject() : this._prestador,
+      formasPagamento: this._formasPagamento
     };
   }
 
-  get id(): string| undefined {
+  // Getters e Setters
+  get id(): string | undefined {
     return this._id;
   }
 
@@ -56,7 +61,7 @@ export class Servico {
     return this._descricao;
   }
 
-  get tipo(): string { // Getter para tipo
+  get tipo(): string {
     return this._tipo;
   }
 
@@ -70,6 +75,14 @@ export class Servico {
 
   get prestador(): PrestadorServico | undefined {
     return this._prestador;
+  }
+
+  get formasPagamento(): string[] {
+    return this._formasPagamento;
+  }
+
+  set formasPagamento(formasPagamento: string[]) {
+    this._formasPagamento = formasPagamento;
   }
 }
 

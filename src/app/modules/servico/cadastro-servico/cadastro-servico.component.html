@@ -37,6 +37,15 @@
       </mat-form-field>
     </div>
 
+    <div class="formas-pagamento">
+      <mat-label>Formas de Pagamento</mat-label>
+      <div>
+        <mat-checkbox *ngFor="let forma of formasPagamento" [value]="forma" (change)="onCheckboxChange($event, forma)">
+          {{ forma }}
+        </mat-checkbox>
+      </div>
+    </div>
+
     <mat-form-field appearance="outline">
       <mat-label>Descrição</mat-label>
       <textarea formControlName="descricao" matInput></textarea>

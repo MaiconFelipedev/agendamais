@@ -43,6 +43,7 @@ export class AgendamentoFirestoreService {
                 data['servico'],
                 data['valorTotal'],
                 data['status'],
+                data['formaPagamento'],
                 doc.id
             );
           });
@@ -64,6 +65,7 @@ export class AgendamentoFirestoreService {
           agendamento.servico,
           agendamento.valorTotal,
           agendamento.status,
+          agendamento.formaPagamento,
           agendamentoSalvo.id // Atribui o ID gerado pelo Firestore
         );
       })
@@ -102,6 +104,7 @@ export class AgendamentoFirestoreService {
             data['servico'],
             data['valorTotal'],
             data['status'],
+            data['formaPagamento'],
             doc.id
           );
         });
@@ -123,6 +126,7 @@ export class AgendamentoFirestoreService {
             data['servico'],
             data['valorTotal'],
             data['status'],
+            data['formaPagamento'],
             doc.id
           );
         });
@@ -155,6 +159,7 @@ export class AgendamentoFirestoreService {
             data['servico'],
             data['valorTotal'],
             data['status'],
+            data['formaPagamento'],
             doc.id
           );
         });
@@ -188,6 +193,7 @@ export class AgendamentoFirestoreService {
             data['servico'],
             data['valorTotal'],
             data['status'],
+            data['formaPagamento'],
             doc.id
           );
         });
@@ -214,6 +220,7 @@ export class AgendamentoFirestoreService {
             data['servico'],
             data['valorTotal'],
             data['status'],
+            data['formaPagamento'],
             doc.id
           );
         });

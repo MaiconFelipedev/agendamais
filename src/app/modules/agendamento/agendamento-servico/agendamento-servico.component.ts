@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Cliente } from '../../../shared/model/cliente';
 import { addMinutes, format, parse } from 'date-fns';
 import { Agendamento } from '../../../shared/model/agendamento';
-import { AgendamentoService } from '../../agendamento/agendamento.service';
+import { AgendamentoService } from '../agendamento.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,6 +26,7 @@ export class AgendamentoServicoComponent {
   datasDisponiveis: string[] = [];
   horariosDisponiveis: { horario: string, disponivel: boolean }[] = [];
   horarioInicioAtendimento = "00:00";
+  formaPagamentoSelecionada: string | undefined;
 
   constructor(
     private titleService: Title,
@@ -100,8 +101,8 @@ export class AgendamentoServicoComponent {
   }
 
   agendar(): void {
-    if (!this.horarioInicioAtendimento || !this.dataSelecionada.value) {
-      this.snackBar.open('Selecione um horário disponível.', 'Fechar', { duration: 5000 });
+    if (!this.horarioInicioAtendimento || !this.dataSelecionada.value || !this.formaPagamentoSelecionada) {
+      this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', { duration: 5000 });
       return;
     }
 
@@ -118,7 +119,9 @@ export class AgendamentoServicoComponent {
       horarioTerminoAtendimento,
       this.usuarioService.usuarioLogado() as Cliente,
       this.servicoSelecionado!,
-      this.servicoSelecionado?.preco!
+      this.servicoSelecionado?.preco!,
+      "Solicitado",
+      this.formaPagamentoSelecionada
     );
 
     this.agendamentoService.agendarComVerificacao(agendamento).subscribe({

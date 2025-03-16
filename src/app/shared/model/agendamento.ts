@@ -11,6 +11,7 @@ export class Agendamento {
       private _servico: Servico,
       private _valorTotal: number,
       private _status: string = "Solicitado",
+      private _formaPagamento: string,
       private _id ?: string
     ) {
       if (!this._horarioFinal) {
@@ -27,6 +28,7 @@ export class Agendamento {
         cliente: this._cliente.toObject ? this._cliente.toObject() : this._cliente,
         servico: this._servico.toObject ? this._servico.toObject() : this._servico,
         valorTotal: this._valorTotal,
+        formaPagamento: this._formaPagamento,
         status: this._status,
         id: this._id
       };
@@ -83,10 +85,25 @@ export class Agendamento {
       this._id = novoId;
     }
 
+    get formaPagamento(): string {
+      return this._formaPagamento;
+    }
+
+    set formaPagamento(formaPagamento: string){
+      this._formaPagamento = formaPagamento;
+    }
+
+    aceitar(): void {
+      this._status = "Pagamento pendente";
+    }
+
     confirmar(): void {
       this._status = "Confirmado";
     }
 
+    cancelar(): void {
+      this._status = "Cancelado";
+    }
     recusar(): void {
       this._status = "Recusado";
     }

@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {MaterialModule} from '../../material/material.module';
-import {CommonModule} from '@angular/common';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
+import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { UsuarioService } from '../usuario.service';
+import { AgendamentoService } from '../../agendamento/agendamento.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Agendamento } from '../../../shared/model/agendamento';
 import {Usuario} from '../../../shared/model/usuario';
-import {Agendamento} from '../../../shared/model/agendamento';
-import {Title} from '@angular/platform-browser';
-import {UsuarioService} from '../usuario.service';
-import {AgendamentoService} from '../../agendamento/agendamento.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-solicitacoes-prestador',
@@ -16,7 +15,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './solicitacoes-prestador.component.html',
   styleUrl: './solicitacoes-prestador.component.scss'
 })
-export class SolicitacoesPrestadorComponent implements OnInit{
+export class SolicitacoesPrestadorComponent implements OnInit {
   title = 'Agenda+ | Solicitações';
   prestador: Usuario | undefined;
   agendamentosPrestador: Agendamento[] | undefined;
@@ -38,41 +37,56 @@ export class SolicitacoesPrestadorComponent implements OnInit{
     }
   }
 
-  buscarAgendamentos(prestadorId: string | undefined){
+  buscarAgendamentos(prestadorId: string | undefined) {
     this.agendamentoService.buscarPorPrestador(prestadorId).subscribe({
       next: resposta => {
         this.agendamentosPrestador = resposta;
         this.servicosOferecidos = this.buscarServicosOferecidos();
       },
       error: erro => {
-        console.log("Deu erro no buscarPorPrestador")
+        console.log("Deu erro no buscarPorPrestador");
       }
     });
   }
 
-  buscarPorServico(nomeServico: string){
+  buscarPorServico(nomeServico: string, status: string): Agendamento[] {
     let agendamentosTipoServico: Agendamento[] = [];
 
-    if(this.agendamentosPrestador != undefined){
+    if (this.agendamentosPrestador != undefined) {
       this.agendamentosPrestador.forEach(agendamento => {
-        if(agendamento.servico.tipo === nomeServico && agendamento.status === "Solicitado"){
+        if (agendamento.servico.tipo === nomeServico && agendamento.status === status) {
           agendamentosTipoServico.push(agendamento);
         }
-      })
+      });
     }
 
     return agendamentosTipoServico;
   }
 
+  buscarPorStatus(status: string): Agendamento[] {
+    let agendamentosFiltrados: Agendamento[] = [];
+
+    if (this.agendamentosPrestador != undefined) {
+      this.agendamentosPrestador.forEach(agendamento => {
+        if (agendamento.status === status &&
+          (agendamento.formaPagamento === 'Pix' || agendamento.formaPagamento === 'Cartão de Crédito')) {
+          agendamentosFiltrados.push(agendamento);
+        }
+      });
+    }
+
+    return agendamentosFiltrados;
+  }
+
   buscarServicosOferecidos(): string[] {
     let servicosOferecidos: string[] = [];
 
-    if(this.agendamentosPrestador != undefined){
+    if (this.agendamentosPrestador != undefined) {
       for (const agendamento of this.agendamentosPrestador) {
         if (servicosOferecidos.includes(agendamento.servico.tipo)) {
           continue;
         }
-        if(agendamento.status === "Solicitado"){
+        if (agendamento.status === "Solicitado") {
           servicosOferecidos.push(agendamento.servico.tipo);
         }
       }
@@ -81,23 +95,43 @@ export class SolicitacoesPrestadorComponent implements OnInit{
     return servicosOferecidos;
   }
 
-  remarcar(agendamento: Agendamento){
-    agendamento.recusar()
+  remarcar(agendamento: Agendamento) {
+    agendamento.recusar();
     this.agendamentoService.atualizar(agendamento).subscribe({
       next: resposta => {
         this.snackBar.open("Solicitação retornada! O cliente remarcará o horário.", "Fechar");
       }
-    })
-    this.buscarAgendamentos(this.prestador!.id)
+    });
+    this.buscarAgendamentos(this.prestador!.id);
   }
 
-  aceitar(agendamento: Agendamento){
-    agendamento.confirmar()
+  aceitar(agendamento: Agendamento) {
+    agendamento.aceitar();
+    this.agendamentoService.atualizar(agendamento).subscribe({
+      next: resposta => {
+        this.snackBar.open("Serviço aceito! Aguarde o cliente realizar o pagamento.");
+      }
+    });
+    this.buscarAgendamentos(this.prestador!.id);
+  }
+
+  confirmar(agendamento: Agendamento) {
+    agendamento.confirmar();
     this.agendamentoService.atualizar(agendamento).subscribe({
       next: resposta => {
         this.snackBar.open("Serviço agendado! Visualize na sua agenda.");
       }
-    })
-    this.buscarAgendamentos(this.prestador!.id)
+    });
+    this.buscarAgendamentos(this.prestador!.id);
+  }
+
+  cancelar(agendamento: Agendamento) {
+    agendamento.cancelar();
+    this.agendamentoService.atualizar(agendamento).subscribe({
+      next: resposta => {
+        this.snackBar.open("Serviço cancelado!");
+      }
+    });
+    this.buscarAgendamentos(this.prestador!.id);
   }
 }

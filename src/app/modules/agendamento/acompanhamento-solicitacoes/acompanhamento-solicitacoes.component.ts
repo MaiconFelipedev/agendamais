@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AgendamentoService } from '../../agendamento/agendamento.service';
-import {Agendamento} from '../../../shared/model/agendamento';
+import { Agendamento } from '../../../shared/model/agendamento';
 import { UsuarioService } from '../../usuario/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../material/material.module';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CardServicoComponent} from '../../servico/card-servico/card-servico.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-acompanhamento-solicitacoes',
@@ -17,6 +16,8 @@ import {CardServicoComponent} from '../../servico/card-servico/card-servico.comp
 })
 export class AcompanhamentoSolicitacoesComponent implements OnInit {
   agendamentos: Agendamento[] = [];
+  modalAberto: boolean = false; // Controla a visibilidade do modal
+  agendamentoSelecionado: Agendamento | null = null; // Armazena o agendamento selecionado
 
   constructor(
     private agendamentoService: AgendamentoService,
@@ -49,6 +50,8 @@ export class AcompanhamentoSolicitacoesComponent implements OnInit {
     switch (status) {
       case 'Solicitado':
         return 'azul';
+      case 'Pagamento Pendente':
+        return 'amarelo';
       case 'Confirmado':
         return 'verde';
       case 'Recusado':
@@ -56,5 +59,17 @@ export class AcompanhamentoSolicitacoesComponent implements OnInit {
       default:
         return 'cinza';
     }
+  }
+
+  // Abre o modal de pagamento
+  abrirModalPagamento(agendamento: Agendamento): void {
+    this.agendamentoSelecionado = agendamento;
+    this.modalAberto = true;
+  }
+
+  // Fecha o modal de pagamento
+  fecharModal(): void {
+    this.modalAberto = false;
+    this.agendamentoSelecionado = null;
   }
 }

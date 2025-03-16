@@ -41,7 +41,17 @@
           <input type="time" [(ngModel)]="horarioInicioAtendimento" matInput name="inicioExpediente" required />
         </mat-form-field>
 
-        <button type="submit" mat-flat-button [disabled]="!dataSelecionada.value || !horarioInicioAtendimento">
+        <!-- Seleção de Forma de Pagamento -->
+        <mat-form-field appearance="outline" *ngIf="(servicoSelecionado?.formasPagamento ?? []).length > 0">
+          <mat-label>Forma de Pagamento</mat-label>
+          <mat-select [(ngModel)]="formaPagamentoSelecionada" name="formaPagamento" required>
+            <mat-option *ngFor="let forma of servicoSelecionado?.formasPagamento ?? []" [value]="forma">
+              {{ forma }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button type="submit" mat-flat-button [disabled]="!dataSelecionada.value || !horarioInicioAtendimento || !formaPagamentoSelecionada">
           Concluir
         </button>
       </form>

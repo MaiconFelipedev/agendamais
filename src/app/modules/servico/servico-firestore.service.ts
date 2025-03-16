@@ -18,7 +18,8 @@ export class ServicoFirestoreService {
       preco: servico.preco,
       duracao: servico.duracao,
       descricao: servico.descricao,
-      prestador: servico.prestador ? { ...servico.prestador } : null
+      prestador: servico.prestador ? { ...servico.prestador } : null,
+      formasPagamento: servico.formasPagamento
     };
 
     return from(addDoc(this.colecaoServicos, servicoParaSalvar))
@@ -31,7 +32,8 @@ export class ServicoFirestoreService {
             servico.duracao,
             servico.descricao,
             servico.prestador,
-            servicoSalvo.id
+            servicoSalvo.id,
+            servico.formasPagamento
           );
         })
       );
@@ -48,7 +50,8 @@ export class ServicoFirestoreService {
           data['duracao'],
           data['descricao'],
           data['prestador'],
-          doc.id
+          doc.id,
+          data['formasPagamento']
         );
       }))
     );
@@ -66,7 +69,8 @@ export class ServicoFirestoreService {
           data['duracao'],
           data['descricao'],
           data['prestador'],
-          doc.id
+          doc.id,
+          data['formasPagamento']
         );
       }))
     );
@@ -76,7 +80,7 @@ export class ServicoFirestoreService {
     return this.listarServicos().pipe(
       map(servicos => {
         const tipos = servicos.map(servico => servico.tipo);
-        return Array.from(new Set(tipos)); // Remove duplicatas
+        return Array.from(new Set(tipos));
       })
     );
   }
