@@ -3,10 +3,10 @@
         <mat-icon class="icone-usuario">account_circle</mat-icon>
         <div class="nome-usuario">
           <p>{{this.usuarioService.nomeUsuario()}}</p>
-          <a *ngIf="this.usuarioService.usuarioLogado()?.verificado" class="icon verified" href="#">
+          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == true" class="icon verified">
             <span class="material-symbols-outlined">workspace_premium</span>
           </a>
-          <a *ngIf="!this.usuarioService.usuarioLogado()?.verificado" class="icon unverified" href="#">
+          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == false" class="icon unverified">
             <span class="material-symbols-outlined">unlicense</span>
           </a>
         </div>
@@ -16,7 +16,8 @@
         </p>
     </div>
 
-    <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">Avaliações sobre seus serviços:</h1>
+    <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional' && this.avaliacoes.length > 0">Avaliações sobre seus serviços:</h1>
+    <h1 class="titulo" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional' && this.avaliacoes.length == 0">Você ainda não tem avaliações.</h1>
     <div class="comentarios" *ngIf="this.usuarioService.usuarioLogado()?.tipo == 'profissional'">
       <span class="spacer"></span>
       <mat-card *ngFor="let avaliacao of avaliacoes" class="card-avaliacao" appearance="outlined">
@@ -79,6 +80,43 @@
         </mat-card>
         <span class="spacer"></span>
     </div>
+
+    <dialog id="modal-premium">
+
+      <button class="close" onclick="document.getElementById('modal-premium').close()"><mat-icon>close</mat-icon></button>
+
+      <div *ngIf="this.usuarioService.usuarioLogado()?.verificado == true" class="conteudo assinante">
+        <h1 class="titulo-modal"><span class="material-symbols-outlined">workspace_premium</span>Parabéns! Você está verificado</h1>
+        <p>Sua assinatura do Plano Premium garante a verificação da sua conta.</p>
+        <h2 class="subtitulo-modal">Além disso, você aproveita:</h2>
+        <ul class="vantagens">
+          <li class="vantagem"><mat-icon>checklist_rtl</mat-icon>Lista de Espera Inteligente: Preenche horários vagos automaticamente.</li>
+          <li class="vantagem"><mat-icon>notifications_active</mat-icon>Lembretes por WhatsApp/SMS: Reduza faltas com notificações automáticas.</li>
+          <li class="vantagem"><mat-icon>insert_chart_outlined</mat-icon>Relatórios Financeiros: Acompanhe ganhos e serviços mais lucrativos.</li>
+          <li class="vantagem"><mat-icon>trending_up</mat-icon>Anúncios no Marketplace: Destaque seu perfil e atraia mais clientes.</li>
+        </ul>
+        <div class="fechar-modal">
+          <button onclick="document.getElementById('modal-premium').close()">Entendido</button>
+        </div>
+      </div>
+
+      <div *ngIf="this.usuarioService.usuarioLogado()?.verificado == false" class="conteudo comum">
+        <h1 class="titulo-modal"><span class="material-symbols-outlined">unlicense</span>Você ainda não está verificado</h1>
+        <p>A versão Free do Agenda+ não garante verificação da sua conta.</p>
+        <h2 class="subtitulo-modal">Assine o Plano Premium para ter acesso a várias funções, como:</h2>
+        <ul class="vantagens">
+          <li class="vantagem"><mat-icon>workspace_premium</mat-icon>Certificado Verificado: Aumente sua credibilidade com um selo exclusivo.</li>
+          <li class="vantagem"><mat-icon>notifications_active</mat-icon>Lista de Espera Inteligente: Preenche horários vagos automaticamente.</li>
+          <li class="vantagem"><mat-icon>checklist_rtl</mat-icon>Lembretes por WhatsApp/SMS: Reduza faltas com notificações automáticas.</li>
+          <li class="vantagem"><mat-icon>insert_chart_outlined</mat-icon>Relatórios Financeiros: Acompanhe ganhos e serviços mais lucrativos.</li>
+          <li class="vantagem"><mat-icon>trending_up</mat-icon>Anúncios no Marketplace: Destaque seu perfil e atraia mais clientes.</li>
+        </ul>
+        <div class="fechar-modal">
+          <a class="botao-modal" href="https://ferreiraguilherme41.wixstudio.com/agendamais/category/assinaturas" target="_blank" rel="noopener noreferrer">Assinar Plano Premium</a>
+        </div>
+      </div>
+
+    </dialog>
 
 
 </main>
