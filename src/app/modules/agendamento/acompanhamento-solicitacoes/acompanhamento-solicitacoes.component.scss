@@ -87,3 +87,57 @@ h1 {
 .amarelo {
   border-left: 5px solid #cfff00; /* Amarelo */
 }
+
+
+#modal-pagamento {
+  width: 80%;
+  margin: 100px 0;
+  padding: 50px;
+  background: linear-gradient(135deg, #3f51b5, #1a237e);
+  border-radius: 20px;
+}
+
+.pagamento {
+  //background-color: green;
+}
+
+.pagamento mat-stepper {
+  //background-color: red;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+
+.pagamento mat-stepper form {
+  padding-top: 10px;
+  //background-color: pink;
+}
+
+.close-modal {
+  position: absolute;
+  left: 89%;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+}
+
+.titulo-modal, .subtitulo-modal {
+  color: #ffffff;
+}
+
+.pix {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.pix img {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 25px 0;
+}
+
+.pix .close-modal {
+  top: 88%;
+}
