@@ -33,6 +33,14 @@ main{
   text-align: center;
 }
 
+.filtros-container {
+  display: flex;
+  gap: 16px; /* Espaço entre os filtros */
+  flex-wrap: wrap; /* Para evitar que quebre em telas menores */
+}
+
 mat-form-field {
   width: 100%;
+  flex: 1; /* Faz os filtros ocuparem espaços iguais */
+  min-width: 350px; /* Evita que fiquem muito pequenos */
 }
