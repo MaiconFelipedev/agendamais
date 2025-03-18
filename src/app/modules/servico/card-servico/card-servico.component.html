@@ -8,7 +8,7 @@
       <mat-icon *ngIf="servico.prestador?.verificado">verified</mat-icon>
     </p>
     <p><strong>Preço:</strong> {{ servico.preco | currency:'BRL' }}</p>
-    <p><strong>Formas de Pagamento:</strong> {{ (servico.formasPagamento ?? []).join(', ') }}</p>
+    <p><strong>Formas de Pagamento:</strong> {{ servico.formasPagamento.join(', ') }}</p>
   </div>
   <button mat-flat-button [routerLink]="'/agendamento-servico'" [state]="{ servico: servico }">Solicitar agendamento</button>
 </div>
