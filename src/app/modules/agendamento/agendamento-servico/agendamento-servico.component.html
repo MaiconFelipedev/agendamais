@@ -13,9 +13,9 @@
           <!-- Exibir horários ao selecionar uma data -->
           <ul *ngIf="dataSelecionada.value === data" class="horarios-list">
             <li *ngFor="let horario of horariosDisponiveis">
-              <span [class.disponivel]="horario.disponivel" [class.ocupado]="!horario.disponivel">
-                {{ horario.horario }} - {{ horario.disponivel ? 'Disponível' : 'Ocupado' }}
-              </span>
+            <span [class.disponivel]="horario.disponivel" [class.ocupado]="!horario.disponivel">
+             {{ horario.horario }} - {{ horario.disponivel ? 'Disponível' : 'Ocupado' }}
+            </span>
             </li>
           </ul>
         </li>

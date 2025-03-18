@@ -203,19 +203,25 @@ export class AgendamentoFirestoreService {
 
   // Método para buscar agendamentos por data e prestador
   buscarPorDataEPrestador(data: string, prestadorId: string): Observable<Agendamento[]> {
+    const dataFormatada = data.split('/').reverse().join('-'); // Converte "dd/MM/yyyy" para "yyyy-MM-dd"
+    const inicioDia = new Date(dataFormatada + "T00:00:00");
+    const fimDia = new Date(dataFormatada + "T23:59:59");
+
     const q = query(
       this.colecaoAgendamentos,
-      where("servico.prestador.id", "==", prestadorId), // Filtra por prestador
-      where("data", "==", data) // Filtra por data
+      where("servico.prestador.id", "==", prestadorId),
+      where("horarioInicial", ">=", inicioDia),
+      where("horarioInicial", "<", fimDia)
     );
 
     return from(getDocs(q)).pipe(
       map(resposta => {
+        console.log("Agendamentos encontrados:", resposta.docs.map(doc => doc.data()));
         return resposta.docs.map(doc => {
           const data = doc.data();
           return new Agendamento(
-            data['horarioInicial'],
-            data['horarioFinal'],
+            data['horarioInicial'].toDate(),
+            data['horarioFinal'].toDate(),
             data['cliente'],
             data['servico'],
             data['valorTotal'],
@@ -227,7 +233,5 @@ export class AgendamentoFirestoreService {
       })
     );
   }
-
-
 
 }

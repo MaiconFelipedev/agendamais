@@ -53,7 +53,6 @@ export class AgendamentoServicoComponent {
   dataSelecionada = new FormControl<string>("");
 
   carregarHorariosDisponiveis(): void {
-    // Verifica se o serviço e o prestador estão definidos
     if (!this.servicoSelecionado || !this.servicoSelecionado.prestador || !this.servicoSelecionado.prestador.id) {
       this.snackBar.open('Serviço ou prestador não definido.', 'Fechar', { duration: 5000 });
       return;
@@ -64,14 +63,11 @@ export class AgendamentoServicoComponent {
       return;
     }
 
-    // Limpa a lista de horários
     this.horariosDisponiveis = [];
 
-    // Define o horário de início e fim do dia
     const inicioDia = parse('08:00', 'HH:mm', new Date());
     const fimDia = parse('18:00', 'HH:mm', new Date());
 
-    // Gera os horários de 30 em 30 minutos
     let horarioAtual = inicioDia;
     while (horarioAtual <= fimDia) {
       const horarioFormatado = format(horarioAtual, 'HH:mm');
@@ -79,12 +75,13 @@ export class AgendamentoServicoComponent {
       horarioAtual = addMinutes(horarioAtual, 30);
     }
 
-    // Verifica os horários ocupados
+    const dataFormatada = this.dataSelecionada.value.split('/').reverse().join('-'); // Converte "dd/MM/yyyy" para "yyyy-MM-dd"
     this.agendamentoService.buscarAgendamentosPorDataEPrestador(
-      this.dataSelecionada.value,
+      dataFormatada,
       this.servicoSelecionado.prestador.id
     ).subscribe({
       next: (agendamentos) => {
+        console.log("Agendamentos recebidos:", agendamentos);
         agendamentos.forEach((agendamento) => {
           const horarioAgendado = format(agendamento.horarioInicial, 'HH:mm');
           const index = this.horariosDisponiveis.findIndex((h) => h.horario === horarioAgendado);
@@ -92,6 +89,7 @@ export class AgendamentoServicoComponent {
             this.horariosDisponiveis[index].disponivel = false;
           }
         });
+        console.log("Horários atualizados:", this.horariosDisponiveis);
       },
       error: (erro) => {
         this.snackBar.open('Erro ao carregar horários.', 'Fechar', { duration: 5000 });
@@ -99,7 +97,6 @@ export class AgendamentoServicoComponent {
       }
     });
   }
-
   agendar(): void {
     if (!this.horarioInicioAtendimento || !this.dataSelecionada.value || !this.formaPagamentoSelecionada) {
       this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', { duration: 5000 });
