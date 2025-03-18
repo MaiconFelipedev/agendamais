@@ -13,10 +13,13 @@
             <mat-card-subtitle>Data: {{ agendamento.data }} </mat-card-subtitle>
             <mat-card-subtitle>Horário: {{ agendamento.horario }}</mat-card-subtitle>
             <mat-card-subtitle>Status: {{ agendamento.status }}</mat-card-subtitle>
+            <mat-card-subtitle>Forma de Pagamento: {{ agendamento.formaPagamento }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-actions class="botoes-card">
-            <button (click)="remarcar(agendamento)" mat-stroked-button>Remarcar</button>
-            <button (click)="aceitar(agendamento)" mat-flat-button>Aceitar</button>
+            <button *ngIf="agendamento.formaPagamento!='Dinheiro'" (click)="remarcar(agendamento)" mat-stroked-button>Remarcar</button>
+            <button *ngIf="agendamento.formaPagamento!='Dinheiro'" (click)="aceitar(agendamento)" mat-flat-button>Aceitar</button>
+            <button *ngIf="agendamento.formaPagamento=='Dinheiro'" (click)="confirmar(agendamento)" mat-flat-button>Confirmar</button>
+            <button *ngIf="agendamento.formaPagamento=='Dinheiro'" (click)="cancelar(agendamento)" mat-stroked-button>Cancelar</button>
           </mat-card-actions>
         </mat-card>
       </div>
