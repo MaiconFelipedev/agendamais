@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { CardServicoComponent } from '../card-servico/card-servico.component';
 import { ServicoService } from '../servico.service';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listagem-servicos',
@@ -45,8 +44,19 @@ export class ListagemServicosComponent {
 
   atualizarServicos(): void {
     this.servicoService.getServicosPorCategoria(this.tipo).subscribe(servicos => {
-      this.servicos = servicos;
-      console.log('Serviços carregados:', servicos);
+      console.log("Atualizei os serviços");
+
+      // Ordena garantindo que prestador e verificado existam
+      this.servicos = servicos
+        .slice() // Cria uma cópia para garantir que a mudança seja detectada
+        .sort((a, b) => {
+          const verificadoA = a.prestador?.verificado ? 1 : 0;
+          const verificadoB = b.prestador?.verificado ? 1 : 0;
+          return verificadoB - verificadoA; // Ordena colocando os verificados primeiro
+        });
+
+      console.log('Serviços carregados:', this.servicos);
     });
   }
+
 }
