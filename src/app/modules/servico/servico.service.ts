@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Servico } from '../../shared/model/servico';
 import { ServicoFirestoreService } from './servico-firestore.service';
 import { Observable } from 'rxjs';
+import { Endereco } from '../../shared/model/enderecoServico';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,15 @@ export class ServicoService {
       return this.servicoFirestoreService.listarPorTipo(categoria);
     }
     return this.servicoFirestoreService.listarServicos();
+  }
+
+  getServicosPorLocalizacao(endereco: Endereco): Observable<Servico[]> {
+    if(endereco) {
+      return this.servicoFirestoreService.listarPorEndereco(endereco);
+    }
+
+    return this.servicoFirestoreService.listarServicos();
+
   }
 
   gerarTipos(): Observable<string[]> {

@@ -1,4 +1,5 @@
 import { PrestadorServico } from './prestador-servico';
+import { Endereco } from './enderecoServico';
 
 export class Servico {
   private _id?: string | undefined;
@@ -7,6 +8,7 @@ export class Servico {
   private _preco: number;
   private _duracao: string;
   private _descricao: string;
+  private _endereco: Endereco;
   private _prestador?: PrestadorServico;
   private _formasPagamento: string[] = [];
 
@@ -16,6 +18,7 @@ export class Servico {
     preco: number,
     duracao: string,
     descricao: string,
+    endereco: Endereco,
     prestador?: PrestadorServico,
     id?: string,
     formasPagamento: string[] = []
@@ -25,9 +28,13 @@ export class Servico {
     this._preco = preco;
     this._duracao = duracao;
     this._descricao = descricao;
+    this._endereco = endereco;
     this._prestador = prestador;
     this._formasPagamento = formasPagamento;
     this._id = id;
+    if (!endereco.rua || !endereco.bairro || !endereco.cidade || !endereco.estado) {
+      throw new Error('Endereço incompleto!');
+    }
   }
 
   // Método para converter o objeto em um formato simples
@@ -39,6 +46,7 @@ export class Servico {
       preco: this._preco,
       duracao: this._duracao,
       descricao: this._descricao,
+      endereco: this._endereco,
       prestador: this._prestador?.toObject ? this._prestador.toObject() : this._prestador,
       formasPagamento: this._formasPagamento
     };
@@ -84,5 +92,8 @@ export class Servico {
   set formasPagamento(formasPagamento: string[]) {
     this._formasPagamento = formasPagamento;
   }
-}
 
+  get endereco(): Endereco {
+    return this._endereco;
+  }
+}

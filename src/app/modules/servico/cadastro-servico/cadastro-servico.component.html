@@ -50,7 +50,40 @@
         </mat-checkbox>
       </div>
     </div>
+    
+    <div class="endereco-section" *ngIf="servicoForm.get('endereco')">
+      <h2 id="endereço">
+        <mat-icon style="color: #3f51b5">location_on</mat-icon>
+        Endereço
+      </h2>
 
+      <mat-checkbox (change)="usarEnderecoCadastrado($event)">
+        Usar meu endereço cadastrado
+      </mat-checkbox>
+
+      <div class="endereco-fields" formGroupName="endereco">
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input matInput formControlName="rua" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="bairro" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput formControlName="cidade" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput formControlName="estado" required maxlength="2">
+        </mat-form-field>
+      </div>
+    </div>
+    
     <button mat-flat-button [disabled]="servicoForm.invalid">
       <mat-icon>add_circle</mat-icon>
       Criar serviço
