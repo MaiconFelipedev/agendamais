@@ -1,23 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { AgendamentoService } from '../../agendamento/agendamento.service';
 import { Agendamento } from '../../../shared/model/agendamento';
 import { UsuarioService } from '../../usuario/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-acompanhamento-solicitacoes',
   templateUrl: './acompanhamento-solicitacoes.component.html',
   styleUrls: ['./acompanhamento-solicitacoes.component.scss'],
   standalone: true,
-  imports: [MaterialModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [MaterialModule, CommonModule, FormsModule, ReactiveFormsModule, MatStepperModule]
 })
 export class AcompanhamentoSolicitacoesComponent implements OnInit {
   agendamentos: Agendamento[] = [];
   modalAberto: boolean = false; // Controla a visibilidade do modal
   agendamentoSelecionado: Agendamento | null = null; // Armazena o agendamento selecionado
+
+  private _formBuilder = inject(FormBuilder);
+
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  fortyFormGroup = this._formBuilder.group({
+    fortyCtrl: ['', Validators.required],
+  });
+  isLinear = false;
 
   constructor(
     private agendamentoService: AgendamentoService,

@@ -9,6 +9,7 @@
     </p>
     <p><strong>Preço:</strong> {{ servico.preco | currency:'BRL' }}</p>
     <p><strong>Formas de Pagamento:</strong> {{ servico.formasPagamento.join(', ') }}</p>
+    <p><strong>Local:</strong> {{ servico.endereco.estado }} | {{ servico.endereco.cidade }}</p>
   </div>
   <button mat-flat-button [routerLink]="'/agendamento-servico'" [state]="{ servico: servico }">Solicitar agendamento</button>
 </div>

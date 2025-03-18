@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 <main>
   <h1>Acompanhamento de solicitações</h1>
-  <div class="container">
+  <div *ngIf="!modalAberto" class="container">
     <div *ngIf="agendamentos.length === 0" class="sem-agendamentos">
       <p>Nenhum agendamento solicitado.</p>
     </div>
@@ -33,27 +33,92 @@
   </div>
 
   <!-- Modal de Pagamento -->
-  <div *ngIf="modalAberto">
+  <div id="modal-pagamento" *ngIf="modalAberto">
 
-    <div *ngIf="agendamentoSelecionado?.formaPagamento == 'Pix'">
-      <!-- Botão de Fechar -->
-      <button (click)="fecharModal()">
-        &times;
+    <div class="pagamento pix" *ngIf="agendamentoSelecionado?.formaPagamento == 'Pix'">
+      <button class="close-modal" (click)="fecharModal()">
+        <mat-icon>close</mat-icon>
       </button>
 
-      <h2>Pagamento via Pix</h2>
+      <h2 class="titulo-modal">Pagamento via Pix</h2>
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg" alt="Código QR" />
-      <p>Escaneie o código QR para realizar o pagamento.</p>
+      <p class="subtitulo-modal">Escaneie o código QR para realizar o pagamento.</p>
+      <button style="margin-top: 15px" mat-raised-button (click)="fecharModal()">Já pagou? Aperte aqui.</button>
     </div>
 
-    <div *ngIf="agendamentoSelecionado?.formaPagamento == 'Cartão de Crédito'">
-      <!-- Botão de Fechar -->
-      <button (click)="fecharModal()">
-        &times;
+    <div class="pagamento cartao" *ngIf="agendamentoSelecionado?.formaPagamento == 'Cartão de Crédito'">
+      <button class="close-modal" (click)="fecharModal()">
+        <mat-icon>close</mat-icon>
       </button>
 
-      <h2>Pagamento via Cartão de Crédito</h2>
-      <p>Insira os dados do cartão.</p>
+      <h2 class="titulo-modal">Pagamento via Cartão de Crédito</h2>
+      <p class="subtitulo-modal">Insira os dados do cartão.</p>
+      <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Número do cartão</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Número</mat-label>
+              <input matInput formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Nome no cartão</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Data de expiração</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Expiração</mat-label>
+              <input matInput formControlName="thirdCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fortyFormGroup">
+          <form [formGroup]="fortyFormGroup">
+            <ng-template matStepLabel>Código de Verificação (CVV)</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>CVV</mat-label>
+              <input matInput formControlName="fortyCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Concluir</ng-template>
+          <div>
+            <button mat-button matStepperPrevious>Voltar</button>
+            <button mat-flat-button (click)="fecharModal()">Finalizar pagamento</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+
+
     </div>
   </div>
 </main>
