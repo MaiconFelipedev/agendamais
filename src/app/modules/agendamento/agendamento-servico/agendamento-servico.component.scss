@@ -66,10 +66,19 @@ main {
       padding: 5px;
       width: 100%;
       text-align: center;
+      max-height: 100px;
+      overflow-y: auto;
+      list-style-type: none;
+
 
       li {
         font-size: 0.9rem;
         padding: 5px;
+        border-bottom: 1px solid #ccc;
+
+        &:last-child {
+          border-bottom: none;
+        }
       }
 
       .disponivel {
