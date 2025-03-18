@@ -74,9 +74,6 @@ export class PerfilUsuarioComponent implements OnInit {
     });
   }
 
-
-
-
   ngOnInit(): void {
     this.avaliacaoService.getAvaliacoesPorPrestador(this.idUsuario!).subscribe({
       next: (avaliacoes) => {

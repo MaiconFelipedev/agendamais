@@ -3,10 +3,10 @@
         <mat-icon class="icone-usuario">account_circle</mat-icon>
         <div class="nome-usuario">
           <p>{{this.usuarioService.nomeUsuario()}}</p>
-          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == true" class="icon verified">
+          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == true && this.usuarioService.usuarioLogado()?.tipo === 'profissional'" class="icon verified">
             <span class="material-symbols-outlined">workspace_premium</span>
           </a>
-          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == false" class="icon unverified">
+          <a onclick="document.getElementById('modal-premium').showModal()" *ngIf="this.usuarioService.usuarioLogado()?.verificado == false && this.usuarioService.usuarioLogado()?.tipo === 'profissional'" class="icon unverified">
             <span class="material-symbols-outlined">unlicense</span>
           </a>
         </div>
@@ -112,7 +112,7 @@
           <li class="vantagem"><mat-icon>trending_up</mat-icon>Anúncios no Marketplace: Destaque seu perfil e atraia mais clientes.</li>
         </ul>
         <div class="fechar-modal">
-          <a class="botao-modal" href="https://ferreiraguilherme41.wixstudio.com/agendamais/category/assinaturas" target="_blank" rel="noopener noreferrer">Assinar Plano Premium</a>
+          <a onclick="document.getElementById('modal-premium').close()" class="botao-modal" href="https://ferreiraguilherme41.wixstudio.com/agendamais/category/assinaturas" target="_blank" rel="noopener noreferrer">Assinar Plano Premium</a>
         </div>
       </div>
 
