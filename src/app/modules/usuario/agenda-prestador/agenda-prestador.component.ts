@@ -1,16 +1,29 @@
 import {Component, OnInit} from '@angular/core';
-import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MaterialModule} from '../../material/material.module';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {addDays, parse, isBefore, format} from "date-fns";
 import {UsuarioService} from '../usuario.service';
 import {Title} from '@angular/platform-browser';
-import 'moment/locale/pt-br';
 import {Usuario} from '../../../shared/model/usuario';
 import {Agendamento} from '../../../shared/model/agendamento';
 import {AgendamentoService} from '../../agendamento/agendamento.service';
+
+import {DateFnsAdapter} from '@angular/material-date-fns-adapter';
+import {ptBR} from 'date-fns/locale';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'dd/MM/yyyy',
+  },
+  display: {
+    dateInput: 'dd/MM/yyyy',
+    monthYearLabel: 'MMMM yyyy',
+    dateA11yLabel: 'dd/MM/yyyy',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 
 @Component({
   selector: 'app-agenda-prestador',
@@ -19,8 +32,9 @@ import {AgendamentoService} from '../../agendamento/agendamento.service';
   standalone: true,
   imports: [MaterialModule, CommonModule, FormsModule, ReactiveFormsModule],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
-    provideMomentDateAdapter()
+    { provide: MAT_DATE_LOCALE, useValue: ptBR },
+    { provide: DateAdapter, useClass: DateFnsAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ]
 })
 export class AgendaPrestadorComponent implements OnInit{
