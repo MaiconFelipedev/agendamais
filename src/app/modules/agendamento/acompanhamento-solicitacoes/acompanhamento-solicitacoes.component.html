@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 <main>
   <h1>Acompanhamento de solicitações</h1>
-  <div class="container">
+  <div *ngIf="!modalAberto" class="container">
     <div *ngIf="agendamentos.length === 0" class="sem-agendamentos">
       <p>Nenhum agendamento solicitado.</p>
     </div>
@@ -43,6 +43,7 @@
       <h2 class="titulo-modal">Pagamento via Pix</h2>
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg" alt="Código QR" />
       <p class="subtitulo-modal">Escaneie o código QR para realizar o pagamento.</p>
+      <button style="margin-top: 15px" mat-raised-button (click)="fecharModal()">Já pagou? Aperte aqui.</button>
     </div>
 
     <div class="pagamento cartao" *ngIf="agendamentoSelecionado?.formaPagamento == 'Cartão de Crédito'">
@@ -112,7 +113,7 @@
           <ng-template matStepLabel>Concluir</ng-template>
           <div>
             <button mat-button matStepperPrevious>Voltar</button>
-            <button mat-flat-button>Finalizar pagamento</button>
+            <button mat-flat-button (click)="fecharModal()">Finalizar pagamento</button>
           </div>
         </mat-step>
       </mat-stepper>
